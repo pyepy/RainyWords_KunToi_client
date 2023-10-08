@@ -11,6 +11,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [messageRecieved, setMessageRecieved] = useState("");
   
+  
   const joinRoom = () => {
     if(room !== ""){
       socket.emit("join_room", room);

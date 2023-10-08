@@ -46,7 +46,7 @@ function App() {
     });
   }, [socket])
 
-  if (oldRoom == "") {  //first entering the url
+  if (oldRoom === "") {  //first entering the url
     return (
       <div className="Welcome"> 
         <h3>Online Players: {count}</h3> 

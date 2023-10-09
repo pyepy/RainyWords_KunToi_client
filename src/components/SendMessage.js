@@ -29,7 +29,7 @@ export function SendMessage() {
         });
     });
 
-    return(
+    return(     //display
         <div className="SendMessage">
         <input 
         placeholder = "Room ID..." 

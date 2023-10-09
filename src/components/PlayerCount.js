@@ -13,9 +13,9 @@ export function PlayerCount() {
             console.log(count);
             setOnlineNo(count);     //show online number
         })
-    }, [count]);
+    },);
 
-    return(
+    return( //display
         <div className="PlayerCount">
             <h3>Online Players: {onlineNo}</h3>
         </div>

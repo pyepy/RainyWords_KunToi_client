@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import { socket } from '../socket'
 
 export function AddUsername() {
-  const [tempName,setTempName] = useState("");
-  const [name,setName] = useState("");
+  const [tempName,setTempName] = useState("");    //name written in input
+  const [name,setName] = useState("");            //name sent
 
   const addName = () => {
     if (tempName === "") {
-      var x = (Math.floor(Math.random() * 900)+100)
-      setName("KunToi#"+x);
+      var x = (Math.floor(Math.random() * 900)+100)   //assign random ID
+      setName("KunToi#"+x);                           //default name
     } else {
       setName(tempName);
     }
-    socket.emit("add_name", name)
+    socket.emit("add_name", name)                     //no func yet
   }
 
 
-  if (name === "") {
-    return(
+  if (name == "") {      //if no name assigned yet
+    return(   //display
       <div className="Welcome"> 
         <h1>Welcome to KunToi Game</h1>  
         <input 
@@ -29,8 +29,8 @@ export function AddUsername() {
       <button onClick={addName}> Confirm</button>  
       </div>
     )
-  } else {
-    return(
+  } else {        //assigned name
+    return(   //display
       <div className="Welcome"> 
         <h1>Welcome, {name}</h1>
       </div>

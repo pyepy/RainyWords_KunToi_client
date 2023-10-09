@@ -2,26 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
 
 export function RandomWord() {
-  const [word,setWord] = useState("");
-  const [len,setLen] = useState(0);
-  const [mode,setMode] = useState("");
+  const [word,setWord] = useState("");    //random word
+  const [len,setLen] = useState(0);       //random word length
+  const [mode,setMode] = useState("");    //easy/medium/hard mode
 
-  const reqLen = () => {
+  const reqLen = () => {      //request length of word
     socket.emit("request_len", mode)
   }
 
-  useEffect(() => {
-    socket.once("send_len", (len) => {
-      setLen(len);
+  useEffect(() => {   
+    socket.once("send_len", (len) => {    //got length, request word
+      setLen(len);  
       socket.emit("request_word", len);
     });
 
-    socket.once("send_word", (data) => {
+    socket.once("send_word", (data) => {    //accept word
       setWord(data.word);
     });
   }, [word]);
 
-  return(
+  return(     //display
     <div>
       <input 
         placeholder = "1/2/3"

@@ -7,7 +7,7 @@ import { RandomWord } from './components/RandomWord';
 
 function App() {
 
-  return (
+  return (        //display
     <div className="App">
       <PlayerCount/>
       <AddUsername/>

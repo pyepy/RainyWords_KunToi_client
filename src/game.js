@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { ReactP5Wrapper } from 'react-p5-wrapper'; 
 import sketch from './sketch'
-import Example from './components/keyboard';
+import Keyboard from './components/keyboard';
 
 const Game = () => {
   // Add your game content here
@@ -15,7 +15,7 @@ const Game = () => {
           <ReactP5Wrapper sketch={sketch} />
         </>
       </header>
-      <Example/>
+      <Keyboard/>
       {/* Add more game-related components or elements as needed. */}
     </div>
   );

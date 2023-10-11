@@ -6,6 +6,13 @@ export default function Keyboard() {
 	const [isCaps, setIsCaps] = useState(false); 
 	const [isShift, setIsShift] = useState(false); 
     const [currentKey, setCurrentKey] = useState(null);
+    const [shiftHeld, setShiftHeld] = useState(false);
+  
+    function upHandler({key}) {
+      if (key === 'Shift') {
+        setShiftHeld(false);
+      }
+    }
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -20,20 +27,23 @@ export default function Keyboard() {
           } else if (e.key === 'Backspace') {
             handleDeleteKey();
           } else if (e.key === 'Shift') {
+            setShiftHeld(true);
             handleShiftKey();
-          } else {
+          } else if (e.key.length === 1) {
             handleRegularKey(e.key);
           }
           setCurrentKey(e.key);
         };
 
         document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', upHandler);
 
         // Cleanup the event listener when the component unmounts
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', upHandler);
         };
-    }, [inputText, isCaps, isShift]
+    }, [inputText, isCaps, isShift, shiftHeld]
     );
 
 	const handleKeyClick = (key) => { 
@@ -63,7 +73,7 @@ export default function Keyboard() {
 	}; 
 
 	const handleEnterKey = () => { 
-		const newContent = inputText + '\n'; 
+		const newContent = ''; 
 		setInputText(newContent); 
 	}; 
 
@@ -102,52 +112,53 @@ export default function Keyboard() {
 		setInputText(newContent); 
 	}; 
 
-	const handleShiftKey = () => { 
-		const updatedShift = !isShift; 
-		setIsShift(updatedShift); 
-		const keys = document.querySelectorAll('.key'); 
-		keys.forEach((key) => { 
-			const firstSpanElement = key.querySelector('span:first-child'); 
-			if (firstSpanElement) { 
-				const keyText = firstSpanElement.innerText.toLowerCase(); 
-				if (!['shift', 'alt', 'ctrl', 'enter', 'caps lock', 'tab']. 
-					includes(keyText)) { 
-					firstSpanElement.innerText = 
-					((updatedShift && isCaps) || (!updatedShift && !isCaps)) 
-					? keyText.toLowerCase() : keyText.toUpperCase(); 
-				} 
-				if (keyText === 'shift') { 
-					firstSpanElement.parentElement.style.backgroundColor = 
-					(updatedShift) ? 'blue' : '#445760'; 
-				} 
-			} 
-		}); 
-	} 
-
-	const handleRegularKey = (key) => { 
-		const keys = key.split(/[._]/); 
-		let newContent; 
-		if (keys.length > 1) { 
-			if (isShift) { 
-				if (keys.length === 3) { 
-					if (keys[0] === '>') newContent = inputText + '>'; 
-					else newContent = inputText + '_'; 
-				} 
-				else newContent = inputText + keys[0]; 
-			} else { 
-				if (keys.length === 3) { 
-					if (keys[0] === '>') newContent = inputText + '.'; 
-					else newContent = inputText + '-'; 
-				} 
-				else newContent = inputText + keys[1]; 
-			} 
-		} else { 
-			let character = ((isShift && isCaps) || (!isShift && !isCaps)) 
-			? key.toLowerCase() : key.toUpperCase(); 
-			newContent = inputText + character; 
-		} 
-		setInputText(newContent); 
-	}; 
+    const handleShiftKey = () => {
+        // Toggle the isShift state and shiftHeld state
+        setIsShift(!isShift);
+        setShiftHeld(!isShift);
+    
+        // Update key labels to display uppercase or lowercase characters
+        const keys = document.querySelectorAll('.key');
+        keys.forEach((key) => {
+          const firstSpanElement = key.querySelector('span:first-child');
+          if (firstSpanElement) {
+            const keyText = firstSpanElement.innerText.toLowerCase();
+            if (!['shift', 'alt', 'ctrl', 'enter', 'caps lock', 'tab'].includes(keyText)) {
+              firstSpanElement.innerText = isShift ? keyText.toUpperCase() : keyText.toLowerCase();
+            }
+            if (keyText === 'shift') {
+              firstSpanElement.parentElement.style.backgroundColor = isShift ? 'blue' : '#445760';
+            }
+          }
+        });
+      };
+    
+    const handleRegularKey = (key) => {
+        const keys = key.split(/[._]/);
+        let newContent;
+    
+        if (keys.length > 1) {
+            if (shiftHeld) {
+                if (keys.length === 3) {
+                    if (keys[0] === '>') newContent = inputText + '>';
+                    else newContent = inputText + '_';
+                } else newContent = inputText + keys[0];
+            } else {
+                if (keys.length === 3) {
+                    if (keys[0] === '>') newContent = inputText + '.';
+                    else newContent = inputText + '-';
+                } else newContent = inputText + keys[1];
+            }
+        } else {
+            let character = ((shiftHeld && isCaps) || (!shiftHeld && !isCaps))
+                ? key.toLowerCase()
+                : key.toUpperCase();
+            newContent = inputText + character;
+        }
+    
+        setInputText(newContent);
+    };
+    
 
     return (
         <div className="keyboard">

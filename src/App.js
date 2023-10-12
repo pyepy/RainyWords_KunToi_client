@@ -7,7 +7,7 @@ import { PlayerCount } from './components/PlayerCount';
 import { AddUsername } from './components/AddUsername';
 import { RandomWord } from './components/RandomWord';
 import { GroundBoarder } from './components/GroundBoarder';
-
+import { Timer } from './components/Timer';
 
 function App() {
   const handleStartGame = () => {
@@ -24,6 +24,7 @@ function App() {
         
         {window.location.pathname !== '/game' && (
           <>
+            <Timer/>
             <PlayerCount />
             <AddUsername />
             <SendMessage />

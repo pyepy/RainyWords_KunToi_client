@@ -45,7 +45,7 @@
   }
 } */
 
-
+/*------------------------------------------------------- bottom typer --------------------------------------------------------- */
 
 .GroundBoarder {
   position: fixed;
@@ -65,4 +65,16 @@
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/*------------------------------------------------------- timer --------------------------------------------------------- */
+
+.Timer {
+  position: fixed;
+  top: 0;
+  right: 50%;
+  transform: translate(50%, 0);
+  background-color: aquamarine;
+  Padding: 1rem 5rem 1rem 5rem;
+  font-size: 2rem;
 }

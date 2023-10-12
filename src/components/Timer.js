@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { socket } from '../socket'
 
 export function Timer() {
     const [time,setTime] = useState("5:00");
@@ -12,7 +13,7 @@ export function Timer() {
 
     return (
         <div className="Timer">
-            {{time}}
+            {time}
         </div>
     )
 }

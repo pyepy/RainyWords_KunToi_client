@@ -1,9 +1,12 @@
 .App {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
   text-align: center;
   margin: 0%;
   padding: 0%;
-  /* height: 100vh;
-  width: 100vw; */
+  height: 100vh;
+  width: 100vw;
 }
 
 /* .App-logo {
@@ -45,13 +48,21 @@
 
 
 .GroundBoarder {
+  position: fixed;
+  bottom: 0;
   background-color: red;
   width: 100vw;
-  height: 20vh;
+  height: 10vh;
   display: flex;
-
+  justify-content: center;
 }
 
 .Typer {
   align-self: center;
+  height: 5vh;
+  width: 30vw;
+  font-size: 2rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

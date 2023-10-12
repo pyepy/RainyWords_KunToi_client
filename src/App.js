@@ -4,8 +4,6 @@ import { SendMessage } from './components/SendMessage';
 import { PlayerCount } from './components/PlayerCount';
 import { AddUsername } from './components/AddUsername';
 import { RandomWord } from './components/RandomWord';
-import { GroundBoarder } from './components/GroundBoarder';
-
 
 function App() {
 
@@ -15,7 +13,6 @@ function App() {
       <AddUsername/>
       <SendMessage/>
       <RandomWord/>
-      <GroundBoarder/>
     </div>
   );
 }

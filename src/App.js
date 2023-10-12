@@ -7,7 +7,7 @@ import { PlayerCount } from './components/PlayerCount';
 import { AddUsername } from './components/AddUsername';
 import { RandomWord } from './components/RandomWord';
 import { GroundBoarder } from './components/GroundBoarder';
-import { Timer } from './components/Timer';
+import { GameTimer } from './components/GameTimer';
 import { PlayerScore } from './components/PlayerScore';
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
           <>
             <div className="topOverlay">
               <PlayerScore playerName={player1}/>
-              <Timer/>
+              <GameTimer/>
               <PlayerScore playerName={player2}/>
             </div>
             <br/>

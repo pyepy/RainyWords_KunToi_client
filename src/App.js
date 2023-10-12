@@ -8,11 +8,15 @@ import { AddUsername } from './components/AddUsername';
 import { RandomWord } from './components/RandomWord';
 import { GroundBoarder } from './components/GroundBoarder';
 import { Timer } from './components/Timer';
+import { PlayerScore } from './components/PlayerScore';
 
 function App() {
   const handleStartGame = () => {
     window.location.href="/game" // Refresh the page
   };
+
+  let player1 = 'PlayerOne';
+  let player2 = 'PlayerTwo';
 
   return (
     <Router>
@@ -24,7 +28,17 @@ function App() {
         
         {window.location.pathname !== '/game' && (
           <>
-            <Timer/>
+            <div className="topOverlay">
+              <PlayerScore playerName={player1}/>
+              <Timer/>
+              <PlayerScore playerName={player2}/>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
             <PlayerCount />
             <AddUsername />
             <SendMessage />

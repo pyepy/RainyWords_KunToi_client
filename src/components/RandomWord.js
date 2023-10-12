@@ -1,37 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { socket } from '../socket'
+import React, { useState, useEffect, useRef } from 'react';
+import { socket } from '../socket';
 
 export function RandomWord() {
-  const [word,setWord] = useState("");    //random word
-  const [len,setLen] = useState(0);       //random word length
-  const [mode,setMode] = useState("");    //easy/medium/hard mode
+  const [word, setWord] = useState('');
+  const [len, setLen] = useState(0);
+  const [mode, setMode] = useState('');
+  const [clickCount, setClickCount] = useState(0);
+  const [wordList, setWordList] = useState([]); // State to store the list of words
 
-  const reqLen = () => {      //request length of word
-    socket.emit("request_len", mode)
-  }
+  const buttonRef = useRef();
 
-  useEffect(() => {   
-    socket.once("send_len", (len) => {    //got length, request word
-      setLen(len);  
-      socket.emit("request_word", len);
+  const reqLen = () => {
+    socket.emit('request_len', mode);
+  };
+
+  useEffect(() => {
+    const button = buttonRef.current;
+
+    socket.once('send_len', (receivedLen) => {
+      setLen(receivedLen);
+      socket.emit('request_word', receivedLen);
     });
 
-    socket.once("send_word", (data) => {    //accept word
-      setWord(data.word);
+    socket.once('send_word', (data) => {
+      setWordList((prevWordList) => {
+        // Remove the first word if the list length exceeds 5
+        if (prevWordList.length >= 5) {
+          prevWordList.shift();
+        }
+        return [...prevWordList, data.word];
+      });
     });
-  }, [word]);
 
-  return(     //display
+    const autoClick = () => {
+      if (clickCount < 3) {
+        reqLen();
+        setClickCount(clickCount + 1);
+        setTimeout(autoClick, 1000);
+      }
+    };
+
+    autoClick();
+  }, [clickCount, wordList]); // Include wordList in the dependency array
+
+  return (
     <div>
-      <input 
-        placeholder = "1/2/3"
+      <input
+        placeholder="1/2/3"
         onChange={(event) => {
           setMode(event.target.value);
-        }}/>
-        <button onClick={reqLen}>Request Word</button>
-      <h1>Word: {word}</h1>
+        }}
+      />
+      <button ref={buttonRef} onClick={reqLen}>
+        Request Word
+      </button>
+      <h1>Words:</h1>
+      <p>{wordList.join(', ')}</p>
       <h1>Length: {len}</h1>
     </div>
-  )
-
+  );
 }

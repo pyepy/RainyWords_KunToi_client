@@ -1,14 +1,21 @@
-function sketch(p) {
+function sketch(p, wordList) {
   let rain = [];
-  let words = ["joe", "ligma", "bro", "antidisestablishmentarianism", "amogus"];
-  let bgcolor = (100, 100, 100);
+  let words = ["joe", "ligma", "bro", "stupid", "amogus"];
+  let bgcolor = p.color(100, 100, 100);
   let fontSize = 40; // Define the font size as a public variable
 
-  p.setup = function () {
-    p.createCanvas(p.windowWidth *3 / 4, p.windowHeight); // Width half of the screen, full height
-    p.frameRate(5); // Set the frame rate to control the falling speed
+  //-------------------------------------------------------------------------------------------------------------
+  let frameRate = 5; //falling speed
+  let numWordsFall = 3 //number of words falling
+  let canvasWidth = p.windowWidth *3 / 4
+  let canvasHeight = p.windowHeight
+  //-------------------------------------------------------------------------------------------------------------
 
-    for (let i = 0; i < 5; i++) {
+  p.setup = function () {
+    p.createCanvas(canvasWidth, canvasHeight); // Width half of the screen, full height
+    p.frameRate(frameRate); // Set the frame rate to control the falling speed
+
+    for (let i = 0; i < numWordsFall; i++) {
       rain[i] = new Rain();
       //rain[i].splash();
     }
@@ -24,8 +31,8 @@ function sketch(p) {
 
   class Rain {
     constructor() {
-      this.x = p.random(0, 600);
-      this.y = p.random(0, -600); // Adjust the initial position
+      this.x = p.random(0, canvasWidth - words.length);
+      this.y = p.random(0, -canvasHeight); // Adjust the initial position
       this.word = words[Math.floor(p.random(words.length))];
       this.length = fontSize * 1.5;
     }
@@ -38,7 +45,7 @@ function sketch(p) {
       this.y = this.y + fontSize;
       if (this.y > p.height - p.windowHeight/4) {
         // Reset when it goes off the canvas
-        this.y = p.random(0, -600); // Adjust the reset position
+        this.y = p.random(0, -canvasHeight); // Adjust the reset position
         this.word = words[Math.floor(p.random(words.length))];
         this.length = fontSize * 1.5;
       }

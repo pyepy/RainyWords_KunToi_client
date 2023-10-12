@@ -1,7 +1,8 @@
 function sketch(p) {
   let rain = [];
   let words = ["joe", "ligma", "bro", "antidisestablishmentarianism", "amogus"];
-  let bgcolor = (100, 100, 100);
+  //let bgcolor = (100, 100, 100);
+  let bgcolor = (0, 0, 0, 100);
   let fontSize = 40; // Define the font size as a public variable
 
   p.setup = function () {

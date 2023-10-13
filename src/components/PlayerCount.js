@@ -17,7 +17,7 @@ export function PlayerCount() {
 
     return( //display
         <div className="PlayerCount">
-            <h3>Online Players: {onlineNo}</h3>
+            <div>Online Players: {onlineNo}</div>
         </div>
     );  
 }

@@ -21,20 +21,20 @@ export function AddUsername() {
   if (name == "") {      //if no name assigned yet
     return(   //display
       <div className="Welcome"> 
+        <h1>Welcome to KunToi Game</h1>  
         <input 
-        className='UsernameInput'
         placeholder = "Enter Your Username" 
         onChange={(event) => {
           setTempName(event.target.value);
         }}
       />
-      <button className="SubmitName" onClick={addName}> Confirm</button>  
+      <button onClick={addName}> Confirm</button>  
       </div>
     )
   } else {        //assigned name
     return(   //display
-      <div > 
-        {/* <div className="Username">Welcome, {name}</div> */}
+      <div className="Welcome"> 
+        <h1>Welcome, {name}</h1>
       </div>
     )
   }

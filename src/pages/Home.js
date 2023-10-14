@@ -18,9 +18,7 @@ const Home = () => {
   return (
     <div className="App">
       <PlayerCount />
-
       <Title/>
-
       <AddUsername/>
       <Menu items={listItems} />
       <div className='didntTouch'>
@@ -29,7 +27,31 @@ const Home = () => {
         <NavItem tag={Link} to="/game">To Game</NavItem>
       </div>
     </div>
-  );
+  )
 }
 
 export default Home;
+
+/*let player1 = 'PlayerOne';
+  let player2 = 'PlayerTwo';
+
+  return (
+      <div className="App">
+        <div className="topOverlay">
+          <PlayerScore playerName={player1}/>
+          <GameTimer/>
+          <PlayerScore playerName={player2}/>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <PlayerCount />
+        <AddUsername />
+        <SendMessage />
+        <RandomWord />
+        <NavItem tag={Link} to="/game">To Game</NavItem>
+        <GroundBoarder/>
+      </div>
+  );*/

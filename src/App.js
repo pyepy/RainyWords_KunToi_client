@@ -35,4 +35,4 @@ function App() {      //homepage is moved to /page/Home.js
   );
 }
 
-export default App;
+export default App

@@ -2,7 +2,13 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
+
 import Layout from './Layout.js'
+
+
+import { Title } from './components/Title';
+import { Menu } from './components/Menu';
+
 
 function App() {
   return (
@@ -16,7 +22,12 @@ function App() {
   );
 }
 
+
 export default App; 
+
+
+  const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+
 
     {/*}
     <Router>
@@ -28,25 +39,23 @@ export default App;
         
         {window.location.pathname !== '/game' && (
           <>
-            <div className="topOverlay">
-              <PlayerScore playerName={player1}/>
-              <GameTimer/>
-              <PlayerScore playerName={player2}/>
-            </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            
+
             <PlayerCount />
-            <AddUsername />
+
+            <Title/>
+
+            <AddUsername/>
+            <Menu items={listItems} />
+            <div className='didntTouch'>
             <SendMessage />
-            <RandomWord />
-            <Link to="/game">
-              <button onClick={handleStartGame}>Start the fucking game</button>
-            </Link>
-            <GroundBoarder/>
+              <RandomWord />
+              <Link to="/game">
+                <button onClick={handleStartGame}>Start the fucking game</button>
+              </Link>
+            </div>
+            
+            
+
           </>
         )}
       </div>

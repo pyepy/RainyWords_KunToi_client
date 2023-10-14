@@ -1,13 +1,148 @@
 .App {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
-  text-align: center;
+  background-image: url('./images/bg1.jpg');
+  background-size: cover;
+
   margin: 0%;
   padding: 0%;
   height: 100vh;
   width: 100vw;
+
+  display: flex;
+  flex-direction: column;
 }
+
+.PlayerCount {
+  font-family: 'Autour One', sans-serif;
+  color: aliceblue;
+  white-space: nowrap;
+  align-self: end;
+  margin: 3vh 3vw 0vh 0;
+}
+
+.Title {
+  font-family: 'Autour One', sans-serif;
+  color: aliceblue;
+  white-space: nowrap;
+  align-self: center;
+  text-transform: uppercase;
+  margin: 7vh 0 -3vh 0;
+}
+
+
+.RainyWords {
+  /* position: fixed;
+  top: 0;
+  right: 50%;
+  transform: translate(50%, 0); */
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5));
+  font-size: 10rem;
+  font-weight: 900;
+  /* -webkit-text-stroke: 0.25rem black; */
+  /* background-image: url('./images/bg3.jpg');
+  color: transparent;
+  background-clip: text; */
+}
+
+.options {
+  list-style: none;
+  color: aliceblue;
+  font-size: 3rem;
+  font-family: 'Autour One', sans-serif;
+}
+
+.option {
+  margin: 1rem 0 0 7rem;
+  text-transform: uppercase;
+}
+
+.notOption {
+  margin: 1rem 0 0 7rem;
+  text-transform: uppercase;
+  border-bottom: #E95793;
+}
+
+.option:hover {
+  color: #E95793;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  /* cursor: url('./images/teemo.png'), auto; */
+}
+
+.Welcome {
+  color: aliceblue;
+  font-family: 'Autour One', sans-serif;
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 2vh 0;
+}
+
+.UsernameInput {
+  font-family: 'Autour One', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+
+  padding: 0.5rem 2rem;
+
+  margin: 3rem 0 1rem 0;
+}
+
+.UsernameInput:focus {
+  color: #f687b3;
+  border: none;
+  outline: 3px solid #f687b3;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+
+}
+
+.UsernameInput:focus::placeholder {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.SubmitName {
+  background-color: #687EFF;
+  color: aliceblue;
+  border: none;
+  border-radius: 0.3rem;
+  font-family: 'Autour One', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 900;
+
+}
+
+.SubmitName:hover {
+  color: #E95793;
+  background-color: transparent;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+
+}
+
+.Username {
+  color: #E95793;
+}
+
+.didntTouch {
+  align-self: center;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.didntTouch h1 {
+  font-size: 1rem;
+}
+
+
 
 /* .App-logo {
   height: 40vmin;
@@ -85,7 +220,6 @@
   Padding: 1rem 5rem 1rem 5rem;
   font-size: 2rem;
 }
-
 
 .PlayerScore {
   background-color: bisque;

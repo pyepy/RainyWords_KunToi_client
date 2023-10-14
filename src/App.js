@@ -1,55 +1,37 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Game from './game';
 import './App.css';
-import { SendMessage } from './components/SendMessage';
-import { PlayerCount } from './components/PlayerCount';
-import { AddUsername } from './components/AddUsername';
-import { RandomWord } from './components/RandomWord';
-import { GroundBoarder } from './components/GroundBoarder';
-import { GameTimer } from './components/GameTimer';
-import { PlayerScore } from './components/PlayerScore';
-import { Title } from './components/Title';
-import { Menu } from './components/Menu';
 
-function App() {
-  const handleStartGame = () => {
-    window.location.href="/game" // Refresh the page
-  };
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Container, Row } from "reactstrap";
 
-  const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+import Home from './pages/Home.js';
+import Game from './pages/game.js';
+
+import routes from './routes.js'
+
+function App() {      //homepage is moved to /page/Home.js
+  const routeComponents = routes.map((r,i) => {
+		return r.element ? (
+    <Route 
+      key = {i} 
+      path = {r.path} 
+      exact = {r.exact} 
+      element = {<r.element/>}
+    />
+    ) : null;});
 
   return (
-    <Router>
-      <div className="App">
+  <BrowserRouter>
+    <Container>
+      <Row>
         <Routes>
-          <Route path="/game" element={<Game />} />
-          {/* Other routes can be added here if needed */}
+					{/*routeComponents*/}
+          <Route path="/" exact element={<Home/>}></Route>
+          <Route path="/game" element={<Game/>}></Route>
         </Routes>
-        
-        {window.location.pathname !== '/game' && (
-          <>
-
-            <PlayerCount />
-
-            <Title/>
-
-            <AddUsername/>
-            <Menu items={listItems} />
-            <div className='didntTouch'>
-            <SendMessage />
-              <RandomWord />
-              <Link to="/game">
-                <button onClick={handleStartGame}>Start the fucking game</button>
-              </Link>
-            </div>
-            
-            
-
-          </>
-        )}
-      </div>
-    </Router>
+      </Row>
+    </Container>
+  </BrowserRouter>
   );
 }
 

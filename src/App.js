@@ -1,30 +1,40 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Game from './game';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import './App.css';
-import { SendMessage } from './components/SendMessage';
-import { PlayerCount } from './components/PlayerCount';
-import { AddUsername } from './components/AddUsername';
-import { RandomWord } from './components/RandomWord';
-import { GroundBoarder } from './components/GroundBoarder';
-import { GameTimer } from './components/GameTimer';
-import { PlayerScore } from './components/PlayerScore';
+
+import Layout from './Layout.js'
+
+
 import { Title } from './components/Title';
 import { Menu } from './components/Menu';
 
+
 function App() {
-  const handleStartGame = () => {
-    window.location.href="/game" // Refresh the page
-  };
+  return (
+    <BrowserRouter>
+      {<Layout/>}
+      {/*<Routes>
+        <Route path="/game" element={<Layout/>}></Route>
+      </Routes>*/}
+    </BrowserRouter>
+
+  );
+}
+
+
+export default App; 
+
 
   const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
 
-  return (
+
+    {/*}
     <Router>
       <div className="App">
         <Routes>
           <Route path="/game" element={<Game />} />
-          {/* Other routes can be added here if needed */}
+          {/* Other routes can be added here if needed }
         </Routes>
         
         {window.location.pathname !== '/game' && (
@@ -53,4 +63,4 @@ function App() {
   );
 }
 
-export default App;
+export default App*/}

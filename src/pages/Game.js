@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import { ReactP5Wrapper } from 'react-p5-wrapper'; 
-import sketch from './sketch'
-import Example from './components/keyboard';
+import sketch from './sketch.js'
+import Example from '../components/Keyboard';
 
-const Game = () => {
+const Game  = () => {
   // Add your game content here
   return (
     <div className="App">

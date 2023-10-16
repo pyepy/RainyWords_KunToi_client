@@ -2,7 +2,6 @@ import '../App.css';
 import { PlayerScore } from "../components/PlayerScore";
 import { GroundBoarder } from '../components/GroundBoarder';
 import { Timer } from '../components/Timer';
-import { FallingObject } from '../components/Rain';
 
 const FindRoom = () => {  
     return (
@@ -13,7 +12,6 @@ const FindRoom = () => {
         <PlayerScore playerName="two"/>
         </div>
 
-        <FallingObject/>
 
         
 

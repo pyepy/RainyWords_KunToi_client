@@ -18,7 +18,8 @@ import { Menu } from '../components/Menu';
 const Home = () => {
   const [login, setLogin] = useState(0)
 
-  const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+  //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+  const listItems = ['Create room', 'join room', 'Options', 'Credits'];
 
   useEffect(() => {
     socket.on("ack_name", () => {  //rcv name and namelist from server

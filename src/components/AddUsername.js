@@ -4,7 +4,7 @@ import { socket } from '../socket'
 export function AddUsername() {
   const [tempName,setTempName] = useState("");    //name written in input
   const [name,setName] = useState("");            //name sent
-  const [nameList,setNameList] = useState("");            
+  const [nameList,setNameList] = useState("");         
 
   const addName = () => {       
     socket.emit("assign_name",tempName);          //assign server-side
@@ -31,11 +31,11 @@ export function AddUsername() {
       <button className="SubmitName" onClick={addName}> Confirm</button>  
       </div>
     )
-  } else {        //assigned name
+  } else if (name != "") {        //assigned name
     return(   //display
-      <div > 
-        {/* <div className="Username">Welcome, {name}</div> */}
-      </div>
+      <ul className="options">
+        <li className="notOption">Welcome, <span className='Username'>{name}</span></li>
+      </ul>
     )
   }
 }

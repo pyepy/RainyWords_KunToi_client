@@ -13,7 +13,7 @@ import { Router, Routes, Link } from 'react-router-dom';
 import { NavItem, NavLink } from "reactstrap";
 
 const Home = () => {
-  const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+  const listItems = ['Create room', 'join room', 'Options', 'Credits'];
 
   return (
     <div className="App">

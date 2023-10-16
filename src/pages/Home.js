@@ -1,4 +1,10 @@
 import '../App.css';
+import { Router, Routes, Link } from 'react-router-dom';
+import { NavItem, NavLink } from "reactstrap";
+import React, { useState, useEffect } from 'react';
+import { socket } from '../socket'
+
+
 import { SendMessage } from '../components/SendMessage';
 import { PlayerCount } from '../components/PlayerCount';
 import { AddUsername } from '../components/AddUsername';
@@ -9,25 +15,44 @@ import { PlayerScore } from '../components/PlayerScore';
 import { Title } from '../components/Title';
 import { Menu } from '../components/Menu';
 
-import { Router, Routes, Link } from 'react-router-dom';
-import { NavItem, NavLink } from "reactstrap";
+
+
 
 const Home = () => {
+  const [login, setLogin] = useState(0)
+
   const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
 
-  return (
-    <div className="App">
-      <PlayerCount />
-      <Title/>
-      <AddUsername/>
-      <Menu items={listItems} />
-      <div className='didntTouch'>
-        <SendMessage />
-        <RandomWord />
-        <NavItem tag={Link} to="/game">To Game</NavItem>
+  useEffect(() => {
+    socket.on("ack_name", () => {  //rcv name and namelist from server
+        setLogin(1);
+    });
+  });
+
+  if (login == 1) {
+    return (
+      <div className="App">
+        <PlayerCount />
+        <Title/>
+        <AddUsername/>
+        <Menu items={listItems} />
+        {/*<div className='didntTouch'>
+          <SendMessage />
+          <RandomWord />
+          <NavItem tag={Link} to="/game">To Game</NavItem>
+    </div>*/}
       </div>
-    </div>
-  )
+    )
+  } else if (login == 0) {
+    return (
+      <div className="App">
+        <PlayerCount />
+        <Title/>
+        <AddUsername/>
+      </div>
+    )
+  }
+  
 }
 
 export default Home;

@@ -233,55 +233,17 @@
   font-size: 3rem;
 }
 
-
-
-
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
 /*------------------------------------------------------- bottom typer --------------------------------------------------------- */
 
 .GroundBoarder {
   position: fixed;
   bottom: 0;
-  background-color: red;
+  backdrop-filter: blur(10px);
   width: 100vw;
   height: 10vh;
   display: flex;
   justify-content: center;
+  padding: 3vh 0 3vh 0;
 }
 
 .Typer {
@@ -292,6 +254,9 @@
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  font-family: 'Autour One', sans-serif;
+  color: #072541;
 }
 
 /*------------------------------------------------------- top overlay --------------------------------------------------------- */
@@ -307,7 +272,7 @@
 
 }
 
-.GameTimer {
+.Timer {
   background-color: aquamarine;
   Padding: 1rem 5rem 1rem 5rem;
   font-size: 2rem;

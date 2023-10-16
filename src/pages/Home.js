@@ -3,9 +3,6 @@ import { SendMessage } from '../components/SendMessage';
 import { PlayerCount } from '../components/PlayerCount';
 import { AddUsername } from '../components/AddUsername';
 import { RandomWord } from '../components/RandomWord';
-import { GroundBoarder } from '../components/GroundBoarder';
-import { GameTimer } from '../components/GameTimer';
-import { PlayerScore } from '../components/PlayerScore';
 import { Title } from '../components/Title';
 import { Menu } from '../components/Menu';
 

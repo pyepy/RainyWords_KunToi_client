@@ -9,9 +9,6 @@ import { SendMessage } from '../components/SendMessage';
 import { PlayerCount } from '../components/PlayerCount';
 import { AddUsername } from '../components/AddUsername';
 import { RandomWord } from '../components/RandomWord';
-import { GroundBoarder } from '../components/GroundBoarder';
-import { GameTimer } from '../components/GameTimer';
-import { PlayerScore } from '../components/PlayerScore';
 import { Title } from '../components/Title';
 import { Menu } from '../components/Menu';
 
@@ -21,7 +18,8 @@ import { Menu } from '../components/Menu';
 const Home = () => {
   const [login, setLogin] = useState(0)
 
-  const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+  //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
+  const listItems = ['Create room', 'join room', 'Options', 'Credits'];
 
   useEffect(() => {
     socket.on("ack_name", () => {  //rcv name and namelist from server

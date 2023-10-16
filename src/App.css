@@ -9,7 +9,14 @@
 
   display: flex;
   flex-direction: column;
+
+  font-family: 'Autour One', sans-serif;
+  color: aliceblue;
 }
+
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
 
 .PlayerCount {
   font-family: 'Autour One', sans-serif;
@@ -30,17 +37,9 @@
 
 
 .RainyWords {
-  /* position: fixed;
-  top: 0;
-  right: 50%;
-  transform: translate(50%, 0); */
   filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5));
   font-size: 10rem;
   font-weight: 900;
-  /* -webkit-text-stroke: 0.25rem black; */
-  /* background-image: url('./images/bg3.jpg');
-  color: transparent;
-  background-clip: text; */
 }
 
 .options {
@@ -53,6 +52,9 @@
 .option {
   margin: 1rem 0 0 7rem;
   text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
 }
 
 .notOption {
@@ -68,6 +70,85 @@
   transition-timing-function: ease;
   /* cursor: url('./images/teemo.png'), auto; */
 }
+
+.option:hover .room {
+  transform: scale(1);
+  transition: transform 0.3s;
+}
+
+.option:hover .roomNumber {
+  transform: scale(1);
+  transition: transform 0.3s;
+}
+
+.room {
+  transform: scale(0);
+  margin: 0 0 0 2vw;
+  background-color: #072541;
+  color: aliceblue;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  align-self: center;
+}
+
+.room:hover {
+  color: #E95793;
+}
+
+.roomNumber {
+  transform: scale(0);
+  margin: 0 0 0 2vw;
+  background-color: #072541;
+  color: aliceblue !important;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.roomNumberInput {
+  margin: 0 1vw 0 1vw;
+  width: 5rem;
+
+  border-radius: 0.5rem;
+  background-color: aliceblue;
+  border: none;
+
+  color: #072541;
+  font-family: 'Autour One', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.roomNumberInput:focus {
+  color: #f687b3;
+  border: none;
+  outline: 3px solid #f687b3;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+.roomNumberInput:focus::placeholder {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.submitRoom {
+  color: #072541;
+  font-family: 'Autour One', sans-serif;
+  font-weight: bold;
+  margin: 0 1vw 0 0;
+}
+
+.submitRoom:hover {
+  color: #E95793;
+  font-family: 'Autour One', sans-serif;
+  font-weight: bold;
+}
+
 
 .Welcome {
   color: aliceblue;
@@ -98,7 +179,6 @@
   outline: 3px solid #f687b3;
   transition-duration: 0.5s;
   transition-timing-function: ease;
-
 }
 
 .UsernameInput:focus::placeholder {
@@ -107,7 +187,7 @@
 }
 
 .SubmitName {
-  background-color: #687EFF;
+  background-color: #072541;
   color: aliceblue;
   border: none;
   border-radius: 0.3rem;
@@ -120,7 +200,7 @@
 
 .SubmitName:hover {
   color: #E95793;
-  background-color: transparent;
+  /* background-color: transparent; */
   cursor: pointer;
   transition-duration: 0.5s;
   transition-timing-function: ease;
@@ -130,6 +210,8 @@
 .Username {
   color: #E95793;
 }
+
+
 
 .didntTouch {
   align-self: center;
@@ -142,54 +224,26 @@
   font-size: 1rem;
 }
 
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
+/*------------------------------------------------------- Home page --------------------------------------------------------- */
 
-
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.pageHeader {
+  margin: 5vh 5vw;
+  font-size: 3rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 /*------------------------------------------------------- bottom typer --------------------------------------------------------- */
 
 .GroundBoarder {
   position: fixed;
   bottom: 0;
-  background-color: red;
+  backdrop-filter: blur(10px);
   width: 100vw;
   height: 10vh;
   display: flex;
   justify-content: center;
+  padding: 3vh 0 3vh 0;
 }
 
 .Typer {
@@ -200,6 +254,9 @@
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  font-family: 'Autour One', sans-serif;
+  color: #072541;
 }
 
 /*------------------------------------------------------- top overlay --------------------------------------------------------- */
@@ -215,7 +272,7 @@
 
 }
 
-.GameTimer {
+.Timer {
   background-color: aquamarine;
   Padding: 1rem 5rem 1rem 5rem;
   font-size: 2rem;

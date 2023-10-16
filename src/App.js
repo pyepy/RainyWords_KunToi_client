@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container, Row } from "reactstrap";
 
 import Home from './pages/Home.js';
+import FindRoom from './pages/FindRoom.js';
 import Game from './pages/game.js';
 import Options from './pages/Options.js';
 import Credit from './pages/Credit.js';
@@ -31,6 +32,7 @@ function App() {      //homepage is moved to /page/Home.js
         <Routes>
 					{/*routeComponents*/}
           <Route path="/" exact element={<Home/>}></Route>
+          <Route path="/findRoom" exact element={<FindRoom/>}></Route>
           <Route path="/game" element={<Game/>}></Route>
           <Route path="/options" element={<Options/>}></Route>
           <Route path="/credit" element={<Credit/>}></Route>

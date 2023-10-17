@@ -1,6 +1,7 @@
 function sketch(p, wordList) {
   let rain = [];
   let words = ["joe", "ligma", "bro", "stupid", "amogus"];
+  //let words = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','100','101','102','103','104','105','106','107'];
   let bgcolor = p.color(100, 100, 100);
   let fontSize = 40; // Define the font size as a public variable
 
@@ -15,7 +16,7 @@ function sketch(p, wordList) {
   // Timer variables
   let lastTime = 0;
   let deltaTime = 0;
-  let fallingSpeed = 120; // Adjust this value to control the falling speed
+  let fallingSpeed = 120; // Adjust this value to control the falling speed default = 120
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
@@ -40,10 +41,11 @@ function sketch(p, wordList) {
       rain[i].update(deltaTime);
       rain[i].display();
       if (typedWord === rain[i].word) {
+        rain[i].reset();
         console.log("---SUCCESS---");
+        // console.log(Object.values(rain))
         typedWord = '';
         score += 1;
-        rain[i].reset();
       }
     }
     p.fill(255, 255, 255);
@@ -64,7 +66,7 @@ function sketch(p, wordList) {
 
   class Rain {
     constructor() {
-      this.x = p.random(0, canvasWidth - words.length);
+      this.x = p.random(0, canvasWidth - 40);
       this.y = p.random(0, -canvasHeight);
       this.word = words[Math.floor(p.random(words.length))];
       this.length = fontSize * 1.5;
@@ -85,7 +87,7 @@ function sketch(p, wordList) {
     }
 
     reset() {
-      this.x = p.random(0, canvasWidth - words.length);
+      this.x = p.random(0, canvasWidth - 40); // set margin
       this.y = p.random(0, -canvasHeight);
       this.word = words[Math.floor(p.random(words.length))];
     }

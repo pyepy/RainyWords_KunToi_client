@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
+import { NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export function AddUsername() {
   const [tempName,setTempName] = useState("");    //name written in input

@@ -36,7 +36,7 @@ export function RandomWord() {
       if (clickCount < 3) {
         reqLen();
         setClickCount(clickCount + 1);
-        setTimeout(autoClick, 1000);
+        setTimeout(autoClick, 1000);  //delay
       }
     };
 
@@ -59,4 +59,6 @@ export function RandomWord() {
       <h1>Length: {len}</h1>
     </div>
   );
+
+  // return wordList;
 }

@@ -1,6 +1,6 @@
-function sketch(p, wordList) {
+function sketch(p,wordList) {
   let rain = [];
-  let words = ["joe", "ligma", "bro", "stupid", "amogus"];
+  let words = wordList;
   let bgcolor = p.color(100, 100, 100);
   let fontSize = 40; // Define the font size as a public variable
 

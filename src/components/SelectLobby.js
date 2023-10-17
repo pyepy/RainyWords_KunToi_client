@@ -1,27 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { playSocket } from '../socket.js'
+import { socket, playSocket } from '../socket.js'
 import { io } from 'socket.io-client';
 
-/*const playSocket = io('/play')*/
+import { Router, Routes, Link } from 'react-router-dom';
+import { NavItem, NavLink } from "reactstrap";
 
 export function SelectLobby() {
-    const [room, setRoom] = useState("");
-    const [oldRoom, setOldRoom] = useState("");
+  const [room, setRoom] = useState("");
+  const [oldRoom, setOldRoom] = useState("");
 
-    const [message, setMessage] = useState("");
-    const [messageReceived, setMessageReceived] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageRcv, setMessageRcv] = useState("");
 
-    const sendMessage = () => { //emit the input to the listener of the server (backend)
-        playSocket.emit("send_message", {message, room});
-     };
+  const createRoom = () => {
+    socket.emit("create_lobby",{oldRoom});
+  }
 
-    const joinRoom = () => {  //join room
-        if (room !== "") {
-          console.log("sgyufhcjk")
-            playSocket.emit("select_lobby", {room, oldRoom})
-        }
-    };
+  const joinRoom = () => {  //join room
+    if (room !== "") {
+      socket.emit("select_lobby", {room, oldRoom});
+    }
+  };
 
+  const leaveRoom = () => {
+    playSocket.emit("leave_lobby",{oldRoom});
+  }
+
+  const sendMessage = () => { //emit the input to the listener of the server (backend)
+    playSocket.emit("send_msg", {message, room});
+  };
+
+  useEffect(() => {
+    playSocket.on("rcv_lobby",(data) => {
+      setRoom(data.room)
+      setOldRoom(data.oldRoom);
+    });
+    
+    playSocket.on("rcv_msg", (data) => {
+      setMessageRcv(data.message);
+    });
+  });
+
+  return(
+    <div>
+      <input 
+        placeholder = "Message..." 
+        onChange={(event) => {
+          setMessage(event.target.value);
+        }}
+      />
+      <button onClick={sendMessage}> Send Message</button>
+      <h1>Room ID: {oldRoom}</h1>  
+      <h1>Message:</h1>   
+      {messageReceived}
+      
+    </div>
+  );
+
+
+}
+
+
+
+   
+/*
     useEffect(() => { //run everytime func is thrown to us from backend
         playSocket.on("receive_message", (data) => {  //detect rcv_msg event form backend
             setMessageReceived(data.message);
@@ -50,7 +92,7 @@ export function SelectLobby() {
         <button onClick={sendMessage}> Send Message</button>
         <h1>Room ID: {oldRoom}</h1>  
         <h1>Message:</h1>   
-        {messageReceived} 
+        {MessageRcv} 
         </div>
     );
-};
+};*/

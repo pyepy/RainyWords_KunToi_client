@@ -1,8 +1,21 @@
 import { SelectLobby } from '../components/SelectLobby.js'
+import { LobbyPanel } from '../components/LobbyPanel.js';
 
 const Play = () => {
   return(
-    <SelectLobby/>
+    <div className="App">
+      <div className='playContainer'>
+        <LobbyPanel/>
+      </div>
+
+      <div className='notPlayContainer'>
+        <SelectLobby/>
+      </div>
+        
+
+        
+    </div>
+    
   )
 }
 

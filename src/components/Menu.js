@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
+import { NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export function Menu(props) {
 
@@ -9,8 +11,9 @@ export function Menu(props) {
       <ul className="options">
         {/*<li className="notOption">Welcome, <span className='Username'>{username}</span></li>*/}
         {props.items.map((item, index) => (
+          <NavItem tag={Link} to={item[1]}>
           <li className="option" key={index}>
-          {item}
+          {item[0]}
 
           {index === 0? (
             <>
@@ -35,8 +38,11 @@ export function Menu(props) {
           ) : null}
         
         </li> 
+        </NavItem>
+        
         ))}
       </ul>
+
     </div>
   );   
 }

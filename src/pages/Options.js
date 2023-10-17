@@ -1,6 +1,13 @@
+import { NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 const Options = () => {
   return(
-    <h1>Options</h1>
+    <div className="App">
+      <h1>Options</h1>
+      <NavItem tag={Link} to="/">back</NavItem>
+    </div>
+    
   )
 }
 

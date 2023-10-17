@@ -4,7 +4,6 @@ import { NavItem, NavLink } from "reactstrap";
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
 
-
 import { SendMessage } from '../components/SendMessage';
 import { PlayerCount } from '../components/PlayerCount';
 import { AddUsername } from '../components/AddUsername';
@@ -12,18 +11,23 @@ import { RandomWord } from '../components/RandomWord';
 import { Title } from '../components/Title';
 import { Menu } from '../components/Menu';
 
-
-
-
 const Home = () => {
   const [login, setLogin] = useState(0)
 
   //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
   const listItems = [['Create room','/game'], ['Join room','/game'], ['Options','/options'], ['Credits','/credit']];
 
+  socket.emit("req_login")
+  console.log("login?")
+  console.log(login)
+
   useEffect(() => {
-    socket.on("ack_name", () => {  //rcv name and namelist from server
-        setLogin(1);
+    socket.on("ack_name", (data) => {
+      setLogin(1);
+    });
+
+    socket.on("ack_login", (data) => {  //rcv name and namelist from server
+        setLogin(data.login);
     });
   });
 

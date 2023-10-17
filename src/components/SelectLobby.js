@@ -34,8 +34,7 @@ export function SelectLobby() {
 
   useEffect(() => {
     playSocket.on("rcv_lobby",(data) => {
-      setRoom(data.room)
-      setOldRoom(data.oldRoom);
+      setOldRoom(data.room)
     });
     
     playSocket.on("rcv_msg", (data) => {
@@ -54,7 +53,7 @@ export function SelectLobby() {
       <button onClick={sendMessage}> Send Message</button>
       <h1>Room ID: {oldRoom}</h1>  
       <h1>Message:</h1>   
-      {messageReceived}
+      {messageRcv}
       
     </div>
   );

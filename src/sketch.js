@@ -49,7 +49,7 @@ function sketch(p, wordList) {
       }
     }
     p.fill(255, 255, 255);
-    p.text(typedWord, (canvasWidth / 2) -100 , 750);
+    p.text(typedWord, (canvasWidth / 2) -100 , 700);
     p.text("Score: " + score, 20, 100);
   };
 

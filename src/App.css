@@ -47,6 +47,7 @@
   color: aliceblue;
   font-size: 3rem;
   font-family: 'Autour One', sans-serif;
+  padding: auto;
 }
 
 .option {
@@ -58,9 +59,11 @@
 }
 
 .notOption {
-  margin: 1rem 0 0 7rem;
+  white-space: nowrap;
+  margin: 0rem 0 -7rem 7rem;
   text-transform: uppercase;
   border-bottom: #E95793;
+  padding: 0;
 }
 
 .option:hover {

@@ -30,7 +30,7 @@ function sketch(p, wordList) {
 
   p.draw = function () {
     p.background(bgcolor);
-    
+    p.text("Score: " + score, 85, 100);
 
     // Calculate deltaTime
     let currentTime = p.millis();
@@ -49,17 +49,20 @@ function sketch(p, wordList) {
       }
     }
     p.fill(255, 255, 255);
-    p.text(typedWord, (canvasWidth / 2) -100 , 700);
-    p.text("Score: " + score, 20, 100);
+    p.textAlign(p.CENTER);
+    p.text(typedWord, canvasWidth / 2, (canvasHeight / 2)+200);    
   };
 
-  p.keyTyped = function () {
-    if (p.key === 'Enter') {
+  p.keyPressed = function () {
+    if (p.keyCode === p.ENTER) {
       typedWord = '';
-  } else if (p.key === 'Backspace') {
-    typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
-  }
-    else {
+    } else if (p.keyCode === p.BACKSPACE) {
+      typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
+    }
+  };
+  
+  p.keyTyped = function () {
+    if (p.key !== 'Enter' && p.key !== 'Backspace') {
       typedWord = typedWord + p.key;
     }
   };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
 
-//simport userData from '../userdata';
+import userData from '../userdata';
 
 export function AddUsername() {
   const [tempName,setTempName] = useState("");    //name written in input

@@ -1,68 +1,94 @@
-function sketch(p) {
+function sketch(p, wordList) {
   let rain = [];
-  let words = ["joe", "ligma", "bro", "antidisestablishmentarianism", "amogus"];
-  //let bgcolor = (100, 100, 100);
-  let bgcolor = (0, 0, 0, 100);
+  let words = ["joe", "ligma", "bro", "stupid", "amogus"];
+  let bgcolor = p.color(100, 100, 100);
   let fontSize = 40; // Define the font size as a public variable
 
-  p.setup = function () {
-    p.createCanvas(p.windowWidth *3 / 4, p.windowHeight); // Width half of the screen, full height
-    p.frameRate(5); // Set the frame rate to control the falling speed
+  //-------------------------------------------------------------------------------------------------------------
+  let frameRate = 30; // Set your desired frame rate
+  let numWordsFall = 3; // Number of words falling
+  let canvasWidth = p.windowWidth * 3 / 4;
+  let canvasHeight = p.windowHeight;
+  let typedWord = ''; // Accumulated typed word
+  let textshow = ''; // Text appearing
+  let score = 0;
+  // Timer variables
+  let lastTime = 0;
+  let deltaTime = 0;
+  let fallingSpeed = 120; // Adjust this value to control the falling speed
+  //-------------------------------------------------------------------------------------------------------------
 
-    for (let i = 0; i < 5; i++) {
+  p.setup = function () {
+    p.createCanvas(canvasWidth, canvasHeight);
+    p.frameRate(frameRate);
+
+    for (let i = 0; i < numWordsFall; i++) {
       rain[i] = new Rain();
-      //rain[i].splash();
     }
   };
 
   p.draw = function () {
     p.background(bgcolor);
+    
+
+    // Calculate deltaTime
+    let currentTime = p.millis();
+    deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+    lastTime = currentTime;
 
     for (let i = 0; i < rain.length; i++) {
-      rain[i].dropRain();
+      rain[i].update(deltaTime);
+      rain[i].display();
+      if (typedWord === rain[i].word) {
+        console.log("---SUCCESS---");
+        typedWord = '';
+        score += 1;
+        rain[i].reset();
+      }
+    }
+    p.fill(255, 255, 255);
+    p.text(typedWord, (canvasWidth / 2) -100 , 750);
+    p.text("Score: " + score, 20, 100);
+  };
+
+  p.keyTyped = function () {
+    if (p.key === 'Enter') {
+      typedWord = '';
+  } else if (p.key === 'Backspace') {
+    typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
+  }
+    else {
+      typedWord = typedWord + p.key;
     }
   };
 
   class Rain {
     constructor() {
-      this.x = p.random(0, 600);
-      this.y = p.random(0, -600); // Adjust the initial position
+      this.x = p.random(0, canvasWidth - words.length);
+      this.y = p.random(0, -canvasHeight);
       this.word = words[Math.floor(p.random(words.length))];
       this.length = fontSize * 1.5;
     }
 
-    dropRain() {
+    update(deltaTime) {
+      this.y = this.y + fallingSpeed * deltaTime; // Adjust position based on speed
+      if (this.y > p.height - p.windowHeight / 4) {
+        this.reset();
+      }
+    }
+
+    display() {
       p.noStroke();
       p.fill(255, 200);
       p.textSize(fontSize);
       p.text(this.word, this.x, this.y);
-      this.y = this.y + fontSize;
-      if (this.y > p.height - p.windowHeight/4) {
-        // Reset when it goes off the canvas
-        this.y = p.random(0, -600); // Adjust the reset position
-        this.word = words[Math.floor(p.random(words.length))];
-        this.length = fontSize * 1.5;
-      }
     }
 
-    // splash() {
-    //   p.strokeWeight(2);
-    //   p.stroke(245, this.opacity);
-    //   p.noFill();
-    //   if (this.y > 400) { // Adjusted value to trigger the splash earlier
-    //     p.textSize(fontSize); // Use the public font size variable
-    //     p.text(this.word, this.x, 550);
-    //     this.r++;
-    //     this.opacity = this.opacity - 10;
-    //     if (this.opacity < 0) {
-    //       this.y = p.random(0, -1000);
-    //       this.word = words[Math.floor(p.random(words.length))];
-    //       this.length = fontSize * 1.5;
-    //       this.r = 0;
-    //       this.opacity = 500;
-    //     }
-    //   }
-    // }    
+    reset() {
+      this.x = p.random(0, canvasWidth - words.length);
+      this.y = p.random(0, -canvasHeight);
+      this.word = words[Math.floor(p.random(words.length))];
+    }
   }
 }
 

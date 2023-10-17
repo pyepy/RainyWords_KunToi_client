@@ -12,17 +12,19 @@ export function SelectLobby() {
   const [message, setMessage] = useState("");
   const [messageRcv, setMessageRcv] = useState("");
 
-  const createRoom = () => {
-    socket.emit("create_lobby",{oldRoom});
+  const [mode,setMode] = useState("c");
+
+  const createLobby = () => {
+    socket.emit("create_lobby",{mode,room});
   }
 
-  const joinRoom = () => {  //join room
+  const joinLobby = () => {  //join room
     if (room !== "") {
       socket.emit("select_lobby", {room, oldRoom});
     }
   };
 
-  const leaveRoom = () => {
+  const leaveLobby = () => {
     playSocket.emit("leave_lobby",{oldRoom});
   }
 

@@ -19,7 +19,7 @@ const Home = () => {
   const [login, setLogin] = useState(0)
 
   //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
-  const listItems = [['Create room','/game'], ['join room','/game'], ['Options','/options'], ['Credits','/credit']];
+  const listItems = [['Create room','/game'], ['Join room','/game'], ['Options','/options'], ['Credits','/credit']];
 
   useEffect(() => {
     socket.on("ack_name", () => {  //rcv name and namelist from server

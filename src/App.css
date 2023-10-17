@@ -233,14 +233,101 @@ a {
   font-size: 1rem;
 }
 
+/*------------------------------------------------------- play page --------------------------------------------------------- */
+/*------------------------------------------------------- play page --------------------------------------------------------- */
+/*------------------------------------------------------- play page --------------------------------------------------------- */
+
+.playContainer {
+  align-self: center;
+  justify-self: center;
+  min-height: 100vh;
+  display: flex;
+}
+
+.notPlayContainer {
+  margin-top: -100vh;
+}
+
+
+.lobbyContainer {
+  /* background-color: #072541; */
+  backdrop-filter: blur(40px);
+  background: rgba(0, 0, 0, 0.5);
+  align-self: center;
+  justify-self: center;
+  color: #072541;
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70vh;
+  height: 70vh;
+  border-radius: 5rem;
+  color: aliceblue;
+
+}
+
+.gameMode {
+  font-size: 4rem;
+  white-space: nowrap;
+
+}
+
+.lobbyCount {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.waiting {
+  font-size: 1rem;
+}
+
+.players {
+  display: flex;
+  flex-direction: row;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+
+.playerIcon {
+  width: 15rem;
+}
+
+.startGame {
+  color: #072541;
+  font-family: 'Autour One', sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  border-radius: 0.5rem;
+}
+
+.startGame:hover {
+  color: #E95793;
+  font-family: 'Autour One', sans-serif;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
 /*------------------------------------------------------- Home page --------------------------------------------------------- */
 /*------------------------------------------------------- Home page --------------------------------------------------------- */
 /*------------------------------------------------------- Home page --------------------------------------------------------- */
 
-.pageHeader {
-  margin: 5vh 5vw;
-  font-size: 3rem;
-}
 
 /*------------------------------------------------------- bottom typer --------------------------------------------------------- */
 

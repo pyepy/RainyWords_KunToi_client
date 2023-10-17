@@ -53,23 +53,23 @@ function sketch(p, wordList) {
     p.text(typedWord, canvasWidth / 2, (canvasHeight / 2)+200);    
   };
 
-  p.keyPressed = function () {
-    if (p.keyCode === p.ENTER) {
-      typedWord = '';
-    } else if (p.keyCode === p.BACKSPACE) {
-      typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
-    }
-  };
-  
-  p.keyTyped = function () {
-    if (p.key !== 'Enter' && p.key !== 'Backspace') {
-      typedWord = typedWord + p.key;
-    }
-  };
+p.keyPressed = function () {
+  if (p.keyCode === p.ENTER) {
+    typedWord = '';
+  } else if (p.keyCode === p.BACKSPACE) {
+    typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
+  }
+};
+
+p.keyTyped = function () {
+  if (p.key !== 'Enter' && p.key !== 'Backspace') {
+    typedWord = typedWord + p.key;
+  }
+};
 
   class Rain {
     constructor() {
-      this.x = p.random(0, canvasWidth - 40);
+      this.x = p.random(100, canvasWidth - 100);
       this.y = p.random(0, -canvasHeight);
       this.word = words[Math.floor(p.random(words.length))];
       this.length = fontSize * 1.5;
@@ -90,7 +90,7 @@ function sketch(p, wordList) {
     }
 
     reset() {
-      this.x = p.random(0, canvasWidth - 40); // set margin
+      this.x = p.random(100, canvasWidth - 100); // set margin
       this.y = p.random(0, -canvasHeight);
       this.word = words[Math.floor(p.random(words.length))];
     }

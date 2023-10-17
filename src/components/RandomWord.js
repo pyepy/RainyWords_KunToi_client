@@ -7,6 +7,7 @@ export function RandomWord() {
   const [mode, setMode] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const [wordList, setWordList] = useState([]); // State to store the list of words
+  let delay = 10000;
 
   const buttonRef = useRef();
 
@@ -33,32 +34,32 @@ export function RandomWord() {
     });
 
     const autoClick = () => {
-      if (clickCount < 3) {
+      if (clickCount < 2) {
         reqLen();
         setClickCount(clickCount + 1);
-        setTimeout(autoClick, 1000);  //delay
+        setTimeout(autoClick, delay);  //delay
       }
     };
 
     autoClick();
-  }, [clickCount, wordList]); // Include wordList in the dependency array
+  }, [wordList]); // Include wordList in the dependency array
 
-  return (
-    <div>
-      <input
-        placeholder="1/2/3"
-        onChange={(event) => {
-          setMode(event.target.value);
-        }}
-      />
-      <button ref={buttonRef} onClick={reqLen}>
-        Request Word
-      </button>
-      <h1>Words:</h1>
-      <p>{wordList.join(', ')}</p>
-      <h1>Length: {len}</h1>
-    </div>
-  );
+  // return (
+  //   <div>
+  //     <input
+  //       placeholder="1/2/3"
+  //       onChange={(event) => {
+  //         setMode(event.target.value);
+  //       }}
+  //     />
+  //     <button ref={buttonRef} onClick={reqLen}>
+  //       Request Word
+  //     </button>
+  //     <h1>Words:</h1>
+  //     <p>{wordList.join(', ')}</p>
+  //     <h1>Length: {len}</h1>
+  //   </div>
+  // );
 
-  // return wordList;
+   return wordList;
 }

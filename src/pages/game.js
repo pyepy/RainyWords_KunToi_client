@@ -1,22 +1,20 @@
 import React from 'react';
 import '../App.css';
-import { ReactP5Wrapper } from 'react-p5-wrapper'; 
-import sketch from './sketch.js'
-import Example from '../components/Keyboard';
+import { ReactP5Wrapper } from 'react-p5-wrapper';
+import sketch from './sketch';
+import Keyboard from '../components/Keyboard';
+import { RandomWord } from '../components/RandomWord';
 
 const Game = () => {
-  // Add your game content here
+  const wordList = RandomWord(); // Call the RandomWord component and store the result
+
   return (
     <div className="App">
-      {/* <h1>Game Page</h1>
-      <p>Welcome to the game! Your game content goes here.</p> */}
+      <RandomWord />
       <header className="App-header">
-        <>
-          <ReactP5Wrapper sketch={sketch} />
-        </>
+        <ReactP5Wrapper sketch={p => sketch(p, wordList)} />
       </header>
-      <Example/>
-      {/* Add more game-related components or elements as needed. */}
+      <Keyboard />
     </div>
   );
 };

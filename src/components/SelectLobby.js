@@ -52,8 +52,7 @@ export function SelectLobby() {
       />
       <button onClick={sendMessage}> Send Message</button>
       <h1>Room ID: {oldRoom}</h1>  
-      <h1>Message:</h1>   
-      {messageRcv}
+      <h1>Message:</h1>  
       
     </div>
   );

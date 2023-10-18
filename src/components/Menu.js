@@ -7,6 +7,18 @@ export function Menu(props) {
   const Create_room = 'Create room';
   const Join_room = 'Join room';
 
+  const requestCreateRoom = (gameMode) => {   
+    socket.emit("request_create_room", {gameMode});          //assign server-side
+  }
+
+  useEffect(() => {
+    socket.on("roomCreated", (data) => {  //rcv name and namelist from server
+
+      console.log(data.myRoom);
+    })
+
+  });
+
   return (
     <div className="Menu">
       <ul className="options">
@@ -16,7 +28,7 @@ export function Menu(props) {
               <>
                 {item[0]}
                 {/* <NavItem tag={Link} to={item[1]}> */}
-                  <div className="room">
+                  <div className="room" onClick={() => requestCreateRoom("Classic")}>
                     Classic
                   </div>
                 {/* </NavItem> */}

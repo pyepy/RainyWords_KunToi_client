@@ -9,7 +9,11 @@ const Play = () => {
       </div>
 
       <div className='notPlayContainer'>
-        <SelectLobby/>
+        <div className='leaveRoom'>
+          {/* <img src="" alt='leave icon'/> */}
+            &lt; leave room
+        </div>
+        {/* <SelectLobby/> */}
       </div>
         
 

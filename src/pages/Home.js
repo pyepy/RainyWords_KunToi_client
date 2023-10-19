@@ -16,7 +16,7 @@ import { Menu } from '../components/Menu';
 const Home = () => {
   const [login, setLogin] = useState(userLogin)
 
-  const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/options'], ['Credits','/credit']];
+  const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/game'], ['Credits','/credit']];
 
   socket.emit("req_login")
   console.log("login?")

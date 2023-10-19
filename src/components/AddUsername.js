@@ -18,11 +18,6 @@ export function AddUsername() {
       updateName(data.name)
       setNameList(data.namelist);
     })
-
-    /*socket.on("ack_login", (data) => {  //rcv name and namelist from server  
-      console.log(data.name)      
-      setName(data.name);
-    });  */ 
   });
 
   if (name == "") {      //if no name assigned yet

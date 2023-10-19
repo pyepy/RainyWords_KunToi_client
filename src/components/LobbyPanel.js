@@ -3,6 +3,8 @@ import { socket } from '../utils/socket'
 import playerIcon from '../images/playerIcon.png';
 import { useNavigate } from 'react-router-dom';
 
+import { userLogin } from '../utils/userdata.js' 
+
 export function LobbyPanel() {
 
     const navigate = useNavigate();
@@ -13,21 +15,25 @@ export function LobbyPanel() {
     const [playerTwo, setPlayerTwo] = useState('Waiting');
     const [playerInLobby, setPlayerInLobby] = useState(0);
 
+    if (userLogin == 1) {
+        //get room info
+        socket.emit('request_room_info');   
+    }
     
-
-    //get room info
-    socket.emit('request_room_info');
 
     useEffect(() => {
         socket.on("giveRoomInfo", (data) => {  
-            console.log(data)
-            setGameMode(data.myRoom.gameMode);
-            setRoomNo(data.myRoom.roomNo);
-            setPlayerInLobby(data.myRoom.roomPlayerCount);
-            setPlayerOne(data.myRoom.player1);
-            if (data.myRoom.player2 === undefined) {
-                setPlayerTwo('Waiting...');
-            }else setPlayerTwo(data.myRoom.player2);
+            if (data != "") {
+                console.log(data)
+                setGameMode(data.myRoom.gameMode);
+                setRoomNo(data.myRoom.roomNo);
+                setPlayerInLobby(data.myRoom.roomPlayerCount);
+                setPlayerOne(data.myRoom.player1);
+                if (data.myRoom.player2 === undefined) {
+                    setPlayerTwo('Waiting...');
+                }else setPlayerTwo(data.myRoom.player2);
+            }
+            
         })
 
         socket.on('updateRoomInfo', (data) => { 

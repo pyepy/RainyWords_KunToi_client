@@ -4,9 +4,7 @@ import { socket } from '../utils/socket'
 export function PlayerCount() {
     const [onlineNo,setOnlineNo] = useState(0);
 
-    socket.on("connect",() => {
-        socket.emit("connected")
-    })
+    socket.emit("req_online_no");
 
     useEffect(() => {
         socket.on("online_no", (count) => {

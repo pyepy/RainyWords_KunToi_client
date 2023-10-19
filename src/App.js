@@ -12,6 +12,7 @@ import Credit from './pages/Credit.js';
 import Play from './pages/Play.js'
 
 import routes from './utils/routes.js'
+import { userLogin } from './utils/userdata.js'
 
 function App() {      //homepage is moved to /page/Home.js
   const routeComponents = routes.map((r,i) => {
@@ -23,6 +24,10 @@ function App() {      //homepage is moved to /page/Home.js
       element = {<r.element/>}
     />
     ) : null;});
+      
+    if (userLogin == 0 && window.location.href != "http://localhost:3000/") {
+      window.location.replace("http://localhost:3000");
+    };
 
   return (
   <BrowserRouter>

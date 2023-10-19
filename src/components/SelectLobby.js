@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { socket, playSocket } from '../socket.js'
+import { socket, playSocket } from '../utils/socket.js'
 import { io } from 'socket.io-client';
 
 import { Router, Routes, Link } from 'react-router-dom';

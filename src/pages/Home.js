@@ -2,7 +2,9 @@ import '../App.css';
 import { Router, Routes, Link } from 'react-router-dom';
 import { NavItem, NavLink } from "reactstrap";
 import React, { useState, useEffect } from 'react';
-import { socket } from '../socket'
+import { socket } from '../utils/socket'
+
+import { userLogin, updateLogin } from '../utils/userdata';
 
 import { SendMessage } from '../components/SendMessage';
 import { PlayerCount } from '../components/PlayerCount';
@@ -12,9 +14,8 @@ import { Title } from '../components/Title';
 import { Menu } from '../components/Menu';
 
 const Home = () => {
-  const [login, setLogin] = useState(0)
+  const [login, setLogin] = useState(userLogin)
 
-  //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
   const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/options'], ['Credits','/credit']];
 
   socket.emit("req_login")
@@ -24,10 +25,7 @@ const Home = () => {
   useEffect(() => {
     socket.on("ack_name", (data) => {
       setLogin(1);
-    });
-
-    socket.on("ack_login", (data) => {  //rcv name and namelist from server
-        setLogin(data.login);
+      updateLogin(1);
     });
   });
 

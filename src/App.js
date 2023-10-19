@@ -11,7 +11,7 @@ import Options from './pages/Options.js';
 import Credit from './pages/Credit.js';
 import Play from './pages/Play.js'
 
-import routes from './routes.js'
+import routes from './utils/routes.js'
 
 function App() {      //homepage is moved to /page/Home.js
   const routeComponents = routes.map((r,i) => {

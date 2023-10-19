@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { socket } from '../socket'
+import { socket } from '../utils/socket'
 
 export function PlayerScore(props) {
     const [playerScore,setPlayerScore] = useState("0");

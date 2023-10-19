@@ -2,10 +2,54 @@ import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
 import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Menu(props) {
   const Create_room = 'Create room';
   const Join_room = 'Join room';
+
+  const navigate = useNavigate();
+  const [roomToJoin, setRoomToJoin] = useState('')
+
+  // create room
+  const requestCreateRoom = (gameMode) => {   
+    socket.emit("request_create_room", {gameMode});          //assign server-side
+  }
+
+  useEffect(() => {
+    const handleRoomCreated = (data) => {
+      navigate('/play');
+    };
+
+    socket.on("roomCreated", handleRoomCreated);
+  
+    // Remove the event listener when the component unmounts to avoid duplicates
+    return () => {
+      socket.off("roomCreated", handleRoomCreated);
+    };
+  }, []);
+
+  //join room
+  const joinRoom = () => {    
+    socket.emit("request_join_room",{roomToJoin});  
+  }
+
+  useEffect(() => {
+    const handleRoomNotFound = () => {
+      console.log('what');
+      alert("Room not found");
+    };
+    //Check room correct
+    socket.on("canNotFindRoom", handleRoomNotFound)
+
+    socket.on("roomFound", () => {
+      navigate('./play');
+    })
+
+    return () => {
+      socket.off("canNotFindRoom", handleRoomNotFound);
+    };
+  }, []);
 
   return (
     <div className="Menu">
@@ -15,12 +59,10 @@ export function Menu(props) {
             {item[0] === Create_room ? (
               <>
                 {item[0]}
-                {/* <NavItem tag={Link} to={item[1]}> */}
-                  <div className="room">
+                  <div className="room" onClick={() => requestCreateRoom("Classic")}>
                     Classic
                   </div>
-                {/* </NavItem> */}
-                <div className="room">
+                <div className="room" onClick={() => requestCreateRoom("Arcade")}>
                   Arcade
                 </div>
               </>
@@ -32,10 +74,16 @@ export function Menu(props) {
                 <div className="roomNumber">
                   Room No.
 
-                  <input className="roomNumberInput" placeholder='00000' maxLength={5}/>
-                  {/* <NavItem tag={Link} to={item[1]}> */}
-                    <button className="submitRoom">Join</button>
-                  {/* </NavItem> */}
+                  <input 
+                    className="roomNumberInput" 
+                    placeholder='00000' 
+                    maxLength={5}
+                    onChange={(event) => {
+                      setRoomToJoin(event.target.value);
+                    }}
+                  />
+
+                  <button className="submitRoom" onClick={joinRoom}>Join</button>
                 </div>
               </>
             ) : null}

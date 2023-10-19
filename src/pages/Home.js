@@ -15,7 +15,7 @@ const Home = () => {
   const [login, setLogin] = useState(0)
 
   //const listItems = ['Play Classic', 'Play NON-classic', 'Options', 'Credits'];
-  const listItems = [['Create room','/game'], ['Join room','/game'], ['Options','/options'], ['Credits','/credit']];
+  const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/options'], ['Credits','/credit']];
 
   socket.emit("req_login")
   console.log("login?")

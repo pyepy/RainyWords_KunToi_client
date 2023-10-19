@@ -7,7 +7,7 @@ export function RandomWord() {
   const [mode, setMode] = useState('');
   const [clickCount, setClickCount] = useState(0);
   const [wordList, setWordList] = useState([]); // State to store the list of words
-  let delay = 10000;
+  let delay = 7000;
 
   const buttonRef = useRef();
 
@@ -61,5 +61,5 @@ export function RandomWord() {
   //   </div>
   // );
 
-   return wordList;
+  return [...new Set(wordList)];
 }

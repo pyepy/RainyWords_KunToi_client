@@ -1,3 +1,5 @@
+import { socket } from './socket';
+
 function sketch(p, wordList) {
   let rain = [];
   let words = ["joe", "ligma", "bro", "stupid", "amogus"];
@@ -26,7 +28,19 @@ function sketch(p, wordList) {
     for (let i = 0; i < numWordsFall; i++) {
       rain[i] = new Rain();
     }
+
+    socket.on("send_word", (data) => {    //accept word
+      console.log(data.word);
+      words.push(data.word);
+      console.log(words);
+    });
+
+    setInterval(request_word, 5000);
   };
+
+  function request_word() {
+    socket.emit("request_word",4);
+  }
 
   p.draw = function () {
     p.background(bgcolor);
@@ -71,8 +85,10 @@ p.keyTyped = function () {
     constructor() {
       this.x = p.random(100, canvasWidth - 100);
       this.y = p.random(0, -canvasHeight);
-      this.word = words[Math.floor(p.random(words.length))];
+      //let index = Math.floor(p.random(words.length));
+      this.word = words[0];
       this.length = fontSize * 1.5;
+      words.shift();
     }
 
     update(deltaTime) {
@@ -92,7 +108,9 @@ p.keyTyped = function () {
     reset() {
       this.x = p.random(100, canvasWidth - 100); // set margin
       this.y = p.random(0, -canvasHeight);
-      this.word = words[Math.floor(p.random(words.length))];
+      // this.word = words[Math.floor(p.random(words.length))];
+      this.word = words[0];
+      words.shift();
     }
   }
 }

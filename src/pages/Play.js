@@ -1,4 +1,3 @@
-import { SelectLobby } from '../components/SelectLobby.js'
 import { LobbyPanel } from '../components/LobbyPanel.js';
 import { socket } from '../utils/socket.js'
 import { useNavigate } from 'react-router-dom';

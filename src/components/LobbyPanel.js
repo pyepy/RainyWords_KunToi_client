@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket'
 import playerIcon from '../images/playerIcon.png';
+import { useNavigate } from 'react-router-dom';
 
 export function LobbyPanel() {
-    
+
+    const navigate = useNavigate();
 
     const [gameMode, setGameMode] = useState('Game');
     const [roomNo, setRoomNo] = useState('00000');
@@ -40,6 +42,24 @@ export function LobbyPanel() {
     
       });
 
+      const startGame = () => {     
+        if(playerInLobby === 2){
+            socket.emit("request_start_game"); 
+        } else alert('waiting for player');
+      }
+
+      useEffect(() => {
+        const handleGameStart = (data) => {
+          navigate('../game');
+        };
+    
+        socket.on("goToGame", handleGameStart);
+      
+        return () => {
+          socket.off("goToGame", handleGameStart);
+        };
+      }, []);
+
 
     return (
         <div className="lobbyContainer">
@@ -60,7 +80,7 @@ export function LobbyPanel() {
                     {playerTwo}
                 </div>
             </div>
-            <button className='startGame'>Start Game</button>
+            <button className='startGame' onClick={startGame}>Start Game</button>
             
 
         </div>

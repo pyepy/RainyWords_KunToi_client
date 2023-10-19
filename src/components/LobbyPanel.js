@@ -3,7 +3,7 @@ import { socket } from '../socket'
 import playerIcon from '../images/playerIcon.png';
 
 export function LobbyPanel() {
-    socket.emit('request_room_info');
+    
 
     const [gameMode, setGameMode] = useState('Game');
     const [roomNo, setRoomNo] = useState('00000');
@@ -11,9 +11,31 @@ export function LobbyPanel() {
     const [playerTwo, setPlayerTwo] = useState('Waiting');
     const [playerInLobby, setPlayerInLobby] = useState(0);
 
+    
+
+    //get room info
+    socket.emit('request_room_info');
+
     useEffect(() => {
-        socket.on("giveRoomInfo", (data) => {  //rcv name and namelist from server
+        socket.on("giveRoomInfo", (data) => {  
             console.log(data)
+            setGameMode(data.myRoom.gameMode);
+            setRoomNo(data.myRoom.roomNo);
+            setPlayerInLobby(data.myRoom.roomPlayerCount);
+            setPlayerOne(data.myRoom.player1);
+            if (data.myRoom.player2 === undefined) {
+                setPlayerTwo('Waiting...');
+            }else setPlayerTwo(data.myRoom.player2);
+        })
+
+        socket.on('updateRoomInfo', (data) => { 
+            setGameMode(data.myRoom.gameMode);
+            setRoomNo(data.myRoom.roomNo);
+            setPlayerInLobby(data.myRoom.roomPlayerCount);
+            setPlayerOne(data.myRoom.player1);
+            if (data.myRoom.player2 === undefined) {
+                setPlayerTwo('Waiting...');
+            }else setPlayerTwo(data.myRoom.player2);
         })
     
       });

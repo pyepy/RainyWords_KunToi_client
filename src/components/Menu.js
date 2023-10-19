@@ -9,20 +9,18 @@ export function Menu(props) {
   const Join_room = 'Join room';
 
   const navigate = useNavigate();
+  const [roomToJoin, setRoomToJoin] = useState('')
 
+  // create room
   const requestCreateRoom = (gameMode) => {   
     socket.emit("request_create_room", {gameMode});          //assign server-side
   }
 
   useEffect(() => {
     const handleRoomCreated = (data) => {
-      console.log(data.myRoom);
-      // Use the history object for navigation, assuming you're using React Router
-      //window.location.href = '/play';
       navigate('/play');
     };
-  
-    // Add the event listener when the component mounts
+
     socket.on("roomCreated", handleRoomCreated);
   
     // Remove the event listener when the component unmounts to avoid duplicates
@@ -31,9 +29,27 @@ export function Menu(props) {
     };
   }, []);
 
-  // window.addEventListener("beforeunload", () => {
-  //   socket.disconnect();
-  // });
+  //join room
+  const joinRoom = () => {    
+    socket.emit("request_join_room",{roomToJoin});  
+  }
+
+  useEffect(() => {
+    const handleRoomNotFound = () => {
+      console.log('what');
+      alert("Room not found");
+    };
+    //Check room correct
+    socket.on("canNotFindRoom", handleRoomNotFound)
+
+    socket.on("roomFound", () => {
+      navigate('./play');
+    })
+
+    return () => {
+      socket.off("canNotFindRoom", handleRoomNotFound);
+    };
+  }, []);
 
   return (
     <div className="Menu">
@@ -43,11 +59,9 @@ export function Menu(props) {
             {item[0] === Create_room ? (
               <>
                 {item[0]}
-                {/* <NavItem tag={Link} to={item[1]}> */}
                   <div className="room" onClick={() => requestCreateRoom("Classic")}>
                     Classic
                   </div>
-                {/* </NavItem> */}
                 <div className="room" onClick={() => requestCreateRoom("Arcade")}>
                   Arcade
                 </div>
@@ -60,10 +74,16 @@ export function Menu(props) {
                 <div className="roomNumber">
                   Room No.
 
-                  <input className="roomNumberInput" placeholder='00000' maxLength={5}/>
-                  {/* <NavItem tag={Link} to={item[1]}> */}
-                    <button className="submitRoom">Join</button>
-                  {/* </NavItem> */}
+                  <input 
+                    className="roomNumberInput" 
+                    placeholder='00000' 
+                    maxLength={5}
+                    onChange={(event) => {
+                      setRoomToJoin(event.target.value);
+                    }}
+                  />
+
+                  <button className="submitRoom" onClick={joinRoom}>Join</button>
                 </div>
               </>
             ) : null}

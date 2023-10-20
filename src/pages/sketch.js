@@ -15,7 +15,6 @@ function sketch(p, wordList) {
   let score = 0;
   let currentWordIndex = 0; // Track the current word index
   let wordDisappeared = false; // Initialize as false, indicating no word has disappeared yet
-  let hasAppendedNewWord = false; // Flag to track if the newWord has been appended
   
   // Timer variables
   let lastTime = 0;
@@ -33,7 +32,6 @@ function sketch(p, wordList) {
   
       if (wordDisappeared) {
         words.push(data.word);
-        hasAppendedNewWord = true;
       }
   
       console.log(words);
@@ -43,7 +41,7 @@ function sketch(p, wordList) {
       if (wordDisappeared) {
         request_word();
       }
-    }, fallingSpeed/4);
+    });
   };
 
   function request_word() {
@@ -94,12 +92,16 @@ function sketch(p, wordList) {
     p.text("Score: " + score, 20, 100);
   }
 
-  p.keyTyped = function () {
-    if (p.key === 'Enter') {
+  p.keyPressed = function () {
+    if (p.keyCode === p.ENTER) {
       typedWord = '';
-    } else if (p.key === 'Backspace') {
+    } else if (p.keyCode === p.BACKSPACE) {
       typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
-    } else {
+    }
+  };
+  
+  p.keyTyped = function () {
+    if (p.key !== 'Enter' && p.key !== 'Backspace') {
       typedWord = typedWord + p.key;
     }
   };

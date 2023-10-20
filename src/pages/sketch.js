@@ -111,7 +111,6 @@ function sketch(p, wordList) {
       this.wordIndex = wordIndex;
       this.length = fontSize * 1.5;
       this.word = words[wordIndex];
-      words.shift();
     }
 
     update(deltaTime) {

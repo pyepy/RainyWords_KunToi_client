@@ -7,15 +7,12 @@ import { RandomWord } from '../components/RandomWord';
 import { InitialRandomWord } from '../components/initialRandomWord';
 
 const Game = () => {
-  const wordList = InitialRandomWord();
-  const word = RandomWord();
+  // const wordList = InitialRandomWord();
 
   return (
     <div className="App">
-      {/* <p><RandomWord /></p>
-      <p><InitialRandomWord/></p> */}
-      <header className="canvasContainer">
-        <ReactP5Wrapper sketch={p => sketch(p, wordList)} />
+      <header className="App-header">
+        <ReactP5Wrapper sketch={p => sketch(p)} />
       </header>
       <Keyboard />
     </div>

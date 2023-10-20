@@ -1,8 +1,8 @@
 import { socket } from "../utils/socket";
 
-function sketch(p, wordList) {
+function sketch(p) {
   let rain = [];
-  let words = wordList;
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
   let bgcolor = p.color(100, 100, 100);
   let fontSize = 40; // Define the font size as a public variable
 
@@ -21,6 +21,8 @@ function sketch(p, wordList) {
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
   let fallingSpeed = 120; // Adjust this value to control the falling speed
+  let gameStartTime = 0; // Variable to track the game start time
+  let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
@@ -42,6 +44,8 @@ function sketch(p, wordList) {
         request_word();
       }
     },fallingSpeed/4);
+
+    gameStartTime = p.millis(); // Record the game start time
   };
 
   function request_word() {
@@ -66,11 +70,14 @@ function sketch(p, wordList) {
     for (let i = rain.length - 1; i >= 0; i--) {
       rain[i].update(deltaTime);
       rain[i].display();
-      if (typedWord === rain[i].word) {   //get points
+
+      if (typedWord === rain[i].word) {
         wordDisappeared = true;
         console.log("---SUCCESS---");
         typedWord = '';
-        score += 1;
+        if (rain[i].word !== " ") {
+          score += 1;
+        }
         rain.splice(i, 1); // Remove the word when it's typed
         console.log(wordDisappeared);
       } else {
@@ -101,8 +108,11 @@ function sketch(p, wordList) {
   };
   
   p.keyTyped = function () {
-    if (p.key !== 'Enter' && p.key !== 'Backspace') {
-      typedWord = typedWord + p.key;
+    const currentTime = p.millis();
+    if (currentTime - gameStartTime >= disableTypingDuration) {
+      if (p.key !== 'Enter' && p.key !== 'Backspace') {
+        typedWord = typedWord + p.key;
+      }
     }
   };
 
@@ -121,10 +131,27 @@ function sketch(p, wordList) {
 
     display() {
       p.noStroke();
-      p.fill(255, 200);
       p.textSize(fontSize);
-      p.text(words[this.wordIndex], this.x, this.y);
-    }
+      let currentX = this.x; // Initialize the currentX variable
+    
+      if (this.word.includes(typedWord)) {
+        const matchStart = this.word.indexOf(typedWord); // Find the starting index of the match
+        const matchEnd = matchStart + typedWord.length; // Calculate the ending index of the match
+        const beforeMatch = this.word.substring(0, matchStart);
+        const matchedPart = this.word.substring(matchStart, matchEnd);
+        const afterMatch = this.word.substring(matchEnd);
+    
+        p.text(beforeMatch, currentX, this.y);
+        // currentX += beforeMatch.length * fontSize * 0.6; // Update currentX
+        p.fill('#533ECE'); // Fill color for the matching part
+        p.text(matchedPart, currentX, this.y);
+        p.fill(255, 200); // Reset fill color to default
+        currentX += matchedPart.length * fontSize * 0.6; // Update currentX
+        p.text(afterMatch, currentX, this.y);
+      } else {
+        p.text(this.word, currentX, this.y);
+      }
+    }    
   }
 }
 

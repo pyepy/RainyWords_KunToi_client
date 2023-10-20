@@ -12,8 +12,8 @@ const Game = () => {
 
   return (
     <div className="App">
-      <p><RandomWord /></p>
-      <p><InitialRandomWord/></p>
+      {/* <p><RandomWord /></p>
+      <p><InitialRandomWord/></p> */}
       <header className="App-header">
         <ReactP5Wrapper sketch={p => sketch(p, wordList)} />
       </header>

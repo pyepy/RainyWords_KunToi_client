@@ -18,7 +18,6 @@ const Home = () => {
 
   const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/game'], ['Credits','/credit']];
 
-  socket.emit("req_login")
   console.log("login?")
   console.log(login)
 

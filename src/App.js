@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container, Row } from "reactstrap";
+import { socket, gameSocket, playSocket } from './utils/socket'
 
 import Home from './pages/Home.js';
 import FindRoom from './pages/FindRoom.js';
@@ -24,8 +25,11 @@ function App() {      //homepage is moved to /page/Home.js
       element = {<r.element/>}
     />
     ) : null;});
-      
+  
     if (userLogin == 0 && window.location.href != "http://localhost:3000/") {
+      socket.disconnect();
+      //gameSocket.disconnect();
+      //playSocket.disconnect();
       window.location.replace("http://localhost:3000");
     };
 

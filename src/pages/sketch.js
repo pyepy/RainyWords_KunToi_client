@@ -66,7 +66,7 @@ function sketch(p, wordList) {
     for (let i = rain.length - 1; i >= 0; i--) {
       rain[i].update(deltaTime);
       rain[i].display();
-      if (typedWord === rain[i].word) {
+      if (typedWord === rain[i].word) {   //get points
         wordDisappeared = true;
         console.log("---SUCCESS---");
         typedWord = '';

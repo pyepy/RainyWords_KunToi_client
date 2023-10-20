@@ -14,7 +14,7 @@ const Game = () => {
     <div className="App">
       {/* <p><RandomWord /></p>
       <p><InitialRandomWord/></p> */}
-      <header className="App-header">
+      <header className="canvasContainer">
         <ReactP5Wrapper sketch={p => sketch(p, wordList)} />
       </header>
       <Keyboard />

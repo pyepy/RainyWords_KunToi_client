@@ -43,7 +43,7 @@ function sketch(p, wordList) {
       if (wordDisappeared) {
         request_word();
       }
-    });
+    }, fallingSpeed/4);
   };
 
   function request_word() {
@@ -74,6 +74,7 @@ function sketch(p, wordList) {
         typedWord = '';
         score += 1;
         rain.splice(i, 1); // Remove the word when it's typed
+        console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
@@ -81,6 +82,7 @@ function sketch(p, wordList) {
       if (rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         wordDisappeared = true;
+        console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
@@ -109,6 +111,7 @@ function sketch(p, wordList) {
       this.wordIndex = wordIndex;
       this.length = fontSize * 1.5;
       this.word = words[wordIndex];
+      words.shift();
     }
 
     update(deltaTime) {

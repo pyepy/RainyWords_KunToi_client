@@ -41,7 +41,7 @@ function sketch(p, wordList) {
       if (wordDisappeared) {
         request_word();
       }
-    });
+    }, fallingSpeed/4);
   };
 
   function request_word() {

@@ -335,6 +335,50 @@ a {
 
 .canvas {}
 
+.otherContainer {
+  margin-top: -100vh;
+  display: flex;
+  /* justify-content: center; */
+}
+
+.topOverlay {
+  position: fixed;
+  top: 0;
+  right: 50%;
+  transform: translate(50%, 0);
+  opacity: 0.7;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.game-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.Timer {
+  /* align-items: center;
+  justify-self: center; */
+
+  background-color: #072541;
+  Padding: 1rem 5rem 1rem 5rem;
+  font-size: 2rem;
+  border-radius: 0 0 2rem 2rem;
+}
+
+.PlayerScores {
+  font-size: 2rem;
+  white-space: nowrap;
+  margin: 3vh 0 0 3vw;
+}
+
+.PlayerScore {
+  margin-top: 2vh;
+}
+
+
+
 
 
 
@@ -366,26 +410,17 @@ a {
 
 /*------------------------------------------------------- top overlay --------------------------------------------------------- */
 
-.topOverlay {
-  position: fixed;
-  top: 0;
-  right: 50%;
-  transform: translate(50%, 0);
-  opacity: 0.7;
-  display: flex;
-  flex-direction: row;
 
-}
 
 .Timer {
-  background-color: aquamarine;
+  /* background-color: aquamarine;
   Padding: 1rem 5rem 1rem 5rem;
-  font-size: 2rem;
+  font-size: 2rem; */
 }
 
 .PlayerScore {
-  background-color: bisque;
+  /* background-color: bisque;
   font-size: 2rem;
   Padding: 1rem 2rem 1rem 2rem;
-  white-space: nowrap
+  white-space: nowrap */
 }

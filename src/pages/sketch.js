@@ -29,28 +29,28 @@ function sketch(p) {
     p.createCanvas(canvasWidth, canvasHeight);
     p.frameRate(frameRate);
   
-    socket.on("send_word", (data) => {
-      // console.log(data.word);
+    // socket.on("send_word", (data) => {
+    //   // console.log(data.word);
   
-      if (wordDisappeared) {
-        words.push(data.word);
-      }
+    //   if (wordDisappeared) {
+    //     words.push(data.word);
+    //   }
   
-      console.log(words);
-    });
+    //   console.log(words);
+    // });
   
-    setInterval(() => {
-      if (wordDisappeared) {
-        request_word();
-      }
-    },fallingSpeed/4);
+    // setInterval(() => {
+    //   if (wordDisappeared) {
+    //     request_word();
+    //   }
+    // },fallingSpeed/4);
 
     gameStartTime = p.millis(); // Record the game start time
   };
 
-  function request_word() {
-    socket.emit("request_word",4);
-  }
+  // function request_word() {
+  //   socket.emit("request_word",4);
+  // }
 
   p.draw = function () {
     p.background(bgcolor);

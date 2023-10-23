@@ -6,15 +6,31 @@ import Keyboard from '../components/Keyboard';
 import { RandomWord } from '../components/RandomWord';
 import { InitialRandomWord } from '../components/initialRandomWord';
 
+import { Timer } from '../components/Timer';
+import { PlayerScore } from '../components/PlayerScore';
+
 const Game = () => {
   // const wordList = InitialRandomWord();
 
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="canvasContainer">
         <ReactP5Wrapper sketch={p => sketch(p)} />
-      </header>
-      <Keyboard />
+      </div>
+      <div className='otherContainer'>
+        <div className='topOverlay'>
+          <Timer/>
+        </div>
+        <div className='game-left'>
+          <PlayerScore/>
+        </div>
+        
+        <div className='game-right'>
+        </div>
+        
+        
+      </div>
+      {/* <Keyboard /> */}
     </div>
   );
 };

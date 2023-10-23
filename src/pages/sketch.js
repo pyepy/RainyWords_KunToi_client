@@ -3,13 +3,11 @@ import { socket } from "../utils/socket";
 function sketch(p) {
   let rain = [];
   let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
-  let bgcolor = p.color(100, 100, 100);
+  let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 40; // Define the font size as a public variable
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
-  let canvasWidth = p.windowWidth * 3 / 4;
-  let canvasHeight = p.windowHeight;
   let typedWord = ''; // Accumulated typed word
   let textshow = ''; // Text appearing
   let score = 0;
@@ -26,7 +24,7 @@ function sketch(p) {
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
-    p.createCanvas(canvasWidth, canvasHeight);
+    p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
   
     socket.on("send_word", (data) => {
@@ -53,6 +51,7 @@ function sketch(p) {
   }
 
   p.draw = function () {
+    p.clear();
     p.background(bgcolor);
 
     // Calculate deltaTime
@@ -94,9 +93,9 @@ function sketch(p) {
     }
 
     p.fill(255, 255, 255);
-    p.textAlign(p.CENTER);
-    p.text(typedWord, canvasWidth / 2, (canvasHeight / 2) + 200);
-    p.text("Score: " + score, 20, 100);
+    p.textAlign(p.CENTER, p.CENTER);
+    p.text(typedWord, p.width / 2, p.height / 2 + 200);
+    p.text("Score: " + score, 200, 100);
   }
 
   p.keyPressed = function () {
@@ -118,7 +117,7 @@ function sketch(p) {
 
   class Rain {
     constructor(wordIndex) {
-      this.x = p.random(100, canvasWidth - 100);
+      this.x = p.random(300, p.windowWidth - 300);
       this.y = 0;
       this.wordIndex = wordIndex;
       this.length = fontSize * 1.5;

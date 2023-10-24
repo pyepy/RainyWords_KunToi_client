@@ -77,7 +77,8 @@ function sketch(p) {
         console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " ") {
-          score += 1;
+          //score += 1;
+          socket.emit("req_update_score",{"word": rain[i].word})
         }
         rain.splice(i, 1); // Remove the word when it's typed
         console.log(wordDisappeared);

@@ -53,23 +53,23 @@ function sketch(p) {
   p.draw = function () {
     p.clear();
     p.background(bgcolor);
-
+  
     // Calculate deltaTime
     let currentTime = p.millis();
     deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
     lastTime = currentTime;
-
+  
     // Check if it's time to create a new word with a 500ms delay
     if (currentTime - lastWordCreationTime >= 1000 && currentWordIndex < words.length) {
       rain.push(new Rain(currentWordIndex));
       currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
     }
-
+  
     for (let i = rain.length - 1; i >= 0; i--) {
       rain[i].update(deltaTime);
       rain[i].display();
-
+  
       if (typedWord === rain[i].word) {
         wordDisappeared = true;
         console.log("---SUCCESS---");
@@ -82,8 +82,8 @@ function sketch(p) {
       } else {
         wordDisappeared = false;
       }
-
-      if (rain[i].y > p.height - p.windowHeight / 4) {
+  
+      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         wordDisappeared = true;
         console.log(wordDisappeared);
@@ -91,12 +91,13 @@ function sketch(p) {
         wordDisappeared = false;
       }
     }
-
+  
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height / 2 + 200);
     p.text("Score: " + score, 200, 100);
   }
+  
 
   p.keyPressed = function () {
     if (p.keyCode === p.ENTER) {

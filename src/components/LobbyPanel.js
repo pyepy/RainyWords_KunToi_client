@@ -48,13 +48,9 @@ export function LobbyPanel() {
       },[]);
 
       const startGame = () => {     
-        if(playerInLobby === 2){
+        if(playerInLobby >= 2){
             socket.emit("request_start_game"); 
         } else alert('waiting for player');
-      }
-
-      const setplauer = () => {
-        setPlayers(['hi imhere']);
       }
 
       useEffect(() => {
@@ -82,10 +78,13 @@ export function LobbyPanel() {
             </div>
             <div className='lobbyPlayers'>
                 {players.map((player,index) => (
-                    <span key={index} className='lobbyPlayer'>{player}&nbsp;</span>
+                    <div className='lobbyPlayer'>
+                        <img className="playerIcon" src={playerIcon}/>
+                        <span key={index} >{player}&nbsp;</span>
+                    </div>
                 ))}
             </div>
-            <button className='startGame' onClick={setplauer}>Start Game</button>
+            <button className='startGame' onClick={startGame}>Start Game</button>
             
 
         </div>

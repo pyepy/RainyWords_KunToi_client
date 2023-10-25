@@ -63,8 +63,8 @@ function sketch(p) {
 
     // Check if it's time to create a new word with a 500ms delay
     if (currentTime - lastWordCreationTime >= 1000 ) {
-      rain.push(new Rain(currentWordIndex));
-      currentWordIndex++;
+      rain.push(new Rain());
+      //currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
     }
 
@@ -121,12 +121,12 @@ function sketch(p) {
   };
 
   class Rain {
-    constructor(wordIndex) {
+    constructor() {
       this.x = p.random(300, p.windowWidth - 300);
       this.y = 0;
-      this.wordIndex = wordIndex;
       this.length = fontSize * 1.5;
-      this.word = words[wordIndex];
+      this.word = words[0];
+      words.shift();
     }
 
     update(deltaTime) {
@@ -138,23 +138,24 @@ function sketch(p) {
       p.textSize(fontSize);
       let currentX = this.x; // Initialize the currentX variable
     
-      if (this.word.includes(typedWord)) {
-        const matchStart = this.word.indexOf(typedWord); // Find the starting index of the match
-        const matchEnd = matchStart + typedWord.length; // Calculate the ending index of the match
-        const beforeMatch = this.word.substring(0, matchStart);
-        const matchedPart = this.word.substring(matchStart, matchEnd);
-        const afterMatch = this.word.substring(matchEnd);
+      p.text(this.word, currentX, this.y);
+      // if (this.word.includes(typedWord)) {
+      //   const matchStart = this.word.indexOf(typedWord); // Find the starting index of the match
+      //   const matchEnd = matchStart + typedWord.length; // Calculate the ending index of the match
+      //   const beforeMatch = this.word.substring(0, matchStart);
+      //   const matchedPart = this.word.substring(matchStart, matchEnd);
+      //   const afterMatch = this.word.substring(matchEnd);
     
-        p.text(beforeMatch, currentX, this.y);
-        // currentX += beforeMatch.length * fontSize * 0.6; // Update currentX
-        p.fill('#533ECE'); // Fill color for the matching part
-        p.text(matchedPart, currentX, this.y);
-        p.fill(255, 200); // Reset fill color to default
-        currentX += matchedPart.length * fontSize * 0.6; // Update currentX
-        p.text(afterMatch, currentX, this.y);
-      } else {
-        p.text(this.word, currentX, this.y);
-      }
+      //   p.text(beforeMatch, currentX, this.y);
+      //   // currentX += beforeMatch.length * fontSize * 0.6; // Update currentX
+      //   p.fill('#533ECE'); // Fill color for the matching part
+      //   p.text(matchedPart, currentX, this.y);
+      //   p.fill(255, 200); // Reset fill color to default
+      //   currentX += matchedPart.length * fontSize * 0.6; // Update currentX
+      //   p.text(afterMatch, currentX, this.y);
+      // } else {
+      //   p.text(this.word, currentX, this.y);
+      // }
     }    
   }
 }

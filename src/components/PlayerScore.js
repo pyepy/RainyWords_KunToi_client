@@ -23,10 +23,11 @@ export function PlayerScore(props) {
   useEffect(() => {
     socket.on("send_score", (data) => {
       let n = seperateScore(data.namelist)
+      console.log(n,n.sort().reverse())
       setPlayers(n.sort().reverse());
     });
 
-  },[players])
+  },[])
 
     return (
         <div className="PlayerScores">

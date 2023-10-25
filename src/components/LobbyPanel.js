@@ -11,27 +11,29 @@ export function LobbyPanel() {
 
     const [gameMode, setGameMode] = useState('Game');
     const [roomNo, setRoomNo] = useState('00000');
-    const [playerOne, setPlayerOne] = useState('Waiting');
-    const [playerTwo, setPlayerTwo] = useState('Waiting');
+    // const [playerOne, setPlayerOne] = useState('Waiting');
+    // const [playerTwo, setPlayerTwo] = useState('Waiting');
     const [playerInLobby, setPlayerInLobby] = useState(0);
+
+    const [players, setPlayers] = useState(['no one here yet']);
+
+    
 
     if (userLogin == 1) {
         //get room info
-        socket.emit('request_room_info');   
+        socket.emit('request_room_info'); 
     }
     
 
     useEffect(() => {
-        socket.on("giveRoomInfo", (data) => {  
+        socket.once("giveRoomInfo", (data) => {  
             if (data != "") {
                 console.log(data)
                 setGameMode(data.myRoom.gameMode);
                 setRoomNo(data.myRoom.roomNo);
                 setPlayerInLobby(data.myRoom.roomPlayerCount);
-                setPlayerOne(data.myRoom.player1);
-                if (data.myRoom.player2 === undefined) {
-                    setPlayerTwo('Waiting...');
-                }else setPlayerTwo(data.myRoom.player2);
+                setPlayers(data.myRoom.players);
+                
             }
             
         })
@@ -40,18 +42,19 @@ export function LobbyPanel() {
             setGameMode(data.myRoom.gameMode);
             setRoomNo(data.myRoom.roomNo);
             setPlayerInLobby(data.myRoom.roomPlayerCount);
-            setPlayerOne(data.myRoom.player1);
-            if (data.myRoom.player2 === undefined) {
-                setPlayerTwo('Waiting...');
-            }else setPlayerTwo(data.myRoom.player2);
+            setPlayers(data.myRoom.players);
         })
     
-      });
+      },[]);
 
       const startGame = () => {     
         if(playerInLobby === 2){
             socket.emit("request_start_game"); 
         } else alert('waiting for player');
+      }
+
+      const setplauer = () => {
+        setPlayers(['hi imhere']);
       }
 
       useEffect(() => {
@@ -74,19 +77,15 @@ export function LobbyPanel() {
             </div>
             <div className='lobbyCount'>
                 <span>Room No. {roomNo}</span>
-                <span className='waiting'>player : {playerInLobby}/2 </span>
+                <span className='waiting'>players in lobby: {playerInLobby} </span>
+                
             </div>
-            <div className='players'>
-                <div className='player'>
-                    <img className="playerIcon" src={playerIcon}/>
-                     {playerOne}
-                </div>
-                <div className='player'>
-                    <img className="playerIcon" src={playerIcon}/>
-                    {playerTwo}
-                </div>
+            <div className='lobbyPlayers'>
+                {players.map((player,index) => (
+                    <span key={index} className='lobbyPlayer'>{player}&nbsp;</span>
+                ))}
             </div>
-            <button className='startGame' onClick={startGame}>Start Game</button>
+            <button className='startGame' onClick={setplauer}>Start Game</button>
             
 
         </div>

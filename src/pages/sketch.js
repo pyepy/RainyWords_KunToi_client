@@ -2,17 +2,16 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", " ", " "," "," "];
+  // let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 40; // Define the font size as a public variable
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
-  // let canvasWidth = p.windowWidth * 3 / 4;
-  // let canvasHeight = p.windowHeight;
   let typedWord = ''; // Accumulated typed word
   let textshow = ''; // Text appearing
-  //let score = 0;
+  let score = 0;
   let currentWordIndex = 0; // Track the current word index
   let wordDisappeared = false; // Initialize as false, indicating no word has disappeared yet
   
@@ -39,11 +38,11 @@ function sketch(p) {
       console.log(words);
     });
   
-    // setInterval(() => {
-    //   if (wordDisappeared) {
-    //     request_word();
-    //   }
-    // },fallingSpeed/4);
+    setInterval(() => {
+      if (wordDisappeared) {
+        request_word();
+      }
+    },fallingSpeed/4);
 
     gameStartTime = p.millis(); // Record the game start time
   };
@@ -55,53 +54,51 @@ function sketch(p) {
   p.draw = function () {
     p.clear();
     p.background(bgcolor);
-
+  
     // Calculate deltaTime
     let currentTime = p.millis();
     deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
     lastTime = currentTime;
-
+  
     // Check if it's time to create a new word with a 500ms delay
-    if (currentTime - lastWordCreationTime >= 1000 ) {
-      rain.push(new Rain());
-      //currentWordIndex++;
+    if (currentTime - lastWordCreationTime >= 1000 && currentWordIndex < words.length) {
+      rain.push(new Rain(currentWordIndex));
+      currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
     }
-
+  
     for (let i = rain.length - 1; i >= 0; i--) {
       rain[i].update(deltaTime);
       rain[i].display();
-
+  
       if (typedWord === rain[i].word) {
         wordDisappeared = true;
-        request_word();
         console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " ") {
-          //score += 1;
-          socket.emit("req_update_score",{"word": rain[i].word})
+          score += 1;
         }
         rain.splice(i, 1); // Remove the word when it's typed
         console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
-
-      if (rain[i].y > p.height - p.windowHeight / 4) {
+  
+      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         wordDisappeared = true;
-        request_word();
         console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
     }
-
+  
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height / 2 + 200);
-    //p.text("Score: " + score, 200, 100);
+    p.text("Score: " + score, 200, 100);
   }
+  
 
   p.keyPressed = function () {
     if (p.keyCode === p.ENTER) {
@@ -121,42 +118,67 @@ function sketch(p) {
   };
 
   class Rain {
-    constructor() {
+    constructor(wordIndex) {
       this.x = p.random(300, p.windowWidth - 300);
       this.y = 0;
-      this.length = fontSize * 1.5;
-      this.word = words[0];
-      words.shift();
+      this.wordIndex = wordIndex;
+      this.word = words[wordIndex];
+      this.letterSize = fontSize;
     }
-
+  
     update(deltaTime) {
       this.y = this.y + fallingSpeed * deltaTime;
     }
-
+  
     display() {
       p.noStroke();
-      p.textSize(fontSize);
-      let currentX = this.x; // Initialize the currentX variable
+      let currentX = this.x;
+      let typedIndex = 0; // Initialize an index for tracking the typed letters
     
-      p.text(this.word, currentX, this.y);
-      // if (this.word.includes(typedWord)) {
-      //   const matchStart = this.word.indexOf(typedWord); // Find the starting index of the match
-      //   const matchEnd = matchStart + typedWord.length; // Calculate the ending index of the match
-      //   const beforeMatch = this.word.substring(0, matchStart);
-      //   const matchedPart = this.word.substring(matchStart, matchEnd);
-      //   const afterMatch = this.word.substring(matchEnd);
-    
-      //   p.text(beforeMatch, currentX, this.y);
-      //   // currentX += beforeMatch.length * fontSize * 0.6; // Update currentX
-      //   p.fill('#533ECE'); // Fill color for the matching part
-      //   p.text(matchedPart, currentX, this.y);
-      //   p.fill(255, 200); // Reset fill color to default
-      //   currentX += matchedPart.length * fontSize * 0.6; // Update currentX
-      //   p.text(afterMatch, currentX, this.y);
-      // } else {
-      //   p.text(this.word, currentX, this.y);
-      // }
-    }    
+      if (this.word.includes(typedWord)) {
+        for (let i = 0; i < this.word.length; i++) {
+          let letter = this.word.charAt(i);
+      
+          // Check if there is a letter in the typedWord to compare
+          if (typedIndex < typedWord.length) {
+            let typedLetter = typedWord.charAt(typedIndex);
+      
+            // Set the fill color for the letter based on whether it matches the typed letter
+            if (letter === typedLetter) {
+              p.fill('#533ECE'); // Highlight the matching letter
+              typedIndex++; // Move to the next letter in typedWord
+            } else {
+              p.fill(255); // Set the fill color for non-matching letters
+            }
+          } else {
+            p.fill(255); // No more letters in typedWord, so set the fill color to white
+          }
+      
+          // Draw the square (background) for the letter
+          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+      
+          p.textSize(this.letterSize);
+          p.fill(0);
+          p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
+      
+          currentX += this.letterSize;
+        }
+      } else {
+        for (let i = 0; i < this.word.length; i++) {
+          let letter = this.word.charAt(i);
+          
+          // Draw the square (background) for the letter
+          p.fill(255);
+          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+      
+          p.textSize(this.letterSize);
+          p.fill(0);
+          p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
+      
+          currentX += this.letterSize;
+        }
+      }
+    }         
   }
 }
 

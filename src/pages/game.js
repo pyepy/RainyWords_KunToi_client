@@ -6,7 +6,7 @@ import Keyboard from '../components/Keyboard';
 import { RandomWord } from '../components/RandomWord';
 import { InitialRandomWord } from '../components/initialRandomWord';
 
-import { Timer } from '../components/Timer';
+import { GameTimer } from '../components/GameTimer';
 import { PlayerScore } from '../components/PlayerScore';
 
 const Game = () => {
@@ -19,7 +19,7 @@ const Game = () => {
       </div>
       <div className='otherContainer'>
         <div className='topOverlay'>
-          <Timer/>
+          <GameTimer/>
         </div>
         <div className='game-left'>
           <PlayerScore/>

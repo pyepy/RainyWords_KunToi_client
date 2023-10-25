@@ -7,20 +7,16 @@ export function RandomWord() {
   const [mode, setMode] = useState('');
 
   const reqWord = () => {
-    socket.emit('request_len', mode);
+    socket.emit('request_word', mode);
   };
 
   useEffect(() => {
     const fetchWord = () => {
       reqWord();
-
-      socket.once('send_len', (receivedLen) => {
-        setLen(receivedLen);
-        socket.emit('request_word', receivedLen);
-      });
-
+      
       socket.once('send_word', (data) => {
         setWord(data.word);
+        setLen(data.len)
       });
     };
 

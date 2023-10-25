@@ -13,7 +13,7 @@ export function PlayerScore(props) {
       console.log(user["name"],user["score"]);
       n.push([user.score,user.name])
     }
-    return n;
+    return n.sort((a, b) => a[0] - b[0]).reverse();
   }
 
   const sendScoreReq = () => {    //temp function
@@ -23,8 +23,7 @@ export function PlayerScore(props) {
   useEffect(() => {
     socket.on("send_score", (data) => {
       let n = seperateScore(data.namelist)
-      console.log(n,n.sort().reverse())
-      setPlayers(n.sort().reverse());
+      setPlayers(n);
     });
 
   },[])

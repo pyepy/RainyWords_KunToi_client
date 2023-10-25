@@ -2,7 +2,8 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
+  // let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
+  let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 40; // Define the font size as a public variable
 
@@ -18,9 +19,9 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 120; // Adjust this value to control the falling speed
+  let fallingSpeed = 50 //120; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
-  let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
+  let disableTypingDuration = 1//14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
@@ -121,37 +122,63 @@ function sketch(p) {
       this.x = p.random(300, p.windowWidth - 300);
       this.y = 0;
       this.wordIndex = wordIndex;
-      this.length = fontSize * 1.5;
       this.word = words[wordIndex];
+      this.letterSize = fontSize;
     }
-
+  
     update(deltaTime) {
       this.y = this.y + fallingSpeed * deltaTime;
     }
-
+  
     display() {
       p.noStroke();
-      p.textSize(fontSize);
-      let currentX = this.x; // Initialize the currentX variable
+      let currentX = this.x;
+      let typedIndex = 0; // Initialize an index for tracking the typed letters
     
       if (this.word.includes(typedWord)) {
-        const matchStart = this.word.indexOf(typedWord); // Find the starting index of the match
-        const matchEnd = matchStart + typedWord.length; // Calculate the ending index of the match
-        const beforeMatch = this.word.substring(0, matchStart);
-        const matchedPart = this.word.substring(matchStart, matchEnd);
-        const afterMatch = this.word.substring(matchEnd);
-    
-        p.text(beforeMatch, currentX, this.y);
-        // currentX += beforeMatch.length * fontSize * 0.6; // Update currentX
-        p.fill('#533ECE'); // Fill color for the matching part
-        p.text(matchedPart, currentX, this.y);
-        p.fill(255, 200); // Reset fill color to default
-        currentX += matchedPart.length * fontSize * 0.6; // Update currentX
-        p.text(afterMatch, currentX, this.y);
+        for (let i = 0; i < this.word.length; i++) {
+          let letter = this.word.charAt(i);
+      
+          // Check if there is a letter in the typedWord to compare
+          if (typedIndex < typedWord.length) {
+            let typedLetter = typedWord.charAt(typedIndex);
+      
+            // Set the fill color for the letter based on whether it matches the typed letter
+            if (letter === typedLetter) {
+              p.fill('#533ECE'); // Highlight the matching letter
+              typedIndex++; // Move to the next letter in typedWord
+            } else {
+              p.fill(255); // Set the fill color for non-matching letters
+            }
+          } else {
+            p.fill(255); // No more letters in typedWord, so set the fill color to white
+          }
+      
+          // Draw the square (background) for the letter
+          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+      
+          p.textSize(this.letterSize);
+          p.fill(0);
+          p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
+      
+          currentX += this.letterSize;
+        }
       } else {
-        p.text(this.word, currentX, this.y);
+        for (let i = 0; i < this.word.length; i++) {
+          let letter = this.word.charAt(i);
+          
+          // Draw the square (background) for the letter
+          p.fill(255);
+          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+      
+          p.textSize(this.letterSize);
+          p.fill(0);
+          p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
+      
+          currentX += this.letterSize;
+        }
       }
-    }    
+    }         
   }
 }
 

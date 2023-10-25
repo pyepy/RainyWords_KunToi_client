@@ -12,7 +12,7 @@ function sketch(p) {
   // let canvasHeight = p.windowHeight;
   let typedWord = ''; // Accumulated typed word
   let textshow = ''; // Text appearing
-  let score = 0;
+  //let score = 0;
   let currentWordIndex = 0; // Track the current word index
   let wordDisappeared = false; // Initialize as false, indicating no word has disappeared yet
   
@@ -98,7 +98,7 @@ function sketch(p) {
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height / 2 + 200);
-    p.text("Score: " + score, 200, 100);
+    //p.text("Score: " + score, 200, 100);
   }
 
   p.keyPressed = function () {

@@ -7,11 +7,11 @@ export function PlayerScore(props) {
   const seperateScore = function (l) {
     let n = [];
     console.log(l)
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < l.length; i++) {
       let user = l[i];
       console.log(user);
       console.log(user["name"],user["score"]);
-      n.push([user["name"],user["score"]])
+      n.push([user.score,user.name])
     }
     return n;
   }
@@ -22,24 +22,15 @@ export function PlayerScore(props) {
 
   useEffect(() => {
     socket.on("send_score", (data) => {
-      let n = [];
-      let l = (data.namelist).length;
-      for (let i = 0; i < l; i++) {
-        let user = (data.namelist)[i];
-        console.log(user)
-        console.log(Object.keys(user));
-        n.push([user.name,user.score]);
-        //n.push([user.score,user.name])
-    }
-    //n.sort().reverse
-    setPlayers(n);
+      let n = seperateScore(data.namelist)
+      setPlayers(n.sort().reverse());
     });
 
   },[players])
 
     return (
-        <div className="Playerplayers">
-            {players.map(([playerName, playerScore], index) => (
+        <div className="PlayerScores">
+            {players.map(([playerScore, playerName], index) => (
               <div key={index} className="PlayerScore">
                 {playerName} : {playerScore}
               </div>

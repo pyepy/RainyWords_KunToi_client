@@ -29,15 +29,15 @@ function sketch(p) {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
   
-    // socket.on("send_word", (data) => {
-    //   // console.log(data.word);
+    socket.on("send_word", (data) => {
+      // console.log(data.word);
   
-    //   if (wordDisappeared) {
-    //     words.push(data.word);
-    //   }
+      if (wordDisappeared) {
+        words.push(data.word);
+      }
   
-    //   console.log(words);
-    // });
+      console.log(words);
+    });
   
     // setInterval(() => {
     //   if (wordDisappeared) {
@@ -48,9 +48,9 @@ function sketch(p) {
     gameStartTime = p.millis(); // Record the game start time
   };
 
-  // function request_word() {
-  //   socket.emit("request_word",4);
-  // }
+  function request_word() {
+    socket.emit("request_word",4);
+  }
 
   p.draw = function () {
     p.clear();
@@ -62,7 +62,7 @@ function sketch(p) {
     lastTime = currentTime;
 
     // Check if it's time to create a new word with a 500ms delay
-    if (currentTime - lastWordCreationTime >= 1000 && currentWordIndex < words.length) {
+    if (currentTime - lastWordCreationTime >= 1000 ) {
       rain.push(new Rain(currentWordIndex));
       currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
@@ -74,6 +74,7 @@ function sketch(p) {
 
       if (typedWord === rain[i].word) {
         wordDisappeared = true;
+        request_word();
         console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " ") {
@@ -89,6 +90,7 @@ function sketch(p) {
       if (rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         wordDisappeared = true;
+        request_word();
         console.log(wordDisappeared);
       } else {
         wordDisappeared = false;

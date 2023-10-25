@@ -50,7 +50,7 @@ export function LobbyPanel() {
       const startGame = () => {     
         if(playerInLobby >= 2){
             socket.emit("request_start_game"); 
-        } else alert('waiting for player');
+        } else alert('waiting for other players');
       }
 
       useEffect(() => {

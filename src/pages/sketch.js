@@ -2,53 +2,35 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".","."];
   // let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
-  let fontSize = 40; // Define the font size as a public variable
-  let rainIcon = p.loadImage('./images/zt.png');
+  let fontSize = 36; // Define the font size as a public variable
+  let eggDefault = p.loadImage('./images/chicken1.png');
+  let eggTyped = p.loadImage('./images/chicken5.png');
+  let eggDed = p.loadImage('./images/egg_ded.png');
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
   let typedWord = ''; // Accumulated typed word
-  let textshow = ''; // Text appearing
   let score = 0;
-  let currentWordIndex = 0; // Track the current word index
-  let wordDisappeared = false; // Initialize as false, indicating no word has disappeared yet
   
   // Timer variables
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 120; // Adjust this value to control the falling speed
+  let fallingSpeed = 80; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
-
-  // p.preload = function () {
-  //   // Preload the image
-  //   rainIcon = p.loadImage('../images/zt.png');
-  // }
 
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
   
     socket.on("send_word", (data) => {
-      // console.log(data.word);
-  
-      if (wordDisappeared) {
-        words.push(data.word);
-      }
-  
-      console.log(words);
+      words.push(data.word);
     });
-  
-    setInterval(() => {
-      if (wordDisappeared) {
-        request_word();
-      }
-    },fallingSpeed/4);
 
     gameStartTime = p.millis(); // Record the game start time
   };
@@ -66,10 +48,9 @@ function sketch(p) {
     deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
     lastTime = currentTime;
   
-    // Check if it's time to create a new word with a 500ms delay
-    if (currentTime - lastWordCreationTime >= 1000 && currentWordIndex < words.length) {
-      rain.push(new Rain(currentWordIndex));
-      currentWordIndex++;
+    // Check if it's time to create a new word with a ... delay
+    if (currentTime - lastWordCreationTime >= 1000*120/fallingSpeed) {
+      rain.push(new Rain());
       lastWordCreationTime = currentTime; // Update the last word creation time
     }
   
@@ -78,30 +59,25 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word) {
-        wordDisappeared = true;
+        request_word()
         console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " ") {
           score += 1;
+          socket.emit("req_update_score",{"word": rain[i].word})
         }
         rain.splice(i, 1); // Remove the word when it's typed
-        console.log(wordDisappeared);
-      } else {
-        wordDisappeared = false;
-      }
+      } 
   
       if (rain[i] && rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
-        wordDisappeared = true;
-        console.log(wordDisappeared);
-      } else {
-        wordDisappeared = false;
+        request_word()
       }
     }
   
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
-    p.text(typedWord, p.width / 2, p.height / 2 + 200);
+    p.text(typedWord, p.width / 2, p.height - 48);
     p.text("Score: " + score, 200, 100);
   }
   
@@ -124,13 +100,19 @@ function sketch(p) {
   };
 
   class Rain {
-    constructor(wordIndex) {
-      this.x = p.random(300, p.windowWidth - 300);
+    constructor() {
+      this.word = words[0];
+      this.x = p.random(400, p.windowWidth - 400 - this.word.length*fontSize);
       this.y = 0;
-      this.wordIndex = wordIndex;
-      this.word = words[wordIndex];
+      
+      console.log(words[0]);
+      if(words[0] == undefined){
+        this.word = 'error';
+        //request_word()
+      };
+      words.shift();
+      
       this.letterSize = fontSize;
-      this.rainIcon = rainIcon;
     }
   
     update(deltaTime) {
@@ -140,9 +122,9 @@ function sketch(p) {
     display() {
       p.noStroke();
       let currentX = this.x;
-      let typedIndex = 0; // Initialize an index for tracking the typed letters
-    
-      if (this.word.includes(typedWord)) {
+      let typedIndex = 0; // Initialize an index for tracking the typed letters 
+      
+      if (this.word.includes(typedWord) && typedWord !== '') {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
       
@@ -170,6 +152,11 @@ function sketch(p) {
       
           currentX += this.letterSize;
         }
+
+        // Calculate the position for the image in the middle of the word
+        let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+        p.image(eggTyped, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
+        
       } else {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
@@ -184,12 +171,12 @@ function sketch(p) {
       
           currentX += this.letterSize;
         }
-      }
 
-      // Calculate the position for the image in the middle of the word
-      let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-      p.image(this.rainIcon, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
-    }         
+        // Calculate the position for the image in the middle of the word
+        let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+        p.image(eggDefault, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
+      }
+    }       
   }
 }
 

@@ -10,7 +10,7 @@ const Game = () => {
   // const wordList = InitialRandomWord();
 
   return (
-    <div className="App">
+    <div className="AppGame">
       <header className="App-header">
         <ReactP5Wrapper sketch={p => sketch(p)} />
       </header>

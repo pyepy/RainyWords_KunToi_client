@@ -30,20 +30,16 @@ function sketch(p) {
     p.frameRate(frameRate);
   
     socket.on("send_word", (data) => {
-      // console.log(data.word);
-  
-      //if (wordDisappeared) {
-        words.push(data.word);
-      //}
-  
-      //console.log(words);
+      words.push(data.word);
     });
-  
-    // setInterval(() => {
-    //   if (wordDisappeared) {
-    //     request_word();
-    //   }
-    // },fallingSpeed/4);
+
+    function start_time() {
+      socket.emit("mess_with_time",'hi');
+    }
+
+    socket.once('start_timer', () => {
+      start_time();
+    })
 
     gameStartTime = p.millis(); // Record the game start time
   };
@@ -51,6 +47,8 @@ function sketch(p) {
   function request_word() {
     socket.emit("request_word",4);
   }
+
+  
 
   p.draw = function () {
     p.clear();

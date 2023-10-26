@@ -9,8 +9,23 @@ import { InitialRandomWord } from '../components/initialRandomWord';
 import { GameTimer } from '../components/GameTimer';
 import { PlayerScore } from '../components/PlayerScore';
 
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { socket } from '../utils/socket'
+
 const Game = () => {
   // const wordList = InitialRandomWord();
+
+  const navigate = useNavigate();
+
+  
+
+  useEffect(() => {
+    socket.on("timesUp", () => {
+      navigate('../finish')
+    });
+
+  },[])
 
   return (
     <div className="AppGame">

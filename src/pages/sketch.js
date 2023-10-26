@@ -2,10 +2,11 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", " ", " "," "," "];
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".","."];
   // let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
-  let fontSize = 40; // Define the font size as a public variable
+  let fontSize = 36; // Define the font size as a public variable
+  let rainIcon = p.loadImage('./images/zt.png');
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -19,7 +20,7 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 100; // Adjust this value to control the falling speed
+  let fallingSpeed = 80; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
@@ -60,8 +61,8 @@ function sketch(p) {
     deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
     lastTime = currentTime;
   
-    // Check if it's time to create a new word with a 500ms delay
-    if (currentTime - lastWordCreationTime >= 1000) {
+    // Check if it's time to create a new word with a ... delay
+    if (currentTime - lastWordCreationTime >= 1000*120/fallingSpeed) {
       rain.push(new Rain());
       //currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
@@ -98,7 +99,7 @@ function sketch(p) {
   
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
-    p.text(typedWord, p.width / 2, p.height / 2 + 200);
+    p.text(typedWord, p.width / 2, p.height - 48);
     p.text("Score: " + score, 200, 100);
   }
   
@@ -122,10 +123,11 @@ function sketch(p) {
 
   class Rain {
     constructor() {
-      this.x = p.random(300, p.windowWidth - 300);
-      this.y = 0;
-      
       this.word = words[0];
+      this.x = p.random(400, p.windowWidth - 400 - this.word.length*fontSize);
+      this.y = 0;
+      this.rainIcon = rainIcon;
+      
       console.log(words[0]);
       if(words[0] == undefined){
         this.word = 'error';
@@ -188,6 +190,10 @@ function sketch(p) {
           currentX += this.letterSize;
         }
       }
+
+      // Calculate the position for the image in the middle of the word
+      let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+      p.image(this.rainIcon, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
     }         
   }
 }

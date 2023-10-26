@@ -37,15 +37,20 @@ export function LobbyPanel() {
             }
             
         })
+    
+    },[]);
 
+    useEffect(() => {
+        
         socket.on('updateRoomInfo', (data) => { 
+            console.log(data)
             setGameMode(data.myRoom.gameMode);
             setRoomNo(data.myRoom.roomNo);
             setPlayerInLobby(data.myRoom.roomPlayerCount);
             setPlayers(data.myRoom.players);
         })
     
-      },[]);
+    },[]);
 
       const startGame = () => {     
         if(playerInLobby >= 2){
@@ -78,7 +83,7 @@ export function LobbyPanel() {
             </div>
             <div className='lobbyPlayers'>
                 {players.map((player,index) => (
-                    <div className='lobbyPlayer'>
+                    <div key={index} className='lobbyPlayer'>
                         <img className="playerIcon" src={playerIcon}/>
                         <span key={index} >{player}&nbsp;</span>
                     </div>

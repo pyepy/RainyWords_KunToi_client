@@ -19,7 +19,7 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 120; // Adjust this value to control the falling speed
+  let fallingSpeed = 100; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
@@ -31,18 +31,18 @@ function sketch(p) {
     socket.on("send_word", (data) => {
       // console.log(data.word);
   
-      if (wordDisappeared) {
+      //if (wordDisappeared) {
         words.push(data.word);
-      }
+      //}
   
-      console.log(words);
+      //console.log(words);
     });
   
-    setInterval(() => {
-      if (wordDisappeared) {
-        request_word();
-      }
-    },fallingSpeed/4);
+    // setInterval(() => {
+    //   if (wordDisappeared) {
+    //     request_word();
+    //   }
+    // },fallingSpeed/4);
 
     gameStartTime = p.millis(); // Record the game start time
   };
@@ -61,9 +61,9 @@ function sketch(p) {
     lastTime = currentTime;
   
     // Check if it's time to create a new word with a 500ms delay
-    if (currentTime - lastWordCreationTime >= 1000 && currentWordIndex < words.length) {
-      rain.push(new Rain(currentWordIndex));
-      currentWordIndex++;
+    if (currentTime - lastWordCreationTime >= 1000) {
+      rain.push(new Rain());
+      //currentWordIndex++;
       lastWordCreationTime = currentTime; // Update the last word creation time
     }
   
@@ -73,13 +73,14 @@ function sketch(p) {
   
       if (typedWord === rain[i].word) {
         wordDisappeared = true;
+        request_word()
         console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " ") {
           score += 1;
         }
         rain.splice(i, 1); // Remove the word when it's typed
-        console.log(wordDisappeared);
+        //=console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
@@ -87,7 +88,8 @@ function sketch(p) {
       if (rain[i] && rain[i].y > p.height - p.windowHeight / 4) {
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         wordDisappeared = true;
-        console.log(wordDisappeared);
+        request_word()
+        //console.log(wordDisappeared);
       } else {
         wordDisappeared = false;
       }
@@ -118,11 +120,18 @@ function sketch(p) {
   };
 
   class Rain {
-    constructor(wordIndex) {
+    constructor() {
       this.x = p.random(300, p.windowWidth - 300);
       this.y = 0;
-      this.wordIndex = wordIndex;
-      this.word = words[wordIndex];
+      
+      this.word = words[0];
+      console.log(words[0]);
+      if(words[0] == undefined){
+        this.word = 'error';
+        //request_word()
+      };
+      words.shift();
+      
       this.letterSize = fontSize;
     }
   

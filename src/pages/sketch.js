@@ -21,7 +21,7 @@ function sketch(p) {
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
   let fallingSpeed = 80; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
-  let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
+  let disableTypingDuration = 20000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
@@ -58,11 +58,11 @@ function sketch(p) {
       rain[i].update(deltaTime);
       rain[i].display();
   
-      if (typedWord === rain[i].word) {
+      if (typedWord === rain[i].word && this.y < p.height - p.windowHeight / 4) {
         request_word()
         console.log("---SUCCESS---");
         typedWord = '';
-        if (rain[i].word !== " ") {
+        if (rain[i].word !== " " && rain[i].word !== "." && this.y < p.height - p.windowHeight / 4) {
           score += 1;
           socket.emit("req_update_score",{"word": rain[i].word})
         }
@@ -78,6 +78,7 @@ function sketch(p) {
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
+    p.fill(0);
     p.text("Score: " + score, 200, 100);
   }
   
@@ -124,7 +125,7 @@ function sketch(p) {
       let currentX = this.x;
       let typedIndex = 0; // Initialize an index for tracking the typed letters 
       
-      if (this.word.includes(typedWord) && typedWord !== '') {
+      if (this.word.includes(typedWord) && typedWord !== '' && this.y < p.height - p.windowHeight / 4) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
       

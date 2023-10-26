@@ -72,7 +72,7 @@ export function LobbyPanel() {
 
 
     return (
-        <div className="lobbyContainer">
+        <div className="midScreenContainer">
             <div className='gameMode'>
                 {gameMode} Mode
             </div>

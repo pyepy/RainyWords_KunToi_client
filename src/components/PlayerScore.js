@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
+import { useNavigate } from 'react-router-dom';
 
 export function PlayerScore(props) {
+  const navigate = useNavigate();
   const [players,setPlayers] = useState([['Alice',420],['Bob',69]]);
 
   const seperateScore = function (l) {
@@ -28,6 +30,10 @@ export function PlayerScore(props) {
 
   },[])
 
+  const toEndGame = () => {
+    navigate('../finish');
+  }
+
     return (
         <div className="PlayerScores">
             {players.map(([playerScore, playerName], index) => (
@@ -36,6 +42,7 @@ export function PlayerScore(props) {
               </div>
             ))}
             <button onClick = {sendScoreReq}>Hi</button>
+            <button onClick = {toEndGame}>dont press</button>
         </div>
     )
 }

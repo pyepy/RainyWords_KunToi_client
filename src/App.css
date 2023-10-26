@@ -1,6 +1,8 @@
 .App {
   background-image: url('./images/homeBg.jpg');
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   margin: 0%;
   padding: 0%;
@@ -11,12 +13,14 @@
   flex-direction: column;
 
   font-family: 'Autour One', sans-serif;
-  color: black;
+  color: #072541;
 }
 
-.AppGame{
+.AppGame {
   background-image: url('./images/gameBg.png');
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   margin: 0%;
   padding: 0%;
@@ -269,7 +273,7 @@ a:hover {
 }
 
 
-.lobbyContainer {
+.midScreenContainer {
   /* background-color: #072541; */
   backdrop-filter: blur(40px);
   background: rgba(0, 0, 0, 0.5);
@@ -369,7 +373,7 @@ a:hover {
   top: 0;
   right: 50%;
   transform: translate(50%, 0);
-  opacity: 0.7;
+  opacity: 0.9;
   display: flex;
   flex-direction: row;
 
@@ -388,6 +392,7 @@ a:hover {
   Padding: 1rem 5rem 1rem 5rem;
   font-size: 2rem;
   border-radius: 0 0 2rem 2rem;
+  color: aliceblue;
 }
 
 .PlayerScores {
@@ -405,45 +410,58 @@ a:hover {
 
 
 
-/*------------------------------------------------------- bottom typer --------------------------------------------------------- */
+/*------------------------------------------------------- end page --------------------------------------------------------- */
+/*------------------------------------------------------- end page --------------------------------------------------------- */
+/*------------------------------------------------------- end page --------------------------------------------------------- */
 
-.GroundBoarder {
-  position: fixed;
-  bottom: 0;
-  backdrop-filter: blur(10px);
-  width: 100vw;
-  height: 10vh;
+.finalScores {
+  margin: 0;
   display: flex;
-  justify-content: center;
-  padding: 3vh 0 3vh 0;
+  flex-direction: column;
+  align-items: center;
+
 }
 
-.Typer {
-  align-self: center;
-  height: 5vh;
-  width: 30vw;
+.winner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 5vh 0;
+}
+
+.winnerName {
+  font-size: 4rem;
+}
+
+.winnerScore {
   font-size: 2rem;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  font-family: 'Autour One', sans-serif;
-  color: #072541;
 }
+
+.looser {
+  font-size: 2rem;
+  margin: 0 0 1vh 0;
+}
+
+.button {
+  background-color: #072541;
+  color: aliceblue;
+  border: none;
+  border-radius: 0.3rem;
+  font-family: 'Autour One', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0 2vw;
+  padding: 0.5vh 2vw;
+}
+
+.button:hover {
+  color: #E95793;
+  /* background-color: transparent; */
+  cursor: pointer;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+
+}
+
 
 /*------------------------------------------------------- top overlay --------------------------------------------------------- */
-
-
-
-.Timer {
-  /* background-color: aquamarine;
-  Padding: 1rem 5rem 1rem 5rem;
-  font-size: 2rem; */
-}
-
-.PlayerScore {
-  /* background-color: bisque;
-  font-size: 2rem;
-  Padding: 1rem 2rem 1rem 2rem;
-  white-space: nowrap */
-}

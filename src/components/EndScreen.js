@@ -2,8 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { Router, Routes, Link } from 'react-router-dom';
 import { NavItem, NavLink } from "reactstrap";
 import { socket } from  "../utils/socket.js"
+import { useNavigate } from 'react-router-dom';
 
 export function EndScreen () {
+
+  const navigate = useNavigate();
+
   const [players, setPlayers] = useState([]);
   const [winner, setWinner] = useState([]);
   const [losers, setLosers] = useState([[]]);
@@ -56,16 +60,55 @@ export function EndScreen () {
     })
   },[players])
 
+  const goToHome = () => {
+    navigate('../');
+  }
+
+  const restartGame = () => {
+    //emit tell server to reset then sent back confirm so clint can like
+    console.log('working');
+  }
+
   return (
-    <div className="PlayerScores">
-      <h1>{winner[1]} : {winner[0]}</h1>
-        {losers.map(([score, name], index) => (
-          <div key={index} className="PlayerScore">
-            {name} : {score}
+    // <div className="FinalScores">
+    //   <h1>{winner[1]} : {winner[0]}</h1>
+    //     {losers.map(([score, name], index) => (
+    //       <div key={index} className="PlayerScore">
+    //         {name} : {score}
+    //       </div>
+    //     ))}
+    //     <NavItem tag={Link} to="/">Exit Game</NavItem>
+    //     <button onClick={hello}>Clock</button>
+    // </div>
+    <div className="midScreenContainer">
+      <div className="finalScores">
+
+        <div className="winner">
+          <div className="winnerName">
+            Alice wins
           </div>
-        ))}
-        <NavItem tag={Link} to="/">Exit Game</NavItem>
-        <button onClick={hello}>Clock</button>
+          <div className="winnerScore">
+            --- 300 points ---
+          </div>
+        </div>
+        
+        <div  className="looser">
+          Bob : 150 points
+        </div>
+        <div  className="looser">
+          noob : 69 points
+        </div>
+      </div>
+      <div className='endButtons'>
+        <button className='button' onClick={goToHome}>Home</button>
+        <button className='button' onClick={restartGame}>Play Again</button>
+      </div>
+    
+        {/* <NavItem tag={Link} to="/">Exit Game</NavItem>
+        <button onClick={hello}>Clock</button> */}
+      
+
     </div>
+    
   )
 }

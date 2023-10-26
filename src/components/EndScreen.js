@@ -24,22 +24,6 @@ export function EndScreen () {
     return n.sort((a, b) => a[0] - b[0]);
   }
 
-  const routeBack = function () {
-    socket.emit("routeback");
-  }
-
-  const hello = function () {
-    socket.emit("game_leaderboard","")
-    let n = [[169,"Alice"],[42,"Bob"],[100,"Noob"]];
-    n.sort((a, b) => b[0] - a[0]);
-    console.log(n,n.length);
-    setWinner(n[n.length]);
-    console.log(winner)
-    let l = n.slice(n.length-1)
-    setLosers(l.reverse());
-    console.log(losers)
-  }
-
   useEffect(() => {
 
     //routeRef.current.addEventListener('click',routeBack);
@@ -65,7 +49,7 @@ export function EndScreen () {
   }
 
   const restartGame = () => {
-    //emit tell server to reset then sent back confirm so clint can like
+    socket.emit("reset_user")
     console.log('working');
   }
 

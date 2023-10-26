@@ -69,7 +69,7 @@ function sketch(p) {
         rain.splice(i, 1); // Remove the word when it's typed
       } 
   
-      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4) {
+      if (rain[i] && rain[i].y > p.height ) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
       }
@@ -157,6 +157,25 @@ function sketch(p) {
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
         p.image(eggTyped, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
         
+      } else if (this.y > p.height - p.windowHeight / 4) {
+        for (let i = 0; i < this.word.length; i++) {
+          let letter = this.word.charAt(i);
+          
+          // Draw the square (background) for the letter
+          p.fill(255);
+          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+      
+          p.textSize(this.letterSize);
+          p.fill(0);
+          p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
+      
+          currentX += this.letterSize;
+        }
+
+        // Calculate the position for the image in the middle of the word
+        let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+        p.image(eggDed, imageX, p.height - p.windowHeight / 4);
+
       } else {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);

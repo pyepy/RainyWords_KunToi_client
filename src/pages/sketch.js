@@ -2,10 +2,11 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  // let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
-  let words = ["amogus","thomas","edward","james","gordon","percy"]
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", "  ", " "," "," "];
+  // let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 40; // Define the font size as a public variable
+  let rainIcon = p.loadImage('./images/zt.png');
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -19,10 +20,15 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 50 //120; // Adjust this value to control the falling speed
+  let fallingSpeed = 120; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
-  let disableTypingDuration = 1//14000; // Duration in milliseconds to disable typing
+  let disableTypingDuration = 14000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
+
+  // p.preload = function () {
+  //   // Preload the image
+  //   rainIcon = p.loadImage('../images/zt.png');
+  // }
 
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
@@ -124,6 +130,7 @@ function sketch(p) {
       this.wordIndex = wordIndex;
       this.word = words[wordIndex];
       this.letterSize = fontSize;
+      this.rainIcon = rainIcon;
     }
   
     update(deltaTime) {
@@ -178,6 +185,10 @@ function sketch(p) {
           currentX += this.letterSize;
         }
       }
+
+      // Calculate the position for the image in the middle of the word
+      let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+      p.image(this.rainIcon, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
     }         
   }
 }

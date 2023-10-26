@@ -14,7 +14,7 @@ const Game = () => {
       <header className="App-header">
         <ReactP5Wrapper sketch={p => sketch(p)} />
       </header>
-      <Keyboard />
+      {/* <Keyboard /> */}
     </div>
   );
 };

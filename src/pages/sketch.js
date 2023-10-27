@@ -32,6 +32,14 @@ function sketch(p) {
       words.push(data.word);
     });
 
+    function start_time() {
+      socket.emit("mess_with_time",'hi');
+    }
+
+    socket.once('start_timer', () => {
+      start_time();
+    })
+
     gameStartTime = p.millis(); // Record the game start time
   };
 
@@ -163,11 +171,11 @@ function sketch(p) {
           let letter = this.word.charAt(i);
           
           // Draw the square (background) for the letter
-          p.fill(255);
+          p.fill(255,255,255,0);
           p.rect(currentX, this.y, this.letterSize, this.letterSize);
       
           p.textSize(this.letterSize);
-          p.fill(0);
+          p.fill(0,0,0,0);
           p.text(letter, currentX + this.letterSize / 2, this.y + this.letterSize / 1.5); // Adjust text position
       
           currentX += this.letterSize;

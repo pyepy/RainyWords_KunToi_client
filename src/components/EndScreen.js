@@ -49,15 +49,22 @@ export function EndScreen () {
       console.log(l,losers)
     })
 
+    socket.on("forced_kick", () => {
+      navigate('../');
+    })
+
+    socket.on("forced_to_lobby", () => {
+      navigate('../play');
+    })
+
   },[])
 
   const goToHome = () => {
-    navigate('../');
+    socket.emit("reset_user");
   }
 
   const restartGame = () => {
-    socket.emit("reset_user")
-    console.log('working');
+    socket.emit("play_again");
   }
 
   return (

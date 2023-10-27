@@ -1,15 +1,13 @@
 import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { EndScreen } from '../components/EndScreen.js'
 
 const Credit = () => {
   return(
     <div className="App">
       <div className='playContainer'>
-        <EndScreen/>
+        <h1>Credit Jaaaa</h1>
+        <NavItem tag={Link} to="/">back</NavItem>
       </div>
-      
-      {/* <NavItem tag={Link} to="/">back</NavItem> */}
     </div>
     
   )

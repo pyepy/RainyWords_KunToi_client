@@ -6,14 +6,35 @@ function sketch(p) {
   // let words = ["amogus","thomas","edward","james","gordon","percy"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
+
+  //鸡蛋照片
   let eggDefault = p.loadImage('./images/chicken1.png');
   let eggTyped = p.loadImage('./images/chicken5.png');
   let eggDed = p.loadImage('./images/egg_ded.png');
+
+  //freeze powerup
+  let isRainFrozen = false; // Initialize a variable to control rain freezing
+  let freezeStartTime = 0; // Initialize a variable to track the start time of freezing
+  const freezeDuration = 5000; // 5 seconds in milliseconds
+
+  //slow powerup
+  let isRainSpeedHalved = false;
+  let speedHalveStartTime = 0;
+  const speedHalveDuration = 4000; // 4 seconds in milliseconds
+
+  //flood board
+  let isWordGenDelayHalved = false;
+  let wordGenDelayHalveStartTime = 0;
+  const wordGenDelayHalveDuration = 10000;
+
+  //clear board
+  let isCleared = false;
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
   let typedWord = ''; // Accumulated typed word
   let score = 0;
+  let wordGenDelay = 1000;
   
   // Timer variables
   let lastTime = 0;
@@ -30,6 +51,11 @@ function sketch(p) {
   
     socket.on("send_word", (data) => {
       words.push(data.word);
+
+      if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
+        // Insert the new word at index 1
+        words.splice(1, 0, data.word);
+      }
     });
 
     function start_time() {
@@ -57,13 +83,26 @@ function sketch(p) {
     lastTime = currentTime;
   
     // Check if it's time to create a new word with a ... delay
-    if (currentTime - lastWordCreationTime >= 1000*120/fallingSpeed) {
-      rain.push(new Rain());
-      lastWordCreationTime = currentTime; // Update the last word creation time
+    if(isWordGenDelayHalved){
+      if (currentTime - lastWordCreationTime >= wordGenDelay*120/(2*fallingSpeed) && isRainFrozen == false) {
+        rain.push(new Rain());
+        lastWordCreationTime = currentTime; // Update the last word creation time
+      }
+    } else {
+      if (currentTime - lastWordCreationTime >= wordGenDelay*120/fallingSpeed && isRainFrozen == false) {
+        rain.push(new Rain());
+        lastWordCreationTime = currentTime; // Update the last word creation time
+      }
     }
   
     for (let i = rain.length - 1; i >= 0; i--) {
-      rain[i].update(deltaTime);
+      if (!isRainFrozen) {
+        if (isRainSpeedHalved) {
+          rain[i].update(deltaTime / 2); // Halve the falling speed
+        } else {
+          rain[i].update(deltaTime);
+        }
+      }
       rain[i].display();
   
       if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
@@ -82,12 +121,25 @@ function sketch(p) {
         request_word()
       }
     }
+    // Check if it's time to unfreeze the rain
+    if (isRainFrozen && p.millis() - freezeStartTime >= freezeDuration) {
+      isRainFrozen = false; // Unfreeze the rain after 5 seconds
+    }
+
+    if (isRainSpeedHalved && p.millis() - speedHalveStartTime >= speedHalveDuration) {
+      isRainSpeedHalved = false;
+    }
+
+    if (isWordGenDelayHalved && p.millis() - wordGenDelayHalveStartTime >= wordGenDelayHalveDuration) {
+      isWordGenDelayHalved = false;
+    }
   
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
     p.fill(0);
     p.text("Score: " + score, 200, 100);
+    console.log(words);
   }
   
 
@@ -96,6 +148,41 @@ function sketch(p) {
       typedWord = '';
     } else if (p.keyCode === p.BACKSPACE) {
       typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
+    } else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
+      isRainFrozen = true; // Freeze the rain
+      freezeStartTime = p.millis(); // Record the start time of freezing
+    } else if (p.keyIsDown(83) && p.keyIsDown(76)) { // 83 is the key code for 's' and 76 is the key code for 'l'
+      isRainSpeedHalved = true;
+      speedHalveStartTime = p.millis();
+    } else if (p.keyIsDown(69) && p.keyIsDown(90)) { // 69 is the key code for 'e' and 90 is the key code for 'z'
+      for(let i = 0; i < 5; i++) {
+        if(i%3 == 0 || i%3 == 2) {
+          socket.emit("req_word_fixed_len",3); //length 3
+        } else {
+          socket.emit("req_word_fixed_len",2); //length 2
+        }
+      }
+    } else if (p.keyIsDown(70) && p.keyIsDown(66)) { // 70 is the key code for 'f' and 66 is the key code for 'b'
+      isWordGenDelayHalved = true;
+      wordGenDelayHalveStartTime = p.millis();
+      let i = 0;
+      while(i<10) {
+        if(i%3 == 0 ) {
+          socket.emit("req_word_fixed_len",3); //length 3
+          i++;
+        } else if (i%3 == 2) {
+          socket.emit("req_word_fixed_len",2); //length 2
+          i++;
+        } else {
+          socket.emit("req_word_fixed_len",4); //length 4
+          i++;
+        }
+      }
+    } else if (p.keyIsDown(67) && p.keyIsDown(66)) { // 67 is the key code for 'c' and 66 is the key code for 'b'
+      if (!isCleared) {
+        // Clear all words falling
+        rain = [];
+      }
     }
   };
   

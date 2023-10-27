@@ -133,7 +133,7 @@ function sketch(p) {
       let currentX = this.x;
       let typedIndex = 0; // Initialize an index for tracking the typed letters 
       
-      if (this.word.includes(typedWord) && typedWord !== '' && typedWord !== '.' && this.y < p.height - p.windowHeight / 4) {
+      if (this.word.includes(typedWord) && typedWord !== '' && typedWord !== '.' && this.y < p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
       
@@ -164,9 +164,9 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(eggTyped, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
+        p.image(eggTyped, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
         
-      } else if (this.y > p.height - p.windowHeight / 4) {
+      } else if (this.y > p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
           
@@ -183,7 +183,7 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(eggDed, imageX, p.height - p.windowHeight / 4);
+        p.image(eggDed, imageX - eggDed.width/4, p.height - p.windowHeight / 4);
 
       } else {
         for (let i = 0; i < this.word.length; i++) {
@@ -202,7 +202,7 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(eggDefault, imageX, this.y - this.letterSize, this.letterSize, this.letterSize);
+        p.image(eggDefault, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
       }
     }       
   }

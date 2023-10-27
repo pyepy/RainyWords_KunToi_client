@@ -3,14 +3,20 @@ import { Router, Routes, Link } from 'react-router-dom';
 import { NavItem, NavLink } from "reactstrap";
 import { socket } from  "../utils/socket.js"
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../utils/userdata.js';
 
 export function EndScreen () {
 
   const navigate = useNavigate();
 
   const [players, setPlayers] = useState([]);
-  const [winner, setWinner] = useState([]);
-  const [losers, setLosers] = useState([[]]);
+  const [winner, setWinner] = useState([300,'Alice']);
+  const [losers, setLosers] = useState([[150,'Bob'],[69,'Noob']]);
+
+  if (userLogin == 1) {
+    //get room info
+    socket.emit('game_leaderboard'); 
+  }
 
   const seperateScore = function (l) {
     let n = [];
@@ -21,7 +27,7 @@ export function EndScreen () {
       console.log(user.name,user.score);
       n.push([user.score,user.name])
     }
-    return n.sort((a, b) => a[0] - b[0]);
+    return n.sort((a, b) => b[0] - a[0]);
   }
 
   useEffect(() => {
@@ -32,17 +38,18 @@ export function EndScreen () {
       routeRef.current.click();
     },10000)*/
 
-    socket.on("final_score", (data) => {
+    socket.once("final_score", (data) => {
       let n = seperateScore(data.namelist);
       console.log(n)
       let w = n[0]
-      setWinner(w);   //cannot set here
-      let l = n.slice(-2)
+      setWinner(n[0]);   //cannot set here
+      let l = n.slice(1);
       setLosers(l);     //cannot set here
       console.log(w,winner)
       console.log(l,losers)
     })
-  },[players])
+
+  },[])
 
   const goToHome = () => {
     navigate('../');
@@ -68,20 +75,28 @@ export function EndScreen () {
       <div className="finalScores">
 
         <div className="winner">
+          {console.log(winner)}
+          {console.log(losers)}
           <div className="winnerName">
-            Alice wins
+            {winner[1]} wins
           </div>
           <div className="winnerScore">
-            --- 300 points ---
+            --- {winner[0]} points ---
           </div>
         </div>
+
+        {losers.map(([score, name], index) => (
+          <div key={index} className="looser">
+            {name} : {String(score)} points
+          </div>
+        ))}
         
-        <div  className="looser">
+        {/* <div  className="looser">
           Bob : 150 points
         </div>
         <div  className="looser">
           noob : 69 points
-        </div>
+        </div> */}
       </div>
       <div className='endButtons'>
         <button className='button' onClick={goToHome}>Home</button>

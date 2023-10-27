@@ -58,11 +58,11 @@ function sketch(p) {
       rain[i].update(deltaTime);
       rain[i].display();
   
-      if (typedWord === rain[i].word && this.y < p.height - p.windowHeight / 4) {
+      if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
         request_word()
         console.log("---SUCCESS---");
         typedWord = '';
-        if (rain[i].word !== " " && rain[i].word !== "." && this.y < p.height - p.windowHeight / 4) {
+        if (rain[i].word !== " " && rain[i].word !== ".") {
           score += 1;
           socket.emit("req_update_score",{"word": rain[i].word})
         }
@@ -125,7 +125,7 @@ function sketch(p) {
       let currentX = this.x;
       let typedIndex = 0; // Initialize an index for tracking the typed letters 
       
-      if (this.word.includes(typedWord) && typedWord !== '' && this.y < p.height - p.windowHeight / 4) {
+      if (this.word.includes(typedWord) && typedWord !== '' && typedWord !== '.' && this.y < p.height - p.windowHeight / 4) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
       

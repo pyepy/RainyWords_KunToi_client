@@ -1,5 +1,23 @@
-.App {
+.AppHome {
   background-image: url('./images/homeBg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  margin: 0%;
+  padding: 0%;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Autour One', sans-serif;
+  color: #072541;
+}
+
+.App {
+  background-image: url('./images/fullBg.PNG');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

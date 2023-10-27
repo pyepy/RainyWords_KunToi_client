@@ -30,7 +30,7 @@ const Home = () => {
 
   if (login == 1) {
     return (
-      <div className="App">
+      <div className="AppHome">
         <PlayerCount />
         <Title/>
         <AddUsername/>

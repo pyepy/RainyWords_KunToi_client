@@ -42,7 +42,7 @@ function sketch(p) {
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
   let fallingSpeed = 80; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
-  let disableTypingDuration = 20000; // Duration in milliseconds to disable typing
+  let disableTypingDuration = 1//20000; // Duration in milliseconds to disable typing
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {

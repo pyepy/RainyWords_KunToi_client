@@ -1,7 +1,18 @@
 import { NavItem } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { useEffect } from "react"; 
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogin } from '../utils/userdata';
 
 const Options = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userLogin == 0) {
+      console.log(userLogin)
+      navigate("../");
+    }
+  },[])
+
   return(
     <div className="App">
       <h1>Options</h1>

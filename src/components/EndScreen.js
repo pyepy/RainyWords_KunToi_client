@@ -13,11 +13,6 @@ export function EndScreen () {
   const [winner, setWinner] = useState([300,'Alice']);
   const [losers, setLosers] = useState([[150,'Bob'],[69,'Noob']]);
 
-  if (userLogin == 1) {
-    //get room info
-    socket.emit('game_leaderboard'); 
-  }
-
   const seperateScore = function (l) {
     let n = [];
     console.log(l)
@@ -31,12 +26,9 @@ export function EndScreen () {
   }
 
   useEffect(() => {
-
-    //routeRef.current.addEventListener('click',routeBack);
-
-    /*const forceKick = setTimeout(() => {
-      routeRef.current.click();
-    },10000)*/
+    socket.on("timesUp", () => {
+      socket.emit('game_leaderboard');
+    })
 
     socket.once("final_score", (data) => {
       let n = seperateScore(data.namelist);

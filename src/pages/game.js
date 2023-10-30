@@ -12,10 +12,18 @@ import { PlayerScore } from '../components/PlayerScore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { socket } from '../utils/socket';
+import { userLogin } from '../utils/userdata';
 
 const Game = () => {
   // const wordList = InitialRandomWord();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userLogin == 0) {
+      console.log(userLogin)
+      navigate("../");
+    }
+  },[])
 
   useEffect(() => {
     socket.on("timesUp", () => {

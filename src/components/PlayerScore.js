@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function PlayerScore(props) {
   const navigate = useNavigate();
-  const [players,setPlayers] = useState([['Alice',420],['Bob',69]]);
+  const [players,setPlayers] = useState([[0,'Player1'],[0,'Player2']]);
 
   const seperateScore = function (l) {
     let n = [];
@@ -26,6 +26,7 @@ export function PlayerScore(props) {
     socket.on("send_score", (data) => {
       let n = seperateScore(data.namelist)
       setPlayers(n);
+      console.log(n,players)
     });
 
   },[])

@@ -21,11 +21,16 @@ export function LobbyPanel() {
 
     if (userLogin == 1) {
         //get room info
-        socket.emit('request_room_info'); 
+        
     }
     
 
     useEffect(() => {
+        if (userLogin == 1) {
+            //get room info
+            socket.emit('request_room_info');
+        } 
+
         socket.once("giveRoomInfo", (data) => {  
             if (data != "") {
                 console.log(data)

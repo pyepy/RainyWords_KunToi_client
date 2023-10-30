@@ -26,13 +26,6 @@ function App() {      //homepage is moved to /page/Home.js
       element = {<r.element/>}
     />
     ) : null;});
-  
-    if (userLogin == 0 && window.location.href != "http://localhost:3000/") {
-      socket.disconnect();
-      //gameSocket.disconnect();
-      //playSocket.disconnect();
-      window.location.replace("http://localhost:3000");
-    };
 
   return (
   <BrowserRouter>

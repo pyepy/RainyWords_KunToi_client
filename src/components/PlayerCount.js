@@ -13,7 +13,7 @@ export function PlayerCount() {
             console.log(count);
             setOnlineNo(count);     //show online number
         })
-    },[onlineNo]);
+    },[]);
 
     return( //display
         <div className="PlayerCount">

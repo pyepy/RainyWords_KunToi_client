@@ -111,7 +111,7 @@ function sketch(p) {
         typedWord = '';
         if (rain[i].word !== " " && rain[i].word !== ".") {
           score += 1;
-          socket.emit("req_update_score",{"word": rain[i].word})
+          socket.emit("req_success",{"word": rain[i].word})
         }
         rain.splice(i, 1); // Remove the word when it's typed
       } 
@@ -119,6 +119,7 @@ function sketch(p) {
       if (rain[i] && rain[i].y > p.height ) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
+        socket.emit("req_fail",{"word": rain[i].word})
       }
     }
     // Check if it's time to unfreeze the rain
@@ -138,7 +139,7 @@ function sketch(p) {
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
     p.fill(0);
-    p.text("Score: " + score, 200, 100);
+    //p.text("Score: " + score, 200, 100);
     console.log(words);
   }
   

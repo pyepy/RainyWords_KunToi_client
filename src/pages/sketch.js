@@ -30,6 +30,11 @@ function sketch(p) {
   //clear board
   let isCleared = false;
 
+  //blind
+  let isBlinded = false;
+  let blindStartTime = 0;
+  const blindDuration = 5000;
+
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
   let typedWord = ''; // Accumulated typed word
@@ -133,7 +138,16 @@ function sketch(p) {
     if (isWordGenDelayHalved && p.millis() - wordGenDelayHalveStartTime >= wordGenDelayHalveDuration) {
       isWordGenDelayHalved = false;
     }
+
+    if (isBlinded && p.millis() - blindStartTime >= blindDuration) {
+      isBlinded = false;
+    }
   
+    if (isBlinded) {
+      let rectw = 
+      p.fill(0);
+      p.rect(p.windowWidth/4+23, p.windowHeight-788 , p.windowWidth/2-46, 350);
+    }
     p.fill(255, 255, 255);
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
@@ -148,7 +162,9 @@ function sketch(p) {
       typedWord = '';
     } else if (p.keyCode === p.BACKSPACE) {
       typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
-    } else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
+    } 
+    //self pwrup
+      else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
       isRainFrozen = true; // Freeze the rain
       freezeStartTime = p.millis(); // Record the start time of freezing
     } else if (p.keyIsDown(83) && p.keyIsDown(76)) { // 83 is the key code for 's' and 76 is the key code for 'l'
@@ -178,12 +194,19 @@ function sketch(p) {
           i++;
         }
       }
+
     } else if (p.keyIsDown(67) && p.keyIsDown(66)) { // 67 is the key code for 'c' and 66 is the key code for 'b'
       if (!isCleared) {
         // Clear all words falling
         rain = [];
       }
     }
+      //eminempwrup
+      else if (p.keyIsDown(66) && p.keyIsDown(76)) { //66 is the key code for 'b' and 76 is for 'l' (blind)
+        isBlinded = true;
+        blindStartTime = p.millis();
+        
+      }
   };
   
   p.keyTyped = function () {

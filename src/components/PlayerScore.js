@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../utils/userdata';
 
 export function PlayerScore(props) {
   const navigate = useNavigate();
   const [players,setPlayers] = useState([[0,'Player1'],[0,'Player2']]);
+
+  useEffect(() => {
+    if (userLogin == 1) {
+      let noChange = true;
+      socket.emit('addScore', {noChange});
+    }
+  })
 
   const seperateScore = function (l) {
     let n = [];

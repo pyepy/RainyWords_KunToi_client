@@ -51,54 +51,69 @@ export function Menu(props) {
     };
   }, []);
 
+  //enter Practice
+  useEffect(() => {
+    const handlePracticeRoomCreated = (data) => {
+      socket.emit("request_start_game"); 
+    };
+
+    socket.on("practiceRoomCreated", handlePracticeRoomCreated);
+  
+    // Remove the event listener when the component unmounts to avoid duplicates
+    return () => {
+      socket.off("practiceRoomCreated", handlePracticeRoomCreated);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleGameStart = (data) => {
+      navigate('../game');
+    };
+
+    socket.on("goToGame", handleGameStart);
+  
+    return () => {
+      socket.off("goToGame", handleGameStart);
+    };
+  }, []);
+
+  const goToCredits = () => {
+    navigate('./credit');
+  };
+
   return (
     <div className="Menu">
       <ul className="options">
-        {props.items.map((item, index) => (
-          <li className="option" key={index}>
-            {item[0] === Create_room ? (
-              <>
-                {item[0]}
-                  <div className="room" onClick={() => requestCreateRoom("Classic")}>
-                    Classic
-                  </div>
-                <div className="room" onClick={() => requestCreateRoom("Arcade")}>
-                  Arcade
-                </div>
-              </>
-            ) : null}
 
-            {item[0] === Join_room ? (
-              <>
-                {item[0]}
-                <div className="roomNumber">
-                  Room No.
+        <li className="option">
+          Create room
+          <div className="room" onClick={() => requestCreateRoom("Classic")}>
+            Classic
+          </div>
+          <div className="room" onClick={() => requestCreateRoom("Arcade")}>
+            Arcade
+          </div>
+        </li>
 
-                  <input 
-                    className="roomNumberInput" 
-                    placeholder='00000' 
-                    maxLength={5}
-                    onChange={(event) => {
-                      setRoomToJoin(event.target.value);
-                    }}
-                  />
+        <li className="option">
+          Join room
+          <div className="roomNumber">
+            Room No.
+            <input 
+              className="roomNumberInput" 
+              placeholder='00000' 
+              maxLength={5}
+              onChange={(event) => {
+                setRoomToJoin(event.target.value);
+              }}
+            />
+            <button className="submitRoom" onClick={joinRoom}>Join</button>
+          </div>
+        </li>
 
-                  <button className="submitRoom" onClick={joinRoom}>Join</button>
-                </div>
-              </>
-            ) : null}
-
-            {item[0] !== Create_room && item[0] !== Join_room ? (
-              <>
-                <NavItem tag={Link} to={item[1]}>
-                  {item[0]}
-                </NavItem>
-              </>
-            ) : null}
-
-          </li> 
-        
-        ))}
+        <li className="option" onClick={() => requestCreateRoom("Practice")}>Practice</li>
+        <li className="option" onClick={goToCredits}>Credits</li>
+          
       </ul>
 
     </div>

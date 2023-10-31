@@ -16,7 +16,7 @@ import { Menu } from '../components/Menu';
 const Home = () => {
   const [login, setLogin] = useState(userLogin)
 
-  const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/game'], ['Credits','/credit']];
+  //const listItems = [['Create room','/play'], ['Join room','/play'], ['Options','/game'], ['Credits','/credit']];
 
   console.log("login?")
   console.log(login)
@@ -34,7 +34,7 @@ const Home = () => {
         <PlayerCount />
         <Title/>
         <AddUsername/>
-        <Menu items={listItems} />
+        <Menu/>
         {/*<div className='didntTouch'>
           <SendMessage />
           <RandomWord />

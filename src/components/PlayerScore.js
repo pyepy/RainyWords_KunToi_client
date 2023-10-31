@@ -43,7 +43,7 @@ export function PlayerScore(props) {
               </div>
             ))}
             <button onClick = {sendScoreReq}>Hi</button>
-            <button onClick = {toEndGame}>dont press</button>
+            {/* <button onClick = {toEndGame}>dont press</button> */}
         </div>
     )
 }

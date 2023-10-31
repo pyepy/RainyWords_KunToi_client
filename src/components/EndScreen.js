@@ -26,6 +26,12 @@ export function EndScreen () {
   }
 
   useEffect(() => {
+    if (userLogin == 1) {
+      socket.emit('game_leaderboard');
+    }
+  })
+
+  useEffect(() => {
     socket.on("timesUp", () => {
       socket.emit('game_leaderboard');
     })
@@ -99,7 +105,8 @@ export function EndScreen () {
       </div>
       <div className='endButtons'>
         <button className='button' onClick={goToHome}>Home</button>
-        <button className='button' onClick={restartGame}>Play Again</button>
+        {losers[0] != undefined ? <button className='button' onClick={restartGame}>Play Again</button> : null}
+        
       </div>
     
         {/* <NavItem tag={Link} to="/">Exit Game</NavItem>

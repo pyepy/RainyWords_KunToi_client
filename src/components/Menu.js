@@ -58,8 +58,7 @@ export function Menu(props) {
     };
 
     socket.on("practiceRoomCreated", handlePracticeRoomCreated);
-  
-    // Remove the event listener when the component unmounts to avoid duplicates
+    
     return () => {
       socket.off("practiceRoomCreated", handlePracticeRoomCreated);
     };

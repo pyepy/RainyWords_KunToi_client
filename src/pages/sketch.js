@@ -61,7 +61,14 @@ function sketch(p) {
         // Insert the new word at index 1
         words.splice(1, 0, data.word);
       }
+    
     });
+    socket.on("blind_powerup_activated", () => {
+      // Handle the "blind" effect for other players here
+      isBlinded = true;
+      blindStartTime = p.millis();
+    });
+
 
     function start_time() {
       socket.emit("mess_with_time",'hi');
@@ -203,9 +210,7 @@ function sketch(p) {
     }
       //eminempwrup
       else if (p.keyIsDown(66) && p.keyIsDown(76)) { //66 is the key code for 'b' and 76 is for 'l' (blind)
-        isBlinded = true;
-        blindStartTime = p.millis();
-        
+        socket.emit("activate_blind_powerup");
       }
   };
   

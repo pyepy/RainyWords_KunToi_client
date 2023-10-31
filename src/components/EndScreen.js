@@ -10,8 +10,8 @@ export function EndScreen () {
   const navigate = useNavigate();
 
   const [players, setPlayers] = useState([]);
-  const [winner, setWinner] = useState([300,'Alice']);
-  const [losers, setLosers] = useState([[150,'Bob'],[69,'Noob']]);
+  const [winner, setWinner] = useState([300,'Player1']);
+  const [losers, setLosers] = useState([[150,'Player2'],[69,'Player3']]);
 
   const seperateScore = function (l) {
     let n = [];
@@ -25,14 +25,14 @@ export function EndScreen () {
     return n.sort((a, b) => b[0] - a[0]);
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (userLogin == 1) {
       socket.emit('game_leaderboard');
     }
-  })
+  },[])*/
 
   useEffect(() => {
-    socket.on("timesUp", () => {
+    socket.once("timesUp", () => {
       socket.emit('game_leaderboard');
     })
 

@@ -37,6 +37,10 @@ export function PlayerScore(props) {
       console.log(n,players)
     });
 
+    socket.once("timesUp", () => {
+      socket.emit('game_leaderboard');
+    });
+
   },[])
 
   const toEndGame = () => {
@@ -50,8 +54,8 @@ export function PlayerScore(props) {
                 {playerName} : {playerScore}
               </div>
             ))}
-            <button onClick = {sendScoreReq}>Hi</button>
-            {/* <button onClick = {toEndGame}>dont press</button> */}
+            {/*<button onClick = {sendScoreReq}>Hi</button>
+             <button onClick = {toEndGame}>dont press</button> */}
         </div>
     )
 }

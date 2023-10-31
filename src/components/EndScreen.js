@@ -25,11 +25,12 @@ export function EndScreen () {
     return n.sort((a, b) => b[0] - a[0]);
   }
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (userLogin == 1) {
-      socket.emit('game_leaderboard');
+      let noChange = true;
+      socket.emit('addScore', {noChange});
     }
-  },[])*/
+  })
 
   useEffect(() => {
     socket.once("timesUp", () => {

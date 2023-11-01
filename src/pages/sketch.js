@@ -180,7 +180,7 @@ function sketch(p) {
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
     p.fill(0);
-    p.text("Score: " + score, 200, 100);
+    //p.text("Score: " + score, 200, 100);
     // console.log(words);
   }
   

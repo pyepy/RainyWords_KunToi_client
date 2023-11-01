@@ -69,6 +69,10 @@ function sketch(p) {
       blindStartTime = p.millis();
     });
 
+    socket.on("flood_board", () => {
+      isWordGenDelayHalved = true;
+      wordGenDelayHalveStartTime = p.millis();
+    });
 
     function start_time() {
       socket.emit("mess_with_time",'hi');
@@ -212,6 +216,11 @@ function sketch(p) {
       else if (p.keyIsDown(66) && p.keyIsDown(76)) { //66 is the key code for 'b' and 76 is for 'l' (blind)
         socket.emit("activate_blind_powerup");
       }
+
+      // else if (p.keyIsDown(70) && p.keyIsDown(69)) { //670 is the key code for 'f' and 69 is for 'e' (flood enemy)
+      //   socket.emit("flood_board");
+      // }
+
   };
   
   p.keyTyped = function () {

@@ -148,7 +148,11 @@ function sketch(p) {
         typedWord = '';
         if (rain[i].word !== " " && rain[i].word !== ".") {
           score += 1;
-          socket.emit("req_success",{"word": rain[i].word})
+          let diffTime = Math.floor((currentTime - rain[i].initialTime)/1000);
+          if (diffTime < 0) {
+            diffTime = 0;
+          }
+          socket.emit("req_success",{"word": rain[i].word,"len":rain[i].len,"diffTime":diffTime})
         }
         rain.splice(i, 1); // Remove the word when it's typed
       } 
@@ -240,8 +244,10 @@ function sketch(p) {
   class Rain {
     constructor() {
       this.word = words[0];
+      this.len = this.word.length;
       this.x = p.random(400, p.windowWidth - 400 - this.word.length*fontSize);
       this.y = 0;
+      this.initialTime = p.millis();
       
       console.log(words[0]);
       if(words[0] == undefined){

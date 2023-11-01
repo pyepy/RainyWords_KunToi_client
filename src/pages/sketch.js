@@ -2,8 +2,8 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".","."];
-  // let words = ["amogus","thomas","edward","james","gordon","percy"]
+  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".",".","freeze","slow","easy","flood","clear"];
+  // let words = ["freeze","slow","easy","flood","clear"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -52,7 +52,8 @@ function sketch(p) {
     socket.on("send_word", (data) => {
       words.push(data.word);
 
-      if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
+      //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
+      if (typedWord === "easy" || typedWord === "flood") {
         // Insert the new word at index 1
         words.splice(1, 0, data.word);
       }
@@ -106,6 +107,42 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
+        if (typedWord === "freeze") { 
+          isRainFrozen = true; // Freeze the rain
+          freezeStartTime = p.millis(); // Record the start time of freezing
+        } else if (typedWord === "slow") { 
+          isRainSpeedHalved = true;
+          speedHalveStartTime = p.millis();
+        } else if (typedWord === "easy") { 
+          for(let i = 0; i < 5; i++) {
+            if(i%3 == 0 || i%3 == 2) {
+              socket.emit("req_word_fixed_len",3); //length 3
+            } else {
+              socket.emit("req_word_fixed_len",2); //length 2
+            }
+          }
+        } else if (typedWord === "flood") {
+          isWordGenDelayHalved = true;
+          wordGenDelayHalveStartTime = p.millis();
+          let i = 0;
+          while(i<10) {
+            if(i%3 == 0 ) {
+              socket.emit("req_word_fixed_len",3); //length 3
+              i++;
+            } else if (i%3 == 2) {
+              socket.emit("req_word_fixed_len",2); //length 2
+              i++;
+            } else {
+              socket.emit("req_word_fixed_len",4); //length 4
+              i++;
+            }
+          }
+        } //else if (typedWord === "clear") {
+        //   if (!isCleared) {
+        //       rain.splice(0,i);
+        //   }
+        // }      
+        
         request_word()
         console.log("---SUCCESS---");
         typedWord = '';
@@ -139,8 +176,8 @@ function sketch(p) {
     p.textAlign(p.CENTER, p.CENTER);
     p.text(typedWord, p.width / 2, p.height - 48);
     p.fill(0);
-    //p.text("Score: " + score, 200, 100);
-    //console.log(words);
+    p.text("Score: " + score, 200, 100);
+    // console.log(words);
   }
   
 
@@ -149,40 +186,44 @@ function sketch(p) {
       typedWord = '';
     } else if (p.keyCode === p.BACKSPACE) {
       typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
-    } else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
-      isRainFrozen = true; // Freeze the rain
-      freezeStartTime = p.millis(); // Record the start time of freezing
-    } else if (p.keyIsDown(83) && p.keyIsDown(76)) { // 83 is the key code for 's' and 76 is the key code for 'l'
-      isRainSpeedHalved = true;
-      speedHalveStartTime = p.millis();
-    } else if (p.keyIsDown(69) && p.keyIsDown(90)) { // 69 is the key code for 'e' and 90 is the key code for 'z'
-      for(let i = 0; i < 5; i++) {
-        if(i%3 == 0 || i%3 == 2) {
-          socket.emit("req_word_fixed_len",3); //length 3
-        } else {
-          socket.emit("req_word_fixed_len",2); //length 2
-        }
-      }
-    } else if (p.keyIsDown(70) && p.keyIsDown(66)) { // 70 is the key code for 'f' and 66 is the key code for 'b'
-      isWordGenDelayHalved = true;
-      wordGenDelayHalveStartTime = p.millis();
-      let i = 0;
-      while(i<10) {
-        if(i%3 == 0 ) {
-          socket.emit("req_word_fixed_len",3); //length 3
-          i++;
-        } else if (i%3 == 2) {
-          socket.emit("req_word_fixed_len",2); //length 2
-          i++;
-        } else {
-          socket.emit("req_word_fixed_len",4); //length 4
-          i++;
-        }
-      }
-    } else if (p.keyIsDown(67) && p.keyIsDown(66)) { // 67 is the key code for 'c' and 66 is the key code for 'b'
+    } //else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
+    //   isRainFrozen = true; // Freeze the rain
+    //   freezeStartTime = p.millis(); // Record the start time of freezing
+    // } else if (p.keyIsDown(83) && p.keyIsDown(76)) { // 83 is the key code for 's' and 76 is the key code for 'l'
+    //   isRainSpeedHalved = true;
+    //   speedHalveStartTime = p.millis();
+    // } else if (p.keyIsDown(69) && p.keyIsDown(90)) { // 69 is the key code for 'e' and 90 is the key code for 'z'
+    //   for(let i = 0; i < 5; i++) {
+    //     if(i%3 == 0 || i%3 == 2) {
+    //       socket.emit("req_word_fixed_len",3); //length 3
+    //     } else {
+    //       socket.emit("req_word_fixed_len",2); //length 2
+    //     }
+    //   }
+    // } else if (p.keyIsDown(70) && p.keyIsDown(66)) { // 70 is the key code for 'f' and 66 is the key code for 'b'
+    //   isWordGenDelayHalved = true;
+    //   wordGenDelayHalveStartTime = p.millis();
+    //   let i = 0;
+    //   while(i<10) {
+    //     if(i%3 == 0 ) {
+    //       socket.emit("req_word_fixed_len",3); //length 3
+    //       i++;
+    //     } else if (i%3 == 2) {
+    //       socket.emit("req_word_fixed_len",2); //length 2
+    //       i++;
+    //     } else {
+    //       socket.emit("req_word_fixed_len",4); //length 4
+    //       i++;
+    //     }
+    //   }
+    // } else 
+    if (p.keyIsDown(67) && p.keyIsDown(66)) { // 67 is the key code for 'c' and 66 is the key code for 'b'
       if (!isCleared) {
         // Clear all words falling
         rain = [];
+        for(let i = 0; i < 5; i++) {
+          request_word();
+        }
       }
     }
   };

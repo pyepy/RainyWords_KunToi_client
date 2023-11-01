@@ -381,7 +381,22 @@ a:hover {
 .otherContainer {
   margin-top: -100vh;
   display: flex;
+  min-height: 100vh;
   /* justify-content: center; */
+}
+
+.otherOtherContainer {
+  margin-top: -100vh;
+  min-height: 100vh;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+
+}
+
+.bigNumber {
+  font-size: 50vh;
+  align-self: center;
 }
 
 .topOverlay {

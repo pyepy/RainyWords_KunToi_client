@@ -8,6 +8,7 @@ import { InitialRandomWord } from '../components/initialRandomWord';
 
 import { GameTimer } from '../components/GameTimer';
 import { PlayerScore } from '../components/PlayerScore';
+import { Countdown } from '../components/CountDown';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -50,6 +51,10 @@ const Game = () => {
         
         
       </div>
+      <div className='otherOtherContainer'>
+        <Countdown/>
+      </div>
+      
       {/* <Keyboard /> */}
     </div>
   );

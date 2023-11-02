@@ -294,11 +294,10 @@ a:hover {
 .midScreenContainer {
   /* background-color: #072541; */
   backdrop-filter: blur(40px);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(248, 117, 170, 0.2);
   align-self: center;
   justify-self: center;
   color: #072541;
-
 
   display: flex;
   flex-direction: column;
@@ -307,7 +306,8 @@ a:hover {
   width: 70vh;
   height: 70vh;
   border-radius: 5rem;
-  color: black;
+  color: #CE5A67;
+  font-weight: 900;
 
 }
 
@@ -330,7 +330,7 @@ a:hover {
 
 .lobbyPlayers {
   width: 70vh;
-  height: 30vh;
+  height: 25vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center
@@ -348,16 +348,36 @@ a:hover {
   width: 4rem;
 }
 
+.playerMe {
+  color: #B0578D;
+}
+
 .startGame {
-  color: #072541;
+  color: #CE5A67;
+  border-color: #CE5A67;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 2.5rem;
   border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.startGameNotHead {
+  opacity: 0.3;
+  color: #4d4949;
+  border-color: #4d4949;
+  font-family: 'Autour One', sans-serif;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .startGame:hover {
   color: #E95793;
+  border-color: #E95793;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
 }
@@ -365,6 +385,7 @@ a:hover {
 .leaveRoom {
   margin: 3vh 0 0 3vw;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 /*------------------------------------------------------- game page --------------------------------------------------------- */

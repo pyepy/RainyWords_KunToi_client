@@ -31,6 +31,11 @@ const Game = () => {
       navigate('../finish')
     });
 
+    socket.on("forced_leave", () => {
+      navigate('../play')
+      alert("A player disconnected...")
+    })
+
   },[])
 
   return (

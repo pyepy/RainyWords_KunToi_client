@@ -2,7 +2,7 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}];
+  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}];
   // let words = ["freeze","slow","easy","flood","clear"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
@@ -14,7 +14,7 @@ function sketch(p) {
   let eggPowerSelf = p.loadImage('./images/Emu1.png');
   let eggPowerSelfTyped = p.loadImage('./images/Emu5.png');
   let eggPowerEnemy = p.loadImage('./images/Goose1.png');
-  let eggPowerEnemyTyped = p.loadImage('./images/Goose1.png');
+  let eggPowerEnemyTyped = p.loadImage('./images/Goose5.png');
 
   //freeze powerup
   let isRainFrozen = false; // Initialize a variable to control rain freezing
@@ -348,16 +348,24 @@ function sketch(p) {
     display() {
       p.noStroke();
       
-      if (this.powerUp === "freeze") { //blue and emu
-        this.colouring('blue', eggPowerSelf, eggPowerSelfTyped)
-      } else if (this.powerUp === "slow") { //yellow and emu
-        this.colouring('yellow', eggPowerSelf, eggPowerSelfTyped)
-      } else if (this.powerUp === "flood") { //red and emu
-        this.colouring('red', eggPowerSelf, eggPowerSelfTyped)
-      } else if (this.powerUp === "easy") { //green and emu
-        this.colouring('green', eggPowerSelf, eggPowerSelfTyped)
-      } else { //chicken and white
-        this.colouring('white', eggDefault, eggTyped)
+      if (this.powerUp === "freeze") { 
+        //blue and emu
+        this.colouring('blue', eggPowerSelf, eggPowerSelfTyped);
+      } else if (this.powerUp === "slow") { 
+        //yellow and emu
+        this.colouring('yellow', eggPowerSelf, eggPowerSelfTyped);
+      } else if (this.powerUp === "flood") { 
+        //red and emu
+        this.colouring('red', eggPowerSelf, eggPowerSelfTyped);
+      } else if (this.powerUp === "easy") { 
+        //green and emu
+        this.colouring('green', eggPowerSelf, eggPowerSelfTyped);
+      } else if (this.powerUp === "blind") { 
+        //purple and goose
+        this.colouring('purple', eggPowerEnemy, eggPowerEnemyTyped);
+      } else { 
+        //chicken and white
+        this.colouring('white', eggDefault, eggTyped);
       }
     }       
   }

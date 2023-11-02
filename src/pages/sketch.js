@@ -2,7 +2,7 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"Let's","powerUp":"none"}, {"word":"start","powerUp":"none"}, {"word":"the","powerUp":"none"}, {"word":"game","powerUp":"none"}, {"word":"freeze","powerUp":"freeze"}, {"word":"slow","powerUp":"slow"}, {"word":"easy","powerUp":"easy"}, {"word":"flood","powerUp":"flood"}];
+  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}];
   // let words = ["freeze","slow","easy","flood","clear"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
@@ -11,6 +11,10 @@ function sketch(p) {
   let eggDefault = p.loadImage('./images/chicken1.png');
   let eggTyped = p.loadImage('./images/chicken5.png');
   let eggDed = p.loadImage('./images/egg_ded.png');
+  let eggPowerSelf = p.loadImage('./images/Emu1.png');
+  let eggPowerSelfTyped = p.loadImage('./images/Emu5.png');
+  let eggPowerEnemy = p.loadImage('./images/Goose1.png');
+  let eggPowerEnemyTyped = p.loadImage('./images/Goose1.png');
 
   //freeze powerup
   let isRainFrozen = false; // Initialize a variable to control rain freezing
@@ -53,7 +57,7 @@ function sketch(p) {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
-      if (typedWord === "easy" || typedWord === "flood") {
+      if (isRainSpeedHalved || isWordGenDelayHalved) {
         // Insert the new word at index 1
         words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
       }
@@ -107,13 +111,13 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
-        if (typedWord === "freeze") { 
+        if (rain[i].powerUp === "freeze") { 
           isRainFrozen = true; // Freeze the rain
           freezeStartTime = p.millis(); // Record the start time of freezing
-        } else if (typedWord === "slow") { 
+        } else if (rain[i].powerUp === "slow") { 
           isRainSpeedHalved = true;
           speedHalveStartTime = p.millis();
-        } else if (typedWord === "easy") { 
+        } else if (rain[i].powerUp === "easy") { 
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",3); //length 3
@@ -121,7 +125,7 @@ function sketch(p) {
               socket.emit("req_word_fixed_len",2); //length 2
             }
           }
-        } else if (typedWord === "flood") {
+        } else if (rain[i].powerUp === "flood") {
           isWordGenDelayHalved = true;
           wordGenDelayHalveStartTime = p.millis();
           let i = 0;
@@ -263,12 +267,11 @@ function sketch(p) {
     update(deltaTime) {
       this.y = this.y + fallingSpeed * deltaTime;
     }
-  
-    display() {
-      p.noStroke();
+
+    colouring(colour, normalEgg, typedEgg) {
       let currentX = this.x;
-      let typedIndex = 0; // Initialize an index for tracking the typed letters 
-      
+      let typedIndex = 0; // Initialize an index for tracking the typed letters
+
       if (this.word.includes(typedWord) && typedWord !== '' && typedWord !== '.' && this.y < p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
@@ -279,13 +282,13 @@ function sketch(p) {
       
             // Set the fill color for the letter based on whether it matches the typed letter
             if (letter === typedLetter) {
-              p.fill('#533ECE'); // Highlight the matching letter
+              p.fill('pink'); // Highlight the matching letter
               typedIndex++; // Move to the next letter in typedWord
             } else {
-              p.fill(255); // Set the fill color for non-matching letters
+              p.fill(colour); // Set the fill color for non-matching letters
             }
           } else {
-            p.fill(255); // No more letters in typedWord, so set the fill color to white
+            p.fill(colour); // No more letters in typedWord, so set the fill color to white
           }
       
           // Draw the square (background) for the letter
@@ -300,14 +303,14 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(eggTyped, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        p.image(typedEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
         
       } else if (this.y > p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
           let letter = this.word.charAt(i);
           
           // Draw the square (background) for the letter
-          p.fill(255,255,255,0);
+          p.fill(colour);
           p.rect(currentX, this.y, this.letterSize, this.letterSize);
       
           p.textSize(this.letterSize);
@@ -326,7 +329,7 @@ function sketch(p) {
           let letter = this.word.charAt(i);
           
           // Draw the square (background) for the letter
-          p.fill(255);
+          p.fill(colour);
           p.rect(currentX, this.y, this.letterSize, this.letterSize);
       
           p.textSize(this.letterSize);
@@ -338,7 +341,23 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(eggDefault, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        p.image(normalEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+      }
+    }
+  
+    display() {
+      p.noStroke();
+      
+      if (this.powerUp === "freeze") { //blue and emu
+        this.colouring('blue', eggPowerSelf, eggPowerSelfTyped)
+      } else if (this.powerUp === "slow") { //yellow and emu
+        this.colouring('yellow', eggPowerSelf, eggPowerSelfTyped)
+      } else if (this.powerUp === "flood") { //red and emu
+        this.colouring('red', eggPowerSelf, eggPowerSelfTyped)
+      } else if (this.powerUp === "easy") { //green and emu
+        this.colouring('green', eggPowerSelf, eggPowerSelfTyped)
+      } else { //chicken and white
+        this.colouring('white', eggDefault, eggTyped)
       }
     }       
   }

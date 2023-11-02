@@ -6,13 +6,13 @@ import { userLogin } from '../utils/userdata';
 export function PlayerScore(props) {
   const navigate = useNavigate();
   const [players,setPlayers] = useState([[0,'Player1'],[0,'Player2']]);
+  const [initialCall, setInitialCall] = useState(true)
 
-  useEffect(() => {
-    if (userLogin == 1) {
-      let noChange = true;
-      socket.emit('addScore', {noChange});
-    }
-  })
+  if (userLogin == 1 && initialCall) {
+    let noChange = true;
+    socket.emit('addScore', {noChange});
+    setInitialCall(false);
+  }
 
   const seperateScore = function (l) {
     let n = [];

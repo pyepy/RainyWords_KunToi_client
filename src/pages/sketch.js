@@ -86,12 +86,12 @@ function sketch(p) {
     // Check if it's time to create a new word with a ... delay
     if(isWordGenDelayHalved){
       if (currentTime - lastWordCreationTime >= wordGenDelay*120/(2*fallingSpeed) && isRainFrozen == false) {
-        rain.push(new Rain());
+        if (currentTime >= 4600) rain.push(new Rain());
         lastWordCreationTime = currentTime; // Update the last word creation time
       }
     } else {
       if (currentTime - lastWordCreationTime >= wordGenDelay*120/fallingSpeed && isRainFrozen == false) {
-        rain.push(new Rain());
+        if (currentTime >= 4600) rain.push(new Rain());
         lastWordCreationTime = currentTime; // Update the last word creation time
       }
     }
@@ -157,7 +157,7 @@ function sketch(p) {
         rain.splice(i, 1); // Remove the word when it's typed
       } 
   
-      if (rain[i] && rain[i].y > p.height ) { //- p.windowHeight / 4
+      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4 ) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
         socket.emit("req_fail",{"word": rain[i].word})

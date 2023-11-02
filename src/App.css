@@ -395,7 +395,7 @@ a:hover {
 }
 
 .bigNumber {
-  font-size: 50vh;
+  font-size: 40vh;
   align-self: center;
 }
 
@@ -420,10 +420,14 @@ a:hover {
   justify-self: center; */
 
   background-color: #072541;
-  Padding: 1rem 5rem 1rem 5rem;
+  /* Padding: 1rem 5rem 1rem 5rem;  */
+  Padding: 1rem 0;
+  width: 20vw;
   font-size: 2rem;
   border-radius: 0 0 2rem 2rem;
   color: aliceblue;
+  display: flex;
+  justify-content: center;
 }
 
 .PlayerScores {

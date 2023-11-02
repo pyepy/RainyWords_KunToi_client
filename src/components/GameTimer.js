@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
 
 export function GameTimer () {
-  const [minute,setMinute] = useState("0");
+  const [minute,setMinute] = useState("5");
   const [second,setSecond] = useState("00");
 
   const startTimer = function () {

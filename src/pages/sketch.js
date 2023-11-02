@@ -75,7 +75,7 @@ function sketch(p) {
   };
 
   function request_word() {
-    socket.emit("request_word",4);
+    socket.emit("request_word",1);
   }
 
   p.draw = function () {

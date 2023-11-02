@@ -2,7 +2,7 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".",".","freeze","slow","easy","flood","clear"];
+  let words = [{"word":"Let's","powerUp":"none"}, {"word":"start","powerUp":"none"}, {"word":"the","powerUp":"none"}, {"word":"game","powerUp":"none"}, {"word":"freeze","powerUp":"freeze"}, {"word":"slow","powerUp":"slow"}, {"word":"easy","powerUp":"easy"}, {"word":"flood","powerUp":"flood"}];
   // let words = ["freeze","slow","easy","flood","clear"]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
@@ -50,12 +50,12 @@ function sketch(p) {
     p.frameRate(frameRate);
   
     socket.on("send_word", (data) => {
-      words.push(data.word);
+      words.push({"word":data.word,"powerUp":data.powerUp});
 
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
       if (typedWord === "easy" || typedWord === "flood") {
         // Insert the new word at index 1
-        words.splice(1, 0, data.word);
+        words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
       }
     });
 
@@ -243,14 +243,15 @@ function sketch(p) {
 
   class Rain {
     constructor() {
-      this.word = words[0];
+      this.word = words[0].word;
       this.len = this.word.length;
       this.x = p.random(400, p.windowWidth - 400 - this.word.length*fontSize);
       this.y = 0;
       this.initialTime = p.millis();
+      this.powerUp = words[0].powerUp;
       
-      console.log(words[0]);
-      if(words[0] == undefined){
+      console.log(words[0].word);
+      if(words[0].word == undefined){
         this.word = 'error';
         //request_word()
       };

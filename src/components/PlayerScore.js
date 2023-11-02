@@ -10,8 +10,9 @@ export function PlayerScore(props) {
 
   if (userLogin == 1 && initialCall) {
     let noChange = true;
-    socket.emit('addScore', {noChange});
+    socket.emit("req_success",{"word": 'initial',"len":0})
     setInitialCall(false);
+    console.log('yes');
   }
 
   const seperateScore = function (l) {

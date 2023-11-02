@@ -60,7 +60,7 @@ const Game = () => {
         <Countdown/>
       </div>
       
-      {/* <Keyboard /> */}
+      <Keyboard />
     </div>
   );
 };

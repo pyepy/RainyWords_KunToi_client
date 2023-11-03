@@ -2,8 +2,13 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
+<<<<<<< Updated upstream
   let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".","."];
   // let words = ["amogus","thomas","edward","james","gordon","percy"]
+=======
+  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
+  // let words = ["freeze","slow","easy","flood","clear"]
+>>>>>>> Stashed changes
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -73,7 +78,28 @@ function sketch(p) {
       isWordGenDelayHalved = true;
       wordGenDelayHalveStartTime = p.millis();
     });
-
+    socket.on("blind_powerup_activated", () => {
+      // Handle the "blind" effect for other players here
+      isBlinded = true;
+      blindStartTime = p.millis();
+    });
+    socket.on("flood_enemy_activated"), () => {
+      isWordGenDelayHalved = true;
+      wordGenDelayHalveStartTime = p.millis();
+      let i = 0;
+      while(i<10) {
+        if(i%3 == 0 ) {
+          socket.emit("req_word_fixed_len",3); //length 3
+          i++;
+        } else if (i%3 == 2) {
+          socket.emit("req_word_fixed_len",2); //length 2
+          i++;
+        } else {
+          socket.emit("req_word_fixed_len",4); //length 4
+          i++;
+        }
+      }
+    }
     function start_time() {
       socket.emit("mess_with_time",'hi');
     }
@@ -122,6 +148,52 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
+<<<<<<< Updated upstream
+=======
+        if (rain[i].powerUp === "freeze") { 
+          isRainFrozen = true; // Freeze the rain
+          freezeStartTime = p.millis(); // Record the start time of freezing
+        } else if (rain[i].powerUp === "slow") { 
+          isRainSpeedHalved = true;
+          speedHalveStartTime = p.millis();
+        } else if (rain[i].powerUp === "easy") { 
+          for(let i = 0; i < 5; i++) {
+            if(i%3 == 0 || i%3 == 2) {
+              socket.emit("req_word_fixed_len",3); //length 3
+            } else {
+              socket.emit("req_word_fixed_len",2); //length 2
+            }
+          }
+        } else if (rain[i].powerUp === "flood") {
+          isWordGenDelayHalved = true;
+          wordGenDelayHalveStartTime = p.millis();
+          let i = 0;
+          while(i<10) {
+            if(i%3 == 0 ) {
+              socket.emit("req_word_fixed_len",3); //length 3
+              i++;
+            } else if (i%3 == 2) {
+              socket.emit("req_word_fixed_len",2); //length 2
+              i++;
+            } else {
+              socket.emit("req_word_fixed_len",4); //length 4
+              i++;
+            }
+          }
+        } else if (rain[i].powerUp === "blind") {
+            socket.emit("activate_blind_powerup");
+        } else if (rain[i].powerUp === "flood_e") {
+            socket.emit("activate_flood_enemy")
+        }
+        
+        
+        //else if (typedWord === "clear") {
+        //   if (!isCleared) {
+        //       rain.splice(0,i);
+        //   }
+        // }      
+        
+>>>>>>> Stashed changes
         request_word()
         console.log("---SUCCESS---");
         typedWord = '';

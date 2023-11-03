@@ -17,7 +17,6 @@ const Credit = () => {
     <div className="App">
       <div className='playContainer'>
         <h1>Credit Jaaaa</h1>
-        <h1>{userLogin}</h1>
         <NavItem tag={Link} to="/">back</NavItem>
       </div>
     </div>

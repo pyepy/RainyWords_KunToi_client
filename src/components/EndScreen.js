@@ -67,16 +67,6 @@ export function EndScreen () {
   }
 
   return (
-    // <div className="FinalScores">
-    //   <h1>{winner[1]} : {winner[0]}</h1>
-    //     {losers.map(([score, name], index) => (
-    //       <div key={index} className="PlayerScore">
-    //         {name} : {score}
-    //       </div>
-    //     ))}
-    //     <NavItem tag={Link} to="/">Exit Game</NavItem>
-    //     <button onClick={hello}>Clock</button>
-    // </div>
     <div className="midScreenContainer">
       <div className="finalScores">
 
@@ -84,7 +74,7 @@ export function EndScreen () {
           {console.log(winner)}
           {console.log(losers)}
           <div className="winnerName">
-            {winner[1]} wins
+            {winner[1]} Wins
           </div>
           <div className="winnerScore">
             --- {winner[0]} points ---

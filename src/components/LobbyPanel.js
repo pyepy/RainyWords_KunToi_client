@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
-import playerIcon from '../images/playerIcon.png';
+import playerIcon from '../images/playerIconPink.png';
+import playerIconMe from '../images/playerIconPurple.png';
+import playerIconHead from '../images/pinkKing.png';
+import playerIconMeHead from '../images/purpleKing.png';
 import { useNavigate } from 'react-router-dom';
 
-import { userLogin } from '../utils/userdata.js' 
+import { userLogin, userName} from '../utils/userdata.js' 
 
 export function LobbyPanel() {
 
@@ -63,6 +66,13 @@ export function LobbyPanel() {
         } else alert('waiting for other players');
       }
 
+      const startGameNotHost = () => {     
+        const confirmation = window.confirm('อยากกิน kfc');
+        if (confirmation) {
+          window.location.href = 'https://www.kfc.co.th/menu/promotions?utm_source=google_sem&utm_medium=ads_pfm&utm_campaign=211201_brand_sem_awo&utm_content=cpa_search_sem_ad_text_&gclid=CjwKCAjwkY2qBhBDEiwAoQXK5T7gr7h8sv7KdKifWLug2ju3GVOvLsaosVyyjy9wqsknJ37YGupMORoCP1MQAvD_BwE&gclsrc=aw.ds';
+        }
+      }
+
       useEffect(() => {
         const handleGameStart = (data) => {
           navigate('../game');
@@ -79,7 +89,7 @@ export function LobbyPanel() {
     return (
         <div className="midScreenContainer">
             <div className='gameMode'>
-                {gameMode} Mode
+                {gameMode} Room
             </div>
             <div className='lobbyCount'>
                 <span>Room No. {roomNo}</span>
@@ -87,14 +97,24 @@ export function LobbyPanel() {
                 
             </div>
             <div className='lobbyPlayers'>
+                {console.log(players)}
                 {players.map((player,index) => (
                     <div key={index} className='lobbyPlayer'>
-                        <img className="playerIcon" src={playerIcon}/>
-                        <span key={index} >{player}&nbsp;</span>
+                        {player === userName ? 
+                        <>
+                            {index === 0 ? <img className="playerIcon" src={playerIconMeHead}/> : <img className="playerIcon" src={playerIconMe}/>}
+                            <span key={index} className='playerMe'>{player}&nbsp;</span>
+                        </>
+                        :
+                        <>
+                            {index === 0 ? <img className="playerIcon" src={playerIconHead}/> : <img className="playerIcon" src={playerIcon}/>}
+                            <span key={index} >{player}&nbsp;</span>
+                        </>}
+                        
                     </div>
                 ))}
             </div>
-            <button className='startGame' onClick={startGame}>Start Game</button>
+            {players[0] === userName ? <button className='startGame' onClick={startGame}>Start Game</button> : <button className='startGameNotHead' onClick={startGameNotHost}>Start Game</button> }
             
 
         </div>

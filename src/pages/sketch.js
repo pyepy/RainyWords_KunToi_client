@@ -176,7 +176,7 @@ function sketch(p) {
         } else if (rain[i].powerUp === "blind") {
             socket.emit("activate_blind_powerup");
         } else if (rain[i].powerUp === "flood_e") { 
-            socket.emit("activate_flood_enemy") //flood enemy
+            socket.emit("activate_flood_enemy") //flood enemy check
         }
         
         

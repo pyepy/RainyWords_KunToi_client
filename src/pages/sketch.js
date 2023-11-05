@@ -2,13 +2,8 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-<<<<<<< Updated upstream
-  let words = ["Let's", "start", "the", "game", "in", "3", "2", "1", ".", ".",".","."];
-  // let words = ["amogus","thomas","edward","james","gordon","percy"]
-=======
   let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
   // let words = ["freeze","slow","easy","flood","clear"]
->>>>>>> Stashed changes
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -148,8 +143,6 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
-<<<<<<< Updated upstream
-=======
         if (rain[i].powerUp === "freeze") { 
           isRainFrozen = true; // Freeze the rain
           freezeStartTime = p.millis(); // Record the start time of freezing
@@ -182,8 +175,8 @@ function sketch(p) {
           }
         } else if (rain[i].powerUp === "blind") {
             socket.emit("activate_blind_powerup");
-        } else if (rain[i].powerUp === "flood_e") {
-            socket.emit("activate_flood_enemy")
+        } else if (rain[i].powerUp === "flood_e") { 
+            socket.emit("activate_flood_enemy") //flood enemy
         }
         
         
@@ -193,7 +186,6 @@ function sketch(p) {
         //   }
         // }      
         
->>>>>>> Stashed changes
         request_word()
         console.log("---SUCCESS---");
         typedWord = '';

@@ -3,6 +3,7 @@ import { socket } from '../utils/socket.js';
 import { useEffect } from "react"; 
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../utils/userdata';
+import { LobbySetting } from '../components/LobbySetting.js';
 
 const Play = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Play = () => {
   return(
     <div className="App">
       <div className='playContainer'>
+        <LobbySetting/>
         <LobbyPanel/>
       </div>
 

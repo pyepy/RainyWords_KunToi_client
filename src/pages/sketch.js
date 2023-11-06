@@ -156,7 +156,7 @@ function sketch(p) {
           if (diffTime < 0) {
             diffTime = 0;
           }
-          socket.emit("req_success",{"word": rain[i].word,"len":rain[i].len,"diffTime":diffTime})
+          socket.emit("req_success",{"word": rain[i].word,"len":rain[i].len,"diffTime":diffTime,"powerUp":rain[i].powerUp})
         }
         rain.splice(i, 1); // Remove the word when it's typed
       } 
@@ -164,7 +164,7 @@ function sketch(p) {
       if (rain[i] && rain[i].y > p.height - p.windowHeight / 4 ) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
-        socket.emit("req_fail",{"word": rain[i].word})
+        socket.emit("req_fail",{"word": rain[i].word,"len":rain[i].len,"powerUp":rain[i].powerUp})
       }
     }
     // Check if it's time to unfreeze the rain

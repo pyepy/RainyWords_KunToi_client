@@ -13,6 +13,12 @@ const Play = () => {
       console.log(userLogin)
       navigate("../");
     }
+
+    socket.on("nuke_incoming", (data) => {
+      alert("Restarting Server...")
+      console.log("hi")
+      const reset = setTimeout(navigate("../"),10000)
+    })
   },[])
 
   const leaveRoom = () => {       

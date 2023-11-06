@@ -12,6 +12,7 @@ import Options from './pages/Options.js';
 import Credit from './pages/Credit.js';
 import Play from './pages/Play.js'
 import EndGame from './pages/EndGame.js'
+import Admin from './pages/Admin.js'
 
 import routes from './utils/routes.js'
 import { userLogin } from './utils/userdata.js'
@@ -40,6 +41,7 @@ function App() {      //homepage is moved to /page/Home.js
           <Route path="/credit" element={<Credit/>}></Route>
           <Route path="/play" element={<Play/>}></Route>
           <Route path="/finish" element={<EndGame/>}></Route>
+          <Route path="/admin" element={<Admin/>}></Route>
         </Routes>
       </Row>
     </Container>

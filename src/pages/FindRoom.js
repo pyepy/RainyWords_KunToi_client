@@ -5,6 +5,7 @@ import { Timer } from '../components/Timer';
 import { useEffect } from "react"; 
 import { Link, useNavigate } from 'react-router-dom';
 import { userLogin } from '../utils/userdata';
+import { socket } from '../utils/socket';
 
 const FindRoom = () => {  
   const navigate = useNavigate();
@@ -14,6 +15,12 @@ const FindRoom = () => {
       console.log(userLogin)
       navigate("../");
     }
+    
+    socket.on("nuke_incoming", (data) => {
+      alert("Restarting Server...")
+      console.log("hi")
+      const reset = setTimeout(navigate("../"),10000)
+    })
   },[])
 
     return (

@@ -292,7 +292,7 @@ function sketch(p) {
           }
       
           // Draw the square (background) for the letter
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
       
           p.textSize(this.letterSize);
           p.fill(0);
@@ -311,7 +311,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
       
           p.textSize(this.letterSize);
           p.fill(0,0,0,0);
@@ -330,7 +330,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 10);
       
           p.textSize(this.letterSize);
           p.fill(0);

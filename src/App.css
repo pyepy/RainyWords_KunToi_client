@@ -434,6 +434,7 @@ a:hover {
 .bigNumber {
   font-size: 40vh;
   align-self: center;
+  z-index: 100;
 }
 
 .topOverlay {
@@ -525,7 +526,7 @@ a:hover {
 }
 
 .eggPic {
-  height: 3rem;
+  height: 3.5rem;
   margin: 1vh 2vw;
 }
 

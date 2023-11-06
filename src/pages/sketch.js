@@ -2,8 +2,9 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}];
+  // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}];
   // let words = ["freeze","slow","easy","flood","clear"]
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -160,11 +161,11 @@ function sketch(p) {
         }
         rain.splice(i, 1); // Remove the word when it's typed
       } 
-  
-      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4 ) { //- p.windowHeight / 4
+      
+      if (rain[i] && rain[i].y > p.height) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
-        request_word()
-        socket.emit("req_fail",{"word": rain[i].word})
+        request_word();
+        socket.emit("req_fail",{"word": rain[i].word});
       }
     }
     // Check if it's time to unfreeze the rain

@@ -1,0 +1,33 @@
+import React, { useState, useEffect } from 'react';
+import { socket } from '../utils/socket'
+import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../utils/userdata';
+
+export function LobbySetting() {
+    const [speedValue, setSpeedValue] = useState(100);
+    const [timeMin, setTimeMin] = useState('5');
+    const [timeSecound, setTimeSecound] = useState('00');
+
+    return (
+        <div className='lobbySetting'>
+            <div className='settingTitle'>Setting</div>
+            <div className='wordSetting'>
+                <div className='wordSettingTitle'>Word Difficulty</div>
+                <div className='difficulties'>
+                    <div className='difficulty easy'>Easy</div>
+                    <div className='difficulty medium'>Medium</div>
+                    <div className='difficulty hard'>Hard</div>
+                </div>
+            </div>
+            <div className='speedSetting'>
+                <div className='speedSettingTitle' >Falling Speed: {speedValue}%</div>
+                <input type="range" id="speedInput" min={0} max={200} step={1} defaultValue={100} className='speedInput'></input>
+            </div>
+            <div className='timeSetting'>
+                <div className='timeSettingTitle' >Time: {timeMin}:{timeSecound}</div>
+                <input type="range" id="timeInput" min={60} max={600} step={30} defaultValue={300} className='timeInput'></input>
+            </div>
+        </div>
+    )
+
+}

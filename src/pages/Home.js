@@ -26,7 +26,12 @@ const Home = () => {
       setLogin(1);
       updateLogin(1);
     });
-  });
+
+    socket.on("nuke_incoming", (data) => {
+      alert("Restarting Server...")
+      console.log("hi")
+    })
+  },[]);
 
   if (login == 1) {
     return (

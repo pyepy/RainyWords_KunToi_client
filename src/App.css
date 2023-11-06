@@ -415,6 +415,15 @@ a:hover {
 
 }
 
+.otherOtherOtherContainer {
+  margin-top: -100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+}
+
 .keyboard {
   margin-top: -115vh;
   margin-right: 1rem;
@@ -461,11 +470,99 @@ a:hover {
 .PlayerScores {
   font-size: 1.5rem;
   white-space: nowrap;
-  margin: 3vh 0 0 2vw;
+  margin: 3vh 0 0 1vw;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+
+  background-image: url('./images/fullBg.PNG');
+  background-position: -1vh 5vw;
+  min-height: 70vh;
+  padding: 1vh 1vw;
+  width: 19vw;
+  border-radius: 3rem;
+}
+
+.PlayerScoresTitle {
+  align-self: center;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 2vh 0 1vh 0;
 }
 
 .PlayerScore {
   margin-top: 2vh;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 3vh 3vh 0 0;
+  background-image: url('./images/fullBg.PNG');
+  background-position: 88vh 5vw;
+  padding: 1vh 1vw;
+  border-radius: 3rem;
+}
+
+.legendEggContainer {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.legendTitle {
+  font-weight: 900;
+  margin: 2vh 0 2vh 0;
+  font-size: 2rem;
+}
+
+.legendEgg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.eggPic {
+  height: 3rem;
+  margin: 1vh 2vw;
+}
+
+.freeze {
+  background-color: blue;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.slow {
+  background-color: yellow;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.easyWord {
+  background-color: green;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.blind {
+  background-color: purple;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.flood {
+  background-color: red;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.speedUp {
+  background-color: pink;
+  border-radius: 1.5rem;
+  padding: 0.4rem
 }
 
 /*------------------------------------------------------- end page --------------------------------------------------------- */

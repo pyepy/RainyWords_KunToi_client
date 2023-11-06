@@ -84,14 +84,14 @@ export function Menu(props) {
     <div className="Menu">
       <ul className="options">
 
-        <li className="option">
+        <li className="option" onClick={() => requestCreateRoom("Private")}>
           Create room
-          <div className="room" onClick={() => requestCreateRoom("Public")}>
+          {/* <div className="room" onClick={() => requestCreateRoom("Public")}>
             Public
           </div>
           <div className="room" onClick={() => requestCreateRoom("Private")}>
             Private
-          </div>
+          </div> */}
         </li>
 
         <li className="option">

@@ -50,6 +50,7 @@ export function PlayerScore(props) {
 
     return (
         <div className="PlayerScores">
+            <div className='PlayerScoresTitle'>Scoreboard</div>
             {players.map(([playerScore, playerName], index) => (
               <div key={index} className="PlayerScore">
                 {playerName} : {playerScore}

@@ -89,7 +89,7 @@ export function LobbyPanel() {
     return (
         <div className="midScreenContainer">
             <div className='gameMode'>
-                {gameMode} Room
+                insert ui title
             </div>
             <div className='lobbyCount'>
                 <span>Room No. {roomNo}</span>

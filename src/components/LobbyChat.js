@@ -9,7 +9,7 @@ import { userName } from '../utils/userdata';
 
 export function LobbyChat() {
 
-    const [messages,setMessages] = useState([['','']]);
+    const [messages,setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
     const chatHistoryRef = useRef(null);
 
@@ -26,7 +26,7 @@ export function LobbyChat() {
 
     useEffect(() => {
         socket.on("send_Lobby_message", (data) => {  
-            setMessages([...messages, [data.name, data.message]]);
+            setMessages([...messages, [data.myName, data.message, data.status]]);
             setInputMessage('');
         })
     }, [messages]);
@@ -44,8 +44,10 @@ export function LobbyChat() {
                 <br/>
                 <br/>
                 <div className='chatWelcome'>Welcome to the kichen!</div>
-                {messages.map(([name, message],index) => (
-                    name === '' ? null:
+                {messages.map(([name, message, status],index) => (
+                    status === 'join' || status === 'leave' ? 
+                    <div key={index} className='showStatus'>{name} has {status} the Lobby</div>
+                    :
                     name === userName ? (
                         <div key={index} className='myChatContainer'>
                             {console.log(userName)}
@@ -63,6 +65,9 @@ export function LobbyChat() {
                             </div>
                         </div>
                     )
+
+                            
+
                 ))}
             </div> 
             <input

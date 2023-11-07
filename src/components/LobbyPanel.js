@@ -62,6 +62,15 @@ export function LobbyPanel() {
                 setRoomNo(data.myRoom.roomNo);
                 setPlayerInLobby(data.myRoom.roomPlayerCount);
                 setPlayers(data.myRoom.players);
+
+                setWordDifficulty(data.myRoom.wordDifficulty);
+                setSpeedValue(data.myRoom.speedMultiplier*100);
+
+                const time = data.myRoom.timeInSec;
+                const minutes = Math.floor(time / 60);
+                const seconds = (time % 60).toString().padStart(2, '0');
+                setTimeMin(minutes);
+                setTimeSecond(seconds);
                 
             }
             
@@ -76,6 +85,14 @@ export function LobbyPanel() {
             setRoomNo(data.myRoom.roomNo);
             setPlayerInLobby(data.myRoom.roomPlayerCount);
             setPlayers(data.myRoom.players);
+
+            setWordDifficulty(data.myRoom.wordDifficulty);
+            setSpeedValue(data.myRoom.speedMultiplier*100);
+            const time = data.myRoom.timeInSec;
+            const minutes = Math.floor(time / 60);
+            const seconds = (time % 60).toString().padStart(2, '0');
+            setTimeMin(minutes);
+            setTimeSecond(seconds);
         })
     },[]);
 

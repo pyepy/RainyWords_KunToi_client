@@ -695,6 +695,12 @@ input[type=range]:focus {
 }
 
 .flood {
+  background-color: lightblue;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.nword {
   background-color: red;
   border-radius: 1.5rem;
   padding: 0.4rem

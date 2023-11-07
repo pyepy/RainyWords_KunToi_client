@@ -178,6 +178,8 @@ function sketch(p) {
           socket.emit("activate_blind_powerup");
         } else if (rain[i].powerUp === "flood_e") {
           socket.emit("activate_flood_enemy");
+        } else if (rain[i].powerUp === "nword") {
+          socket.emit("req_fail",{"powerUp":'nword'})
         }
         
         
@@ -404,13 +406,15 @@ function sketch(p) {
         this.colouring('yellow', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "flood_e") { 
         //red and goose
-        this.colouring('red', eggPowerSelf, eggPowerSelfTyped);
+        this.colouring('cyan', eggPowerSelf, eggPowerSelfTyped);
       } else if (this.powerUp === "easy") { 
         //green and emu
         this.colouring('green', eggPowerSelf, eggPowerSelfTyped);
       } else if (this.powerUp === "blind") { 
         //purple and goose
         this.colouring('purple', eggPowerEnemy, eggPowerEnemyTyped);
+      } else if (this.powerUp === "nword") {
+        this.colouring('red', eggPowerEnemy, eggPowerEnemyTyped);
       } else { 
         //chicken and white
         this.colouring('white', eggDefault, eggTyped);

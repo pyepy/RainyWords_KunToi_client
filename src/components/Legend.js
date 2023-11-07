@@ -33,6 +33,10 @@ export function Legend() {
                 </div>
                 <div className='legendEgg'>
                     <img className="eggPic" src={badEgg}/>
+                    <div className='nword'>Danger Words</div>
+                </div>
+                <div className='legendEgg'>
+                    <img className="eggPic" src={badEgg}/>
                     <div className='speedUp'>Speed up</div>
                 </div>
                 

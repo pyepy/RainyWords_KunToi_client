@@ -54,13 +54,26 @@ function sketch(p) {
   let fallingSpeed = 80; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 4000//20000; // Duration in milliseconds to disable typing
+
+  //Difficulty
+  let mode = 3;
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
     p.textFont( 'Autour One');
-  
+    
+    let tempSpeed = fallingSpeed;
+
+    socket.once("setting_info",(data) => {
+      mode = data.wordDifficulty;
+      tempSpeed = fallingSpeed * data.speedMultiplier
+      socket.emit("hi",{mode,fallingSpeed,tempSpeed})
+    })
+
+    fallingSpeed = tempSpeed;
+
     socket.on("send_word", (data) => {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
@@ -107,7 +120,7 @@ function sketch(p) {
   };
 
   function request_word() {
-    socket.emit("request_word",1);
+    socket.emit("request_word",456126);
   }
 
   p.draw = function () {

@@ -166,7 +166,7 @@ export function LobbyPanel() {
                 <input 
                     type="range" 
                     id="timeInput" 
-                    min={60} 
+                    min={30} 
                     max={600} 
                     step={30} 
                     value={parseInt(timeMin) * 60 + parseInt(timeSecond)}

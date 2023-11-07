@@ -905,8 +905,8 @@ input[type=range]:focus {
 }
 
 .button {
-  background-color: #072541;
-  color: aliceblue;
+  background-color: #FAE7C9;
+  color: #B0926A;
   border: none;
   border-radius: 0.3rem;
   font-family: 'Autour One', sans-serif;
@@ -914,10 +914,11 @@ input[type=range]:focus {
   text-align: center;
   margin: 0 2vw;
   padding: 0.5vh 2vw;
+  font-weight: 200;
 }
 
 .button:hover {
-  color: #E95793;
+  color: #706233;
   /* background-color: transparent; */
   cursor: pointer;
   transition-duration: 0.5s;

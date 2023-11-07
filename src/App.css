@@ -526,6 +526,160 @@ input[type=range]:focus {
   cursor: pointer;
 }
 
+.lobbyChat {
+  background-color: #B0926A;
+  /* backdrop-filter: blur(40px);
+  background: rgba(248, 117, 170, 0.2); */
+  align-self: center;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 5rem 5rem 0 0;
+  width: 20vw;
+  height: 70vh;
+  color: #FAE7C9;
+  font-weight: 900;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: row;
+  width: 18vw;
+  justify-content: flex-start;
+}
+
+.myChatContainer {
+  display: flex;
+  flex-direction: row;
+  width: 18vw;
+  justify-content: flex-end;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHistory {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
+  border-radius: 3rem 3rem 0 0;
+  padding-left: 0.5rem;
+
+}
+
+/* Style the scrollbar in WebKit-based browsers (Chrome and Safari) */
+.chatHistory::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 10vh;
+}
+
+/* .chatHistory::-webkit-scrollbar-track {
+  margin-left: 1rem;
+} */
+
+.chatHistory::-webkit-scrollbar-thumb {
+  background: #706233;
+  border-radius: 6px;
+}
+
+.chatHistory::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.chatHistory::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 5vh;
+}
+
+/* .chatHistory::-webkit-scrollbar-track {
+  height: 10vh;
+} */
+
+/* .chatHistory::-webkit-scrollbar-thumb:hover {
+  background: ;
+} */
+
+
+
+
+
+
+
+
+.chatWelcome {
+  align-self: center;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.chatPlayerName {
+  font-size: 0.75rem;
+  align-self: flex-start;
+}
+
+.myChatPlayerName {
+  font-size: 0.75rem;
+  align-self: flex-end;
+}
+
+.chatMessage {
+  font-size: 1rem;
+  background-color: #FAE7C9;
+  color: #B0926A;
+  padding: 0.25rem;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  font-weight: 500;
+
+  max-width: 15vw;
+
+  margin: 0 0 0.5rem 0;
+}
+
+.myChatMessage {
+  font-size: 1rem;
+  background-color: #FAE7C9;
+  color: #B0926A;
+  padding: 0.25rem;
+  border-radius: 0.5rem 0 0.5rem 0.5rem;
+  font-weight: 500;
+
+  max-width: 15vw;
+
+
+  margin: 0 0 0.5rem 0;
+}
+
+.chatInput {
+  font-size: 1.25rem;
+  background-color: #FAE7C9;
+  color: #B0926A;
+  border: none;
+  width: 18vw;
+  margin-bottom: 0.5rem;
+  font-family: 'Autour One', sans-serif;
+  font-weight: 900;
+  outline: 3px solid #706233;
+}
+
+.chatInput:focus {
+  border: none;
+  outline: 4px solid #706233;
+  /* transition-duration: 0.5s;
+  transition-timing-function: ease; */
+}
+
+
+
 
 
 /*------------------------------------------------------- game page --------------------------------------------------------- */

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../utils/userdata';
 import { LobbySetting } from '../components/LobbySetting.js';
+import { LobbyChat } from '../components/LobbyChat.js';
 
 const Play = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Play = () => {
       <div className='playContainer'>
         {/* <LobbySetting/> */}
         <LobbyPanel/>
+        <LobbyChat/>
       </div>
 
       <div className='notPlayContainer'>

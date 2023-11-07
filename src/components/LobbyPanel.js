@@ -11,7 +11,7 @@ import { userLogin, userName} from '../utils/userdata.js'
 export function LobbyPanel() {
 
     //-----------------------------------------------------------------setting------------------------------------------------------------  
-    const [wordDifficulty, setWordDifficulty] = useState('medium');
+    const [wordDifficulty, setWordDifficulty] = useState('Medium');
     const [speedValue, setSpeedValue] = useState(100);
     const [timeMin, setTimeMin] = useState('5');
     const [timeSecond, setTimeSecond] = useState('00');
@@ -31,6 +31,13 @@ export function LobbyPanel() {
 
     const chooseDifficulty = (level) => {
         setWordDifficulty(level);
+    }
+
+    const resetSetting = () =>{
+        setWordDifficulty('Medium');
+        setSpeedValue(100);
+        setTimeMin('5');
+        setTimeSecond('00');
     }
   
     //-----------------------------------------------------------------setting------------------------------------------------------------
@@ -73,7 +80,7 @@ export function LobbyPanel() {
     },[]);
 
       const startGame = () => {     
-        if(playerInLobby >= 2){
+        if(playerInLobby >= 1){
             let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
             let speedMultiplier = speedValue/100
             console.log(wordDifficulty);
@@ -114,18 +121,23 @@ export function LobbyPanel() {
             <div className='wordSetting'>
                 <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty}</div>
                 <div className='difficulties'>
-                    <div className='difficulty easy' onClick={() => chooseDifficulty("easy")}>Easy</div>
-                    <div className='difficulty medium' onClick={() => chooseDifficulty("medium")}>Medium</div>
-                    <div className='difficulty hard'onClick={() => chooseDifficulty("hard")}>Hard</div>
+                    <div className='difficulty easy' onClick={() => chooseDifficulty("Easy")}>Easy</div>
+                    <div className='difficulty medium' onClick={() => chooseDifficulty("Medium")}>Medium</div>
+                    <div className='difficulty hard'onClick={() => chooseDifficulty("Hard")}>Hard</div>
                 </div>
             </div>
             <div className='speedSetting'>
                 <div className='speedSettingTitle'>Falling Speed: {speedValue}%</div>
-                <input type="range" id="speedInput" 
-                min={50} max={200} step={1} defaultValue={100} 
-                className='speedInput'
-                onChange={handleSpeedChange}
-                ></input>
+                <input 
+                    type="range" 
+                    id="speedInput" 
+                    min={50} 
+                    max={200} 
+                    step={1} 
+                    value={speedValue} 
+                    className='speedInput'
+                    onChange={handleSpeedChange}
+                />
             </div>
             <div className='timeSetting'>
                 <div className='timeSettingTitle' >Time: {timeMin}.{timeSecond}</div>
@@ -140,6 +152,7 @@ export function LobbyPanel() {
                     onChange={handleTimeChange}
                 />
             </div>
+            <div className='defaultSetting' onClick={resetSetting}>Reset to default</div>
         </div>
         : null }
 

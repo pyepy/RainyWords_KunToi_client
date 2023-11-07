@@ -11,7 +11,7 @@ import { userLogin, userName} from '../utils/userdata.js'
 export function LobbyPanel() {
 
     //-----------------------------------------------------------------setting------------------------------------------------------------  
-    const [wordDifficulty, setWordDifficulty] = useState('Medium');
+    const [wordDifficulty, setWordDifficulty] = useState(['Medium', 2]);
     const [speedValue, setSpeedValue] = useState(100);
     const [timeMin, setTimeMin] = useState('5');
     const [timeSecond, setTimeSecond] = useState('00');
@@ -34,7 +34,7 @@ export function LobbyPanel() {
     }
 
     const resetSetting = () =>{
-        setWordDifficulty('Medium');
+        setWordDifficulty(['Medium',2]);
         setSpeedValue(100);
         setTimeMin('5');
         setTimeSecond('00');
@@ -63,7 +63,9 @@ export function LobbyPanel() {
                 setPlayerInLobby(data.myRoom.roomPlayerCount);
                 setPlayers(data.myRoom.players);
 
-                setWordDifficulty(data.myRoom.wordDifficulty);
+                if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy",1]);
+                if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium",2]);
+                if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard",3]);
                 setSpeedValue(data.myRoom.speedMultiplier*100);
 
                 const time = data.myRoom.timeInSec;
@@ -86,7 +88,9 @@ export function LobbyPanel() {
             setPlayerInLobby(data.myRoom.roomPlayerCount);
             setPlayers(data.myRoom.players);
 
-            setWordDifficulty(data.myRoom.wordDifficulty);
+            if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy",1]);
+            if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium",2]);
+            if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard",3]);
             setSpeedValue(data.myRoom.speedMultiplier*100);
             const time = data.myRoom.timeInSec;
             const minutes = Math.floor(time / 60);
@@ -99,11 +103,12 @@ export function LobbyPanel() {
       const startGame = () => {     
         if(playerInLobby >= 1){
             let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
-            let speedMultiplier = speedValue/100
-            console.log(wordDifficulty);
+            let speedMultiplier = speedValue/100;
+            let wordDifficultyLevel =wordDifficulty[1];
+            console.log(wordDifficultyLevel);
             console.log(timeInSec);
             console.log(speedMultiplier);
-            socket.emit("request_start_game", {wordDifficulty, timeInSec, speedMultiplier}); 
+            socket.emit("request_start_game", {wordDifficultyLevel, timeInSec, speedMultiplier}); 
         } else alert('waiting for other players');
       }
 
@@ -136,11 +141,11 @@ export function LobbyPanel() {
         <div className='lobbySetting'>
             <div className='settingTitle'>Setting</div>
             <div className='wordSetting'>
-                <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty}</div>
+                <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty[0]}</div>
                 <div className='difficulties'>
-                    <div className='difficulty easy' onClick={() => chooseDifficulty("Easy")}>Easy</div>
-                    <div className='difficulty medium' onClick={() => chooseDifficulty("Medium")}>Medium</div>
-                    <div className='difficulty hard'onClick={() => chooseDifficulty("Hard")}>Hard</div>
+                    <div className='difficulty easy' onClick={() => chooseDifficulty(["Easy",1])}>Easy</div>
+                    <div className='difficulty medium' onClick={() => chooseDifficulty(["Medium",2])}>Medium</div>
+                    <div className='difficulty hard'onClick={() => chooseDifficulty(["Hard",3])}>Hard</div>
                 </div>
             </div>
             <div className='speedSetting'>

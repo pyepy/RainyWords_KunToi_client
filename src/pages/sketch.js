@@ -59,6 +59,7 @@ function sketch(p) {
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
+    p.textFont( 'Autour One');
   
     socket.on("send_word", (data) => {
       words.push({"word":data.word,"powerUp":data.powerUp});
@@ -342,7 +343,7 @@ function sketch(p) {
           }
       
           // Draw the square (background) for the letter
-          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
+          p.rect(currentX, this.y, this.letterSize + 3, this.letterSize + 3, 15);
       
           p.textSize(this.letterSize);
           p.fill(0);
@@ -361,7 +362,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
+          p.rect(currentX, this.y, this.letterSize + 3, this.letterSize + 3, 15);
       
           p.textSize(this.letterSize);
           p.fill(0,0,0,0);
@@ -380,7 +381,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 10);
+          p.rect(currentX, this.y, this.letterSize + 3, this.letterSize + 3, 10);
       
           p.textSize(this.letterSize);
           p.fill(0);

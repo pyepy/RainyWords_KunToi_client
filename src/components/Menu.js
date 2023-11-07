@@ -54,7 +54,10 @@ export function Menu(props) {
   //enter Practice
   useEffect(() => {
     const handlePracticeRoomCreated = (data) => {
-      socket.emit("request_start_game"); 
+      const wordDifficultyLevel = 2;
+      const timeInSec = 300;
+      const speedMultiplier = 1;
+      socket.emit("request_start_game",{wordDifficultyLevel, timeInSec, speedMultiplier}); 
     };
 
     socket.on("practiceRoomCreated", handlePracticeRoomCreated);

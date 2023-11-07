@@ -292,9 +292,9 @@ a:hover {
 
 
 .midScreenContainer {
-  /* background-color: #072541; */
-  backdrop-filter: blur(40px);
-  background: rgba(248, 117, 170, 0.2);
+  background-color: #B0926A;
+  /* backdrop-filter: blur(30px); */
+  /* background: rgba(248, 117, 170, 0.1); */
   align-self: center;
   justify-self: center;
   color: #072541;
@@ -306,8 +306,12 @@ a:hover {
   width: 70vh;
   height: 70vh;
   border-radius: 5rem;
-  color: #CE5A67;
+  color: #FAE7C9;
   font-weight: 900;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
+  margin: 0 2vw;
 
 }
 
@@ -349,12 +353,12 @@ a:hover {
 }
 
 .playerMe {
-  color: #B0578D;
+  color: #FAE7C9;
 }
 
 .startGame {
-  color: #CE5A67;
-  border-color: #CE5A67;
+  color: #FAE7C9;
+  border-color: #FAE7C9;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
   font-size: 2.5rem;
@@ -376,8 +380,8 @@ a:hover {
 }
 
 .startGame:hover {
-  color: #E95793;
-  border-color: #E95793;
+  color: #E1C78F;
+  border-color: #E1C78F;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
 }
@@ -386,28 +390,37 @@ a:hover {
   margin: 3vh 0 0 3vw;
   font-size: 2rem;
   cursor: pointer;
-}
-
-.lobbySetting {
-  backdrop-filter: blur(40px);
-  background: rgba(248, 117, 170, 0.2);
-  align-self: center;
-  justify-self: center;
-  color: #072541;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border-radius: 5rem;
-  width: 20vw;
-  height: 30vh;
-  color: #4d4949;
+  color: #B0926A;
   font-weight: 900;
 }
 
+.lobbySetting {
+  background-color: #B0926A;
+  /* backdrop-filter: blur(40px);
+  background: rgba(248, 117, 170, 0.2); */
+  align-self: center;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  width: 20vw;
+  height: 70vh;
+  color: #FAE7C9;
+  font-weight: 900;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
+}
+
 .settingTitle {
-  font-size: 2rem;
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 1rem;
+  /* -webkit-text-stroke: 0.01rem #B0926A; */
+
 
 }
 
@@ -420,6 +433,7 @@ a:hover {
 .difficulties {
   display: flex;
   flex-direction: row;
+  margin: 1rem;
 }
 
 .easy {
@@ -427,6 +441,7 @@ a:hover {
   margin: 0 1vw;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .medium {
@@ -434,6 +449,7 @@ a:hover {
   margin: 0 1vw;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .hard {
@@ -441,7 +457,66 @@ a:hover {
   margin: 0 1vw;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
+
+.speedSetting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.speedInput {
+  width: 10vw;
+  margin: 1rem;
+}
+
+.timeSetting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeInput {
+  width: 10vw;
+  margin: 1rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 12vw;
+  background-color: transparent;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 12vw;
+  height: 0.5rem;
+  background: linear-gradient(to right, #219C90, #E9B824, #EE9322, #D83F31);
+  border-radius: 1rem;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -0.7rem;
+  width: 1.5rem;
+  height: 2rem;
+  background: url('./images/chicken5.png') center center no-repeat;
+  /* Image for the thumb */
+  background-size: cover;
+  /* Make the image cover the thumb */
+  /* border: 2px solid #fff; 
+  border-radius: 50%;  */
+  cursor: pointer;
+  /* Change the cursor on hover */
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
 
 /*------------------------------------------------------- game page --------------------------------------------------------- */
 /*------------------------------------------------------- game page --------------------------------------------------------- */

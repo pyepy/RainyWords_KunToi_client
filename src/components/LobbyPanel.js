@@ -10,23 +10,37 @@ import { userLogin, userName} from '../utils/userdata.js'
 
 export function LobbyPanel() {
 
+    //-----------------------------------------------------------------setting------------------------------------------------------------  
+    const [wordDifficulty, setWordDifficulty] = useState('medium');
+    const [speedValue, setSpeedValue] = useState(100);
+    const [timeMin, setTimeMin] = useState('5');
+    const [timeSecond, setTimeSecond] = useState('00');
+  
+    const handleSpeedChange = (event) => {
+        const value = event.target.value;
+        setSpeedValue(value);
+    }
+  
+    const handleTimeChange = (event) => {
+        const value = event.target.value;
+        const minutes = Math.floor(value / 60);
+        const seconds = (value % 60).toString().padStart(2, '0');
+        setTimeMin(minutes);
+        setTimeSecond(seconds);
+    }
+
+    const chooseDifficulty = (level) => {
+        setWordDifficulty(level);
+    }
+  
+    //-----------------------------------------------------------------setting------------------------------------------------------------
+
     const navigate = useNavigate();
 
     const [gameMode, setGameMode] = useState('Game');
     const [roomNo, setRoomNo] = useState('00000');
-    // const [playerOne, setPlayerOne] = useState('Waiting');
-    // const [playerTwo, setPlayerTwo] = useState('Waiting');
     const [playerInLobby, setPlayerInLobby] = useState(0);
-
     const [players, setPlayers] = useState(['no one here yet']);
-
-    
-
-    if (userLogin == 1) {
-        //get room info
-        
-    }
-    
 
     useEffect(() => {
         if (userLogin == 1) {
@@ -49,7 +63,6 @@ export function LobbyPanel() {
     },[]);
 
     useEffect(() => {
-        
         socket.on('updateRoomInfo', (data) => { 
             console.log(data)
             setGameMode(data.myRoom.gameMode);
@@ -57,12 +70,16 @@ export function LobbyPanel() {
             setPlayerInLobby(data.myRoom.roomPlayerCount);
             setPlayers(data.myRoom.players);
         })
-    
     },[]);
 
       const startGame = () => {     
         if(playerInLobby >= 2){
-            socket.emit("request_start_game"); 
+            let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
+            let speedMultiplier = speedValue/100
+            console.log(wordDifficulty);
+            console.log(timeInSec);
+            console.log(speedMultiplier);
+            socket.emit("request_start_game", {wordDifficulty, timeInSec, speedMultiplier}); 
         } else alert('waiting for other players');
       }
 
@@ -86,7 +103,46 @@ export function LobbyPanel() {
       }, []);
 
 
+
+  
+
     return (
+        <>
+        {players[0] == userName ? 
+        <div className='lobbySetting'>
+            <div className='settingTitle'>Setting</div>
+            <div className='wordSetting'>
+                <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty}</div>
+                <div className='difficulties'>
+                    <div className='difficulty easy' onClick={() => chooseDifficulty("easy")}>Easy</div>
+                    <div className='difficulty medium' onClick={() => chooseDifficulty("medium")}>Medium</div>
+                    <div className='difficulty hard'onClick={() => chooseDifficulty("hard")}>Hard</div>
+                </div>
+            </div>
+            <div className='speedSetting'>
+                <div className='speedSettingTitle'>Falling Speed: {speedValue}%</div>
+                <input type="range" id="speedInput" 
+                min={50} max={200} step={1} defaultValue={100} 
+                className='speedInput'
+                onChange={handleSpeedChange}
+                ></input>
+            </div>
+            <div className='timeSetting'>
+                <div className='timeSettingTitle' >Time: {timeMin}.{timeSecond}</div>
+                <input 
+                    type="range" 
+                    id="timeInput" 
+                    min={60} 
+                    max={600} 
+                    step={30} 
+                    value={parseInt(timeMin) * 60 + parseInt(timeSecond)}
+                    className='timeInput'
+                    onChange={handleTimeChange}
+                />
+            </div>
+        </div>
+        : null }
+
         <div className="midScreenContainer">
             <div className='gameMode'>
                 insert ui title
@@ -118,5 +174,7 @@ export function LobbyPanel() {
             
 
         </div>
+
+        </>
     )
 }

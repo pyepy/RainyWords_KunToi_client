@@ -29,7 +29,7 @@ const Play = () => {
   return(
     <div className="App">
       <div className='playContainer'>
-        <LobbySetting/>
+        {/* <LobbySetting/> */}
         <LobbyPanel/>
       </div>
 

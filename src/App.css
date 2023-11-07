@@ -292,9 +292,9 @@ a:hover {
 
 
 .midScreenContainer {
-  /* background-color: #072541; */
-  backdrop-filter: blur(40px);
-  background: rgba(248, 117, 170, 0.2);
+  background-color: #B0926A;
+  /* backdrop-filter: blur(30px); */
+  /* background: rgba(248, 117, 170, 0.1); */
   align-self: center;
   justify-self: center;
   color: #072541;
@@ -306,8 +306,12 @@ a:hover {
   width: 70vh;
   height: 70vh;
   border-radius: 5rem;
-  color: #CE5A67;
+  color: #FAE7C9;
   font-weight: 900;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
+  margin: 0 2vw;
 
 }
 
@@ -349,12 +353,12 @@ a:hover {
 }
 
 .playerMe {
-  color: #B0578D;
+  color: #FAE7C9;
 }
 
 .startGame {
-  color: #CE5A67;
-  border-color: #CE5A67;
+  color: #FAE7C9;
+  border-color: #FAE7C9;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
   font-size: 2.5rem;
@@ -376,8 +380,8 @@ a:hover {
 }
 
 .startGame:hover {
-  color: #E95793;
-  border-color: #E95793;
+  color: #E1C78F;
+  border-color: #E1C78F;
   font-family: 'Autour One', sans-serif;
   font-weight: bold;
 }
@@ -386,7 +390,143 @@ a:hover {
   margin: 3vh 0 0 3vw;
   font-size: 2rem;
   cursor: pointer;
+  color: #B0926A;
+  font-weight: 900;
 }
+
+.lobbySetting {
+  background-color: #B0926A;
+  /* backdrop-filter: blur(40px);
+  background: rgba(248, 117, 170, 0.2); */
+  align-self: center;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  width: 20vw;
+  height: 70vh;
+  color: #FAE7C9;
+  font-weight: 900;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
+}
+
+.settingTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 1rem;
+  /* -webkit-text-stroke: 0.01rem #B0926A; */
+
+
+}
+
+.wordSetting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.difficulties {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+}
+
+.easy {
+  background-color: #219C90;
+  margin: 0 1vw;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.medium {
+  background-color: #E9B824;
+  margin: 0 1vw;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.hard {
+  background-color: #D83F31;
+  margin: 0 1vw;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.speedSetting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.speedInput {
+  width: 10vw;
+  margin: 1rem;
+}
+
+.timeSetting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeInput {
+  width: 10vw;
+  margin: 1rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 12vw;
+  background-color: transparent;
+  height: 0.5rem;
+  border-radius: 1rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 12vw;
+  height: 0.5rem;
+  background: linear-gradient(to right, #219C90, #E9B824, #EE9322, #D83F31);
+  border-radius: 1rem;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -0.7rem;
+  width: 1.5rem;
+  height: 2rem;
+  background: url('./images/chicken5.png') center center no-repeat;
+  /* Image for the thumb */
+  background-size: cover;
+  /* Make the image cover the thumb */
+  /* border: 2px solid #fff; 
+  border-radius: 50%;  */
+  cursor: pointer;
+  /* Change the cursor on hover */
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+.defaultSetting {
+  margin-top: 3rem;
+}
+
+.defaultSetting:hover {
+  color: #E1C78F;
+  cursor: pointer;
+}
+
+
 
 /*------------------------------------------------------- game page --------------------------------------------------------- */
 /*------------------------------------------------------- game page --------------------------------------------------------- */
@@ -415,6 +555,15 @@ a:hover {
 
 }
 
+.otherOtherOtherContainer {
+  margin-top: -100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+}
+
 .keyboard {
   margin-top: -115vh;
   margin-right: 1rem;
@@ -425,6 +574,7 @@ a:hover {
 .bigNumber {
   font-size: 40vh;
   align-self: center;
+  z-index: 100;
 }
 
 .topOverlay {
@@ -461,11 +611,99 @@ a:hover {
 .PlayerScores {
   font-size: 1.5rem;
   white-space: nowrap;
-  margin: 3vh 0 0 2vw;
+  margin: 3vh 0 0 1vw;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+
+  background-image: url('./images/fullBg.PNG');
+  background-position: -1vh 5vw;
+  min-height: 70vh;
+  padding: 1vh 1vw;
+  width: 19vw;
+  border-radius: 3rem;
+}
+
+.PlayerScoresTitle {
+  align-self: center;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 2vh 0 1vh 0;
 }
 
 .PlayerScore {
   margin-top: 2vh;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 3vh 3vh 0 0;
+  background-image: url('./images/fullBg.PNG');
+  background-position: 88vh 5vw;
+  padding: 1vh 1vw;
+  border-radius: 3rem;
+}
+
+.legendEggContainer {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.legendTitle {
+  font-weight: 900;
+  margin: 2vh 0 2vh 0;
+  font-size: 2rem;
+}
+
+.legendEgg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.eggPic {
+  height: 3.5rem;
+  margin: 1vh 2vw;
+}
+
+.freeze {
+  background-color: blue;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.slow {
+  background-color: yellow;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.easyWord {
+  background-color: green;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.blind {
+  background-color: purple;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.flood {
+  background-color: red;
+  border-radius: 1.5rem;
+  padding: 0.4rem
+}
+
+.speedUp {
+  background-color: pink;
+  border-radius: 1.5rem;
+  padding: 0.4rem
 }
 
 /*------------------------------------------------------- end page --------------------------------------------------------- */

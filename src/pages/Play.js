@@ -3,6 +3,7 @@ import { socket } from '../utils/socket.js';
 import { useEffect } from "react"; 
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../utils/userdata';
+import { LobbySetting } from '../components/LobbySetting.js';
 
 const Play = () => {
   const navigate = useNavigate();
@@ -12,6 +13,12 @@ const Play = () => {
       console.log(userLogin)
       navigate("../");
     }
+
+    socket.on("nuke_incoming", (data) => {
+      alert("Restarting Server...")
+      console.log("hi")
+      const reset = setTimeout(navigate("../"),10000)
+    })
   },[])
 
   const leaveRoom = () => {       
@@ -22,6 +29,7 @@ const Play = () => {
   return(
     <div className="App">
       <div className='playContainer'>
+        {/* <LobbySetting/> */}
         <LobbyPanel/>
       </div>
 

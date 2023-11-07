@@ -2,8 +2,9 @@ import { socket } from "../utils/socket";
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
+  // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
   // let words = ["freeze","slow","easy","flood","clear"]
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -195,15 +196,15 @@ function sketch(p) {
           if (diffTime < 0) {
             diffTime = 0;
           }
-          socket.emit("req_success",{"word": rain[i].word,"len":rain[i].len,"diffTime":diffTime})
+          socket.emit("req_success",{"word": rain[i].word,"len":rain[i].len,"diffTime":diffTime,"powerUp":rain[i].powerUp})
         }
         rain.splice(i, 1); // Remove the word when it's typed
       } 
-  
-      if (rain[i] && rain[i].y > p.height - p.windowHeight / 4 ) { //- p.windowHeight / 4
+      
+      if (rain[i] && rain[i].y > p.height) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
-        socket.emit("req_fail",{"word": rain[i].word})
+        socket.emit("req_fail",{"word": rain[i].word,"len":rain[i].len,"powerUp":rain[i].powerUp})
       }
     }
     // Check if it's time to unfreeze the rain
@@ -339,7 +340,7 @@ function sketch(p) {
           }
       
           // Draw the square (background) for the letter
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
       
           p.textSize(this.letterSize);
           p.fill(0);
@@ -358,7 +359,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 15);
       
           p.textSize(this.letterSize);
           p.fill(0,0,0,0);
@@ -377,7 +378,7 @@ function sketch(p) {
           
           // Draw the square (background) for the letter
           p.fill(colour);
-          p.rect(currentX, this.y, this.letterSize, this.letterSize);
+          p.rect(currentX, this.y, this.letterSize + 2, this.letterSize + 2, 10);
       
           p.textSize(this.letterSize);
           p.fill(0);

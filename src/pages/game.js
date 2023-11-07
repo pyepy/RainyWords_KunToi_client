@@ -9,6 +9,7 @@ import { InitialRandomWord } from '../components/initialRandomWord';
 import { GameTimer } from '../components/GameTimer';
 import { PlayerScore } from '../components/PlayerScore';
 import { Countdown } from '../components/CountDown';
+import { Legend } from '../components/Legend';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -24,6 +25,12 @@ const Game = () => {
       console.log(userLogin)
       navigate("../");
     }
+
+    socket.on("nuke_incoming", (data) => {
+      alert("Restarting Server...")
+      console.log("hi")
+      const reset = setTimeout(navigate("../"),10000)
+    })
   },[])
 
   useEffect(() => {
@@ -50,16 +57,16 @@ const Game = () => {
         <div className='game-left'>
           <PlayerScore/>
         </div>
-        
-        <div className='game-right'>
-        </div>
-        
+      
         
       </div>
       <div className='otherOtherContainer'>
         <Countdown/>
       </div>
-      
+      <div className='otherOtherOtherContainer'>
+        <Legend/>
+      </div>
+
       <Keyboard />
     </div>
   );

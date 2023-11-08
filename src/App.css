@@ -78,18 +78,25 @@ a:hover {
   /* color: #a65947; */
   color: #FAE7C9;
   white-space: nowrap;
-  align-self: flex-start;
+  align-self: center;
   text-transform: uppercase;
   /* margin: 7vh 0 -3vh 0; */
-  margin: 1rem 0 0 7rem;
+  /* margin-left: -3rem; */
+
+}
+
+.logoPic {
+  /* align-self: center; */
+  margin: 7vh 0 -3vh 0;
 }
 
 
 .RainyWords {
-  /* filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5)); */
+  /* filter: drop-shadow(0 25px 25px rgb(250 231 201 / 0.9));
   font-size: 10rem;
-  font-weight: 900;
-  -webkit-text-stroke: 0.3rem #B0926A;
+  font-weight: 900; */
+  /* -webkit-text-stroke: 0.3rem #B0926A; */
+  width: 69vw
 }
 
 .options {
@@ -98,6 +105,12 @@ a:hover {
   font-size: 3rem;
   font-family: 'Autour One', sans-serif;
   padding: auto;
+  /* margin: 0rem 0 -7rem 7rem; */
+}
+
+.abovething {
+  margin-left: 7rem;
+  margin-bottom: 0rem;
 }
 
 .option {
@@ -110,7 +123,7 @@ a:hover {
 
 .notOption {
   white-space: nowrap;
-  margin: 0rem 0 -7rem 7rem;
+  /* margin: 0rem 0 -7rem 7rem; */
   text-transform: uppercase;
   border-bottom: #E95793;
   padding: 0;
@@ -221,15 +234,17 @@ a:hover {
   background-color: rgb(255, 255, 255);
   border: none;
 
+  outline: 3px solid #B0926A;
+
   padding: 0.5rem 2rem;
 
   margin: 3rem 0 1rem 0;
 }
 
 .UsernameInput:focus {
-  color: #f687b3;
+  color: #706233;
   border: none;
-  outline: 3px solid #f687b3;
+  outline: 4px solid #B0926A;
   transition-duration: 0.5s;
   transition-timing-function: ease;
 }
@@ -240,8 +255,8 @@ a:hover {
 }
 
 .SubmitName {
-  background-color: #072541;
-  color: aliceblue;
+  background-color: #B0926A;
+  color: #FAE7C9;
   border: none;
   border-radius: 0.3rem;
   font-family: 'Autour One', sans-serif;
@@ -252,7 +267,7 @@ a:hover {
 }
 
 .SubmitName:hover {
-  color: #E95793;
+  color: #E1C78F;
   /* background-color: transparent; */
   cursor: pointer;
   transition-duration: 0.5s;

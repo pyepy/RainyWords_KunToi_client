@@ -35,6 +35,11 @@ function App() {      //homepage is moved to /page/Home.js
       //alert({data,userDiff,userSpeed});
       socket.emit("hi",{data,userDiff,userSpeed})
     })
+
+    socket.once("nuke_launched",() => {
+      alert("Restarting Server")
+      console.log("nuke")
+    })
   },[]) 
   
   return (

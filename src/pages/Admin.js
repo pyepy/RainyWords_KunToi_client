@@ -9,15 +9,9 @@ const Admin = () => {
     socket.emit("prepare_nuke")
   }
 
-  useEffect(() => {
-    socket.on("nuke_incoming", (data) => {
-      alert("Restarting Server...")
-      console.log("hi")
-    })
-  })
-
   return (
-    <div>
+    <div className="AppHome">
+      <h1>ADMIN CONTROL</h1>
       <PlayerCount/>
       <button onClick={nukeServer}> Reset ALL</button>
     </div>

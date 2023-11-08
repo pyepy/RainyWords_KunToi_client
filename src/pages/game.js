@@ -17,11 +17,11 @@ import { socket } from '../utils/socket';
 import { userLogin } from '../utils/userdata';
 
 // Import your music file
-import DriftveilCityMusic from '../images/songs/DriftveilCity.mp3';
+import song from '../images/songs/DriftveilCity.mp3';
 
 const Game = () => {
   // State to manage the audio element
-  const [audio] = useState(new Audio(DriftveilCityMusic));
+  const [audio] = useState(new Audio(song));
 
   // Function to play the song
   const playSong = () => {
@@ -45,6 +45,9 @@ const Game = () => {
   },[])
 
   useEffect(() => {
+    // Set audio to loop
+    audio.loop = true;
+
     // Play the song when the component mounts
     playSong();
 

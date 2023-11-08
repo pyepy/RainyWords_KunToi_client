@@ -1,4 +1,5 @@
 import { socket } from "../utils/socket";
+import { userDiff, userSpeed } from '../utils/userdata';
 
 function sketch(p) {
   let rain = [];
@@ -52,12 +53,12 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 80; // Adjust this value to control the falling speed
+  let fallingSpeed = 80*userSpeed; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 4000//20000; // Duration in milliseconds to disable typing
 
   //Difficulty
-  let mode = 3;
+  let mode = userDiff;
   //-------------------------------------------------------------------------------------------------------------
 
   p.preload = function() {
@@ -75,13 +76,6 @@ function sketch(p) {
     
     let tempSpeed = fallingSpeed;
 
-    socket.once("setting_info",(data) => {
-      mode = data.wordDifficulty;
-      tempSpeed = fallingSpeed * data.speedMultiplier
-      socket.emit("hi",{mode,fallingSpeed,tempSpeed})
-    })
-
-    fallingSpeed = tempSpeed;
 
     socket.on("send_word", (data) => {
       words.push({"word":data.word,"powerUp":data.powerUp});
@@ -129,7 +123,7 @@ function sketch(p) {
   };
 
   function request_word() {
-    socket.emit("request_word",456126);
+    socket.emit("request_word",mode);
   }
 
   p.draw = function () {

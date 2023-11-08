@@ -61,18 +61,10 @@ function sketch(p) {
   let mode = userDiff;
   //-------------------------------------------------------------------------------------------------------------
 
-  p.preload = function() {
-    // Initialize the audio element
-    defaultSong = p.loadSound('./images/songs/DriftveilCity.mp3');
-  }
-  
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
     p.textFont( 'Autour One');
-
-    //play song
-    defaultSong.play();
     
     let tempSpeed = fallingSpeed;
 

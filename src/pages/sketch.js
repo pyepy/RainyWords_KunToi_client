@@ -407,21 +407,21 @@ function sketch(p) {
       
       if (this.powerUp === "freeze") { 
         //blue and emu
-        this.colouring('blue', eggPowerSelf, eggPowerSelfTyped);
+        this.colouring('#C1E7E8', eggPowerSelf, eggPowerSelfTyped);
       } else if (this.powerUp === "slow") { 
         //yellow and emu
-        this.colouring('yellow', eggPowerEnemy, eggPowerEnemyTyped);
+        this.colouring('#FFFFA8', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "flood_e") { 
         //red and goose
-        this.colouring('cyan', eggPowerSelf, eggPowerSelfTyped);
+        this.colouring('#1878CC', eggPowerSelf, eggPowerSelfTyped);
       } else if (this.powerUp === "easy") { 
         //green and emu
-        this.colouring('green', eggPowerSelf, eggPowerSelfTyped);
+        this.colouring('#BEED5F', eggPowerSelf, eggPowerSelfTyped);
       } else if (this.powerUp === "blind") { 
         //purple and goose
-        this.colouring('purple', eggPowerEnemy, eggPowerEnemyTyped);
+        this.colouring('#D6C1E8', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "nword") {
-        this.colouring('red', eggPowerEnemy, eggPowerEnemyTyped);
+        this.colouring('#BF0000', eggPowerEnemy, eggPowerEnemyTyped);
       } else { 
         //chicken and white
         this.colouring(currentBlindColour, eggDefault, eggTyped);

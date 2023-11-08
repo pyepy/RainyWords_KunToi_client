@@ -3,8 +3,8 @@ import { socket } from "../utils/socket";
 function sketch(p) {
   let rain = [];
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
-  let words = [{"word":"tabod","powerUp":"blind"}]
-  // let words = [];
+  // let words = ["freeze","slow","easy","flood","clear"]
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
 
@@ -36,7 +36,7 @@ function sketch(p) {
   let isBlinded = false;
   let blindStartTime = 0;
   const blindDuration = 5000;
-  let currentBlindColour = 'white';
+ 
 
   //clear board
   let isCleared = false;
@@ -57,6 +57,11 @@ function sketch(p) {
 
   //Difficulty
   let mode = 3;
+
+  //Typing
+  let backspaceHeld = false;
+  let backspaceHoldStartTime = 0;
+  const holdDuration = 500; // 500 milliseconds
   //-------------------------------------------------------------------------------------------------------------
 
   p.setup = function () {
@@ -84,11 +89,11 @@ function sketch(p) {
       }
     });
 
-    // socket.on("blind_powerup_activated", () => {
-    //   // Handle the "blind" effect for other players here
-    //   isBlinded = true;
-    //   blindStartTime = p.millis();
-    // });
+    socket.on("blind_powerup_activated", () => {
+      // Handle the "blind" effect for other players here
+      isBlinded = true;
+      blindStartTime = p.millis();
+    });
 
     socket.on("flood_enemy_activated", () => {
       isWordGenDelayHalved = true;
@@ -189,8 +194,6 @@ function sketch(p) {
             }
           }
         } else if (rain[i].powerUp === "blind") {
-          isBlinded = true;
-          blindStartTime = p.millis();
           socket.emit("activate_blind_powerup");
         } else if (rain[i].powerUp === "flood_e") {
           socket.emit("activate_flood_enemy");
@@ -198,8 +201,15 @@ function sketch(p) {
           socket.emit("req_fail",{"powerUp":'nword'})
         }
         
+        
+        //else if (typedWord === "clear") {
+        //   if (!isCleared) {
+        //       rain.splice(0,i);
+        //   }
+        // }      
+        
         request_word()
-        // console.log("superidol 的笑容都没你的天");
+        console.log("---SUCCESS---");
         typedWord = '';
         if (rain[i].word !== " " && rain[i].word !== ".") {
           score += 1;
@@ -214,7 +224,7 @@ function sketch(p) {
       
       if (rain[i] && rain[i].y > p.height) { //- p.windowHeight / 4
         rain.splice(i, 1); // Remove the word when it reaches the bottom
-        request_word();
+        request_word()
         socket.emit("req_fail",{"word": rain[i].word,"len":rain[i].len,"powerUp":rain[i].powerUp})
       }
     }
@@ -230,11 +240,13 @@ function sketch(p) {
     if (isWordGenDelayHalved && p.millis() - wordGenDelayHalveStartTime >= wordGenDelayHalveDuration) {
       isWordGenDelayHalved = false;
     }
-
-    if (isBlinded && p.millis() - blindStartTime < blindDuration) {
-      currentBlindColour = p.color(25, 25, 25);
-    } else {
-      currentBlindColour = p.color('white'); // Set it back to the default color
+    if (isBlinded && p.millis() - blindStartTime >= blindDuration) {
+      isBlinded = false;
+    }
+  
+    if (isBlinded) {
+      p.fill(0);
+      p.rect(p.windowWidth/4+23, p.windowHeight-788 , p.windowWidth/2-46, 350);
     }
   
     p.fill(255, 255, 255);
@@ -250,7 +262,13 @@ function sketch(p) {
     if (p.keyCode === p.ENTER) {
       typedWord = '';
     } else if (p.keyCode === p.BACKSPACE) {
-      typedWord = typedWord.substring(0, typedWord.length - 1); // Remove the last character
+        // while (p.keyIsDown(p.BACKSPACE)) {
+        backspaceHeld = true;
+
+        p.deleteCharacter();
+        
+      //}
+      // Remove the last character
     } //else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
     //   isRainFrozen = true; // Freeze the rain
     //   freezeStartTime = p.millis(); // Record the start time of freezing
@@ -293,6 +311,19 @@ function sketch(p) {
     }
   };
   
+  p.keyReleased = function () {
+    if (p.keyCode === p.BACKSPACE) {
+      backspaceHeld = false;
+    }
+  }
+
+  p.deleteCharacter = function () {
+    if (backspaceHeld && typedWord.length > 0) {
+      typedWord = typedWord.substring(0, typedWord.length - 1);
+      setTimeout(p.deleteCharacter, 50); // Adjust the delay if needed
+    }
+  }
+
   p.keyTyped = function () {
     const currentTime = p.millis();
     if (currentTime - gameStartTime >= disableTypingDuration) {
@@ -424,7 +455,7 @@ function sketch(p) {
         this.colouring('red', eggPowerEnemy, eggPowerEnemyTyped);
       } else { 
         //chicken and white
-        this.colouring(currentBlindColour, eggDefault, eggTyped);
+        this.colouring('white', eggDefault, eggTyped);
       }
     }       
   }

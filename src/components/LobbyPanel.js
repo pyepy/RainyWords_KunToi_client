@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
-import playerIcon from '../images/playerIconPink.png';
-import playerIconMe from '../images/playerIconPurple.png';
-import playerIconHead from '../images/pinkKing.png';
-import playerIconMeHead from '../images/purpleKing.png';
+
 import chickenInEgg from '../images/chicken5.png';
+
 import { useNavigate } from 'react-router-dom';
 
 import chicken from '../images/chicken4.png';
 import chickenKing from '../images/chicken6.png';
 import goose from '../images/goose4.png';
 import gooseKing from '../images/goose6.png';
+import gamelogo from '../images/logoReal2.png'
 
 import { userLogin, userName} from '../utils/userdata.js' 
 
@@ -208,10 +207,11 @@ export function LobbyPanel() {
         : null }
 
         <div className="midScreenContainer">
-            <div className='gameMode'>
-                insert ui title
-            </div>
+            {/* <div className='gameMode'> */}
+            
+            {/* </div> */}
             <div className='lobbyCount'>
+                <img className="gameLogo" src={gamelogo}/>
                 <span>Room No. {roomNo}</span>
                 <span className='waiting'>players in lobby: {playerInLobby} </span>
                 

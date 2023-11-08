@@ -762,6 +762,8 @@ input[type=range]:focus {
   margin-right: 1rem;
   display: flex;
   justify-content: flex-end;
+  pointer-events: none;
+
 }
 
 .bigNumber {
@@ -802,6 +804,7 @@ input[type=range]:focus {
 }
 
 .PlayerScores {
+  pointer-events: none;
   font-size: 1.5rem;
   white-space: nowrap;
   margin: 3vh 0 0 1vw;
@@ -842,8 +845,10 @@ input[type=range]:focus {
 }
 
 .legendEggContainer {
+
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 
 }
 
@@ -851,51 +856,62 @@ input[type=range]:focus {
   font-weight: 900;
   margin: 2vh 0 2vh 0;
   font-size: 2rem;
+  pointer-events: none;
 }
 
 .legendEgg {
   display: flex;
   flex-direction: row;
   align-items: center;
+  pointer-events: none;
 }
 
 .eggPic {
-  height: 3rem;
+  height: 3.5rem;
   margin: 1vh 2vw;
 }
 
+.egg {
+  width: 2.5rem;
+}
+
+.eggLabel {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
 .freeze {
-  background-color: blue;
+  background-color: #C1E7E8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .slow {
-  background-color: yellow;
+  background-color: #FFFFA8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .easyWord {
-  background-color: green;
+  background-color: #BEED5F;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .blind {
-  background-color: purple;
+  background-color: #D6C1E8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .flood {
-  background-color: lightblue;
+  background-color: #1878CC;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .nword {
-  background-color: red;
+  background-color: #BF0000;
   border-radius: 1.5rem;
   padding: 0.4rem
 }

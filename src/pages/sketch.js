@@ -374,7 +374,7 @@ function sketch(p) {
           let letter = this.word.charAt(i);
           
           // Draw the square (background) for the letter
-          p.fill(colour);
+          p.fill(0,0,0,0);
           p.rect(currentX, this.y, this.letterSize + 3, this.letterSize + 3, 15);
       
           p.textSize(this.letterSize);

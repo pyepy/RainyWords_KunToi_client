@@ -11,7 +11,11 @@ export function AddUsername() {
   const addName = () => {       
     socket.emit("assign_name",tempName);          //assign server-side
   }
-
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addName();
+    }
+  }
   useEffect(() => {
     socket.on("ack_name", (data) => {  //rcv name and namelist from server
       setName(data.name);
@@ -29,6 +33,7 @@ export function AddUsername() {
         onChange={(event) => {
           setTempName(event.target.value);
         }}
+        onKeyPress = {handleKeyPress}
       />
       <button className="SubmitName" onClick={addName}> Confirm</button>  
       </div>

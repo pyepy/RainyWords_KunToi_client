@@ -24,8 +24,6 @@ export function Menu(props) {
   }
 
   useEffect(() => {
-    playSong();
-
     const handleRoomCreated = (data) => {
       navigate('/play');
     };
@@ -87,6 +85,19 @@ export function Menu(props) {
       socket.off("goToGame", handleGameStart);
     };
   }, []);
+
+  useEffect(() => {
+    // Set audio to loop
+    audio.loop = true;
+
+    // Play the song when the component mounts
+    playSong();
+
+    return () => {
+        // Stop the song when the component unmounts
+        audio.pause();
+    };
+  },[audio])
 
   const goToCredits = () => {
     navigate('./credit');

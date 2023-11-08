@@ -9,7 +9,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { userLogin, userName} from '../utils/userdata.js' 
 
+// Import your music file
+import song from '../images/songs/seaHeartSadger.mp3';
+
 export function LobbyPanel() {
+    // State to manage the audio element
+    const [audio] = useState(new Audio(song));
+
+    // Function to play the song
+    const playSong = () => {
+        audio.play().catch(error => console.error("Failed to play audio:", error));
+    };
 
     //-----------------------------------------------------------------setting------------------------------------------------------------  
     const [wordDifficulty, setWordDifficulty] = useState(['Medium', 2]);
@@ -131,6 +141,19 @@ export function LobbyPanel() {
           socket.off("goToGame", handleGameStart);
         };
       }, []);
+
+      useEffect(() => {
+        // Set audio to loop
+        audio.loop = true;
+
+        // Play the song when the component mounts
+        playSong();
+
+        return () => {
+            // Stop the song when the component unmounts
+            audio.pause();
+        };
+      },[audio])
 
 
 

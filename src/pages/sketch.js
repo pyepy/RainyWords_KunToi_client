@@ -3,9 +3,9 @@ import { userDiff, userSpeed } from '../utils/userdata';
 
 function sketch(p) {
   let rain = [];
-  // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utokapai","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"}];
-  // let words = ["freeze","slow","easy","flood","clear"]
-  let words = [];
+  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utok","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
+  //let words = [{"word":"tabod","powerUp":"blind"}]
+  // let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -53,7 +53,7 @@ function sketch(p) {
   let lastTime = 0;
   let deltaTime = 0;
   let lastWordCreationTime = 0; // Initialize a variable to track the time of the last word creation
-  let fallingSpeed = 80*userSpeed; // Adjust this value to control the falling speed
+  let fallingSpeed = 70*userSpeed; // Adjust this value to control the falling speed
   let gameStartTime = 0; // Variable to track the game start time
   let disableTypingDuration = 4000//20000; // Duration in milliseconds to disable typing
 
@@ -71,9 +71,6 @@ function sketch(p) {
     p.frameRate(frameRate);
     p.textFont( 'Autour One');
     
-    let tempSpeed = fallingSpeed;
-
-
     socket.on("send_word", (data) => {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
@@ -192,9 +189,7 @@ function sketch(p) {
           socket.emit("activate_blind_powerup");
         } else if (rain[i].powerUp === "flood_e") {
           socket.emit("activate_flood_enemy");
-        } else if (rain[i].powerUp === "nword") {
-          socket.emit("req_fail",{"powerUp":'nword'})
-        }
+        } 
         
         
         //else if (typedWord === "clear") {

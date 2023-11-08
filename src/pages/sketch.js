@@ -3,7 +3,9 @@ import { userDiff, userSpeed } from '../utils/userdata';
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}, {"word":"utok","powerUp":"flood"}, {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
+  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
+  // , {"word":"utok","powerUp":"flood"}
+  , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
   //let words = [{"word":"tabod","powerUp":"blind"}]
   // let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
@@ -38,6 +40,7 @@ function sketch(p) {
   let isBlinded = false;
   let blindStartTime = 0;
   const blindDuration = 5000;
+  let currentBlindColour = 'white';
  
 
   //clear board
@@ -169,23 +172,25 @@ function sketch(p) {
               socket.emit("req_word_fixed_len",2); //length 2
             }
           }
-        } else if (rain[i].powerUp === "flood") {
-          isWordGenDelayHalved = true;
-          wordGenDelayHalveStartTime = p.millis();
-          let i = 0;
-          while(i<10) {
-            if(i%3 == 0 ) {
-              socket.emit("req_word_fixed_len",3); //length 3
-              i++;
-            } else if (i%3 == 2) {
-              socket.emit("req_word_fixed_len",2); //length 2
-              i++;
-            } else {
-              socket.emit("req_word_fixed_len",4); //length 4
-              i++;
-            }
-          }
-        } else if (rain[i].powerUp === "blind") {
+        } 
+        // else if (rain[i].powerUp === "flood") {
+        //   isWordGenDelayHalved = true;
+        //   wordGenDelayHalveStartTime = p.millis();
+        //   let i = 0;
+        //   while(i<10) {
+        //     if(i%3 == 0 ) {
+        //       socket.emit("req_word_fixed_len",3); //length 3
+        //       i++;
+        //     } else if (i%3 == 2) {
+        //       socket.emit("req_word_fixed_len",2); //length 2
+        //       i++;
+        //     } else {
+        //       socket.emit("req_word_fixed_len",4); //length 4
+        //       i++;
+        //     }
+        //   }
+        // } 
+        else if (rain[i].powerUp === "blind") {
           socket.emit("activate_blind_powerup");
         } else if (rain[i].powerUp === "flood_e") {
           socket.emit("activate_flood_enemy");
@@ -230,13 +235,11 @@ function sketch(p) {
     if (isWordGenDelayHalved && p.millis() - wordGenDelayHalveStartTime >= wordGenDelayHalveDuration) {
       isWordGenDelayHalved = false;
     }
-    if (isBlinded && p.millis() - blindStartTime >= blindDuration) {
-      isBlinded = false;
-    }
-  
-    if (isBlinded) {
-      p.fill(0);
-      p.rect(p.windowWidth/4+23, p.windowHeight-788 , p.windowWidth/2-46, 350);
+
+    if (isBlinded && p.millis() - blindStartTime < blindDuration) {
+      currentBlindColour = p.color(25, 25, 25);
+    } else {
+      currentBlindColour = p.color('white'); // Set it back to the default color
     }
   
     p.fill(255, 255, 255);
@@ -446,6 +449,7 @@ function sketch(p) {
       } else { 
         //chicken and white
         this.colouring('white', eggDefault, eggTyped);
+        this.colouring(currentBlindColour, eggDefault, eggTyped);
       }
     }       
   }

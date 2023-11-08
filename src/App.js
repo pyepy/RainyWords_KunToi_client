@@ -36,7 +36,7 @@ function App() {      //homepage is moved to /page/Home.js
       socket.emit("hi",{data,userDiff,userSpeed})
     })
 
-    socket.once("nuke_launched",() => {
+    socket.on("nuke_launched",() => {
       alert("Restarting Server")
       console.log("nuke")
     })

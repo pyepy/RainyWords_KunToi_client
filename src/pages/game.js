@@ -65,8 +65,33 @@ const Game = () => {
 
   },[audio])
 
-  return (
-    <div className="AppGame">
+  if (userLogin == 0) {
+    return(
+      <div className="AppGame">
+      <div className="canvasContainer">
+      </div>
+      <div className='otherContainer'>
+        <div className='topOverlay'>
+          <GameTimer/>
+        </div>
+        <div className='game-left'>
+          <PlayerScore/>
+        </div>
+      
+        
+      </div>
+      <div className='otherOtherContainer'>
+      </div>
+      <div className='otherOtherOtherContainer'>
+        <Legend/>
+      </div>
+
+      <Keyboard />
+    </div>
+    )
+  } else if (userLogin == 1) {
+    return (
+      <div className="AppGame">
       <div className="canvasContainer">
         <ReactP5Wrapper sketch={p => sketch(p)} />
       </div>
@@ -90,6 +115,7 @@ const Game = () => {
       <Keyboard />
     </div>
   );
+    };
 };
 
 export default Game;

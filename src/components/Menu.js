@@ -4,6 +4,8 @@ import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import MasterOfPuppets from '../images/songs/MasterOfPuppets.mp3';
+
 export function Menu(props) {
   const Create_room = 'Create room';
   const Join_room = 'Join room';
@@ -11,6 +13,11 @@ export function Menu(props) {
   const navigate = useNavigate();
   const [roomToJoin, setRoomToJoin] = useState('')
 
+
+  const [audio] = useState(new Audio(MasterOfPuppets));
+  const playSong = () => {
+    audio.play().catch(error => console.error("Failed to play audio:", error));
+  };
   // create room
   const requestCreateRoom = (gameMode) => {   
     socket.emit("request_create_room", {gameMode});          //assign server-side
@@ -78,6 +85,19 @@ export function Menu(props) {
       socket.off("goToGame", handleGameStart);
     };
   }, []);
+
+  useEffect(() => {
+    // Set audio to loop
+    audio.loop = true;
+
+    // Play the song when the component mounts
+    playSong();
+
+    return () => {
+        // Stop the song when the component unmounts
+        audio.pause();
+    };
+  },[audio])
 
   const goToCredits = () => {
     navigate('./credit');

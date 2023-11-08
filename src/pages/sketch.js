@@ -310,7 +310,7 @@ function sketch(p) {
   p.deleteCharacter = function () {
     if (backspaceHeld && typedWord.length > 0) {
       typedWord = typedWord.substring(0, typedWord.length - 1);
-      setTimeout(p.deleteCharacter, 50); // Adjust the delay if needed
+      setTimeout(p.deleteCharacter, 150); // Adjust the delay if needed
     }
   }
 

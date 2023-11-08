@@ -7,6 +7,7 @@ function sketch(p) {
   // let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
+  let defaultSong;
 
   //鸡蛋照片
   let eggDefault = p.loadImage('./images/chicken1.png');
@@ -59,10 +60,18 @@ function sketch(p) {
   let mode = 3;
   //-------------------------------------------------------------------------------------------------------------
 
+  p.preload = function() {
+    // Initialize the audio element
+    defaultSong = p.loadSound('./images/songs/DriftveilCity.mp3');
+  }
+  
   p.setup = function () {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.frameRate(frameRate);
     p.textFont( 'Autour One');
+
+    //play song
+    defaultSong.play();
     
     let tempSpeed = fallingSpeed;
 

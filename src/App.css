@@ -91,12 +91,17 @@ a:hover {
 }
 
 
+.welcomeName {
+  margin-top: 3rem;
+}
+
 .RainyWords {
   /* filter: drop-shadow(0 25px 25px rgb(250 231 201 / 0.9));
   font-size: 10rem;
   font-weight: 900; */
   /* -webkit-text-stroke: 0.3rem #B0926A; */
-  width: 69vw
+  width: 69vw;
+  margin-left: -1rem;
 }
 
 .options {
@@ -105,6 +110,7 @@ a:hover {
   font-size: 3rem;
   font-family: 'Autour One', sans-serif;
   padding: auto;
+  margin-top: 1rem;
   /* margin: 0rem 0 -7rem 7rem; */
 }
 
@@ -829,6 +835,7 @@ input[type=range]:focus {
   background-position: 88vh 5vw;
   padding: 1vh 1vw;
   border-radius: 3rem;
+  width: 18vw;
 }
 
 .legendEggContainer {
@@ -850,7 +857,7 @@ input[type=range]:focus {
 }
 
 .eggPic {
-  height: 3.5rem;
+  height: 3rem;
   margin: 1vh 2vw;
 }
 

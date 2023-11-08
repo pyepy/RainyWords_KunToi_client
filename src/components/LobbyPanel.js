@@ -7,6 +7,11 @@ import playerIconMeHead from '../images/purpleKing.png';
 import chickenInEgg from '../images/chicken5.png';
 import { useNavigate } from 'react-router-dom';
 
+import chicken from '../images/chicken4.png';
+import chickenKing from '../images/chicken6.png';
+import goose from '../images/goose4.png';
+import gooseKing from '../images/goose6.png';
+
 import { userLogin, userName} from '../utils/userdata.js' 
 
 export function LobbyPanel() {
@@ -209,12 +214,12 @@ export function LobbyPanel() {
                     <div key={index} className='lobbyPlayer'>
                         {player === userName ? 
                         <>
-                            {index === 0 ? <img className="playerIcon" src={chickenInEgg}/> : <img className="playerIcon" src={chickenInEgg}/>}
+                            {index === 0 ? <img className="playerIcon" src={chickenKing}/> : <img className="playerIcon" src={chicken}/>}
                             <span key={index} className='playerMe'>{player}&nbsp;</span>
                         </>
                         :
                         <>
-                            {index === 0 ? <img className="playerIcon" src={chickenInEgg}/> : <img className="playerIcon" src={chickenInEgg}/>}
+                            {index === 0 ? <img className="playerIcon" src={gooseKing}/> : <img className="playerIcon" src={goose}/>}
                             <span className='notMyName' key={index} >{player}&nbsp;</span>
                         </>}
                         

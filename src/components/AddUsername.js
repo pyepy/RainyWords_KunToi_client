@@ -46,7 +46,7 @@ export function AddUsername() {
     return(   //display
       <ul className="options abovething">
         <img className="RainyWords notOption " src={titlePic}/>
-        <li className="notOption">Welcome, <span className='Username'>{name}</span></li>
+        <li className="notOption welcomeName">Welcome, <span className='Username'>{name}</span></li>
       </ul>
     )
   }

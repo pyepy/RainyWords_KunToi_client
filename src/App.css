@@ -74,8 +74,9 @@ a:hover {
 }
 
 .Title {
-  font-family: 'Autour One', sans-serif;
-  color: black;
+  font-family: 'Comic Sans MS', sans-serif;
+  /* color: #a65947; */
+  color: #FAE7C9;
   white-space: nowrap;
   align-self: center;
   text-transform: uppercase;
@@ -84,9 +85,10 @@ a:hover {
 
 
 .RainyWords {
-  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5));
+  /* filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5)); */
   font-size: 10rem;
   font-weight: 900;
+  -webkit-text-stroke: 0.3rem #B0926A;
 }
 
 .options {

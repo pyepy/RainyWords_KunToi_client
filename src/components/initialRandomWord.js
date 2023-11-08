@@ -12,7 +12,7 @@ export function InitialRandomWord() {
     };
 
     const reqWord = (receivedLen, words) => {
-      socket.emit('request_word', receivedLen);
+      socket.emit('request_word', mode);
       socket.once('send_word', (data) => {
         if (!words.includes(data.word)) {
           words.push(data.word);

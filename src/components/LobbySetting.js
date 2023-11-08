@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { socket } from '../utils/socket'
-import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../utils/userdata';
 
 export function LobbySetting() {
     const [speedValue, setSpeedValue] = useState(100);

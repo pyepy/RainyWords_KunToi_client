@@ -16,7 +16,18 @@ import { useEffect } from 'react';
 import { socket } from '../utils/socket';
 import { userLogin } from '../utils/userdata';
 
+// Import your music file
+import DriftveilCityMusic from '../images/songs/DriftveilCity.mp3';
+
 const Game = () => {
+  // State to manage the audio element
+  const [audio] = useState(new Audio(DriftveilCityMusic));
+
+  // Function to play the song
+  const playSong = () => {
+    audio.play().catch(error => console.error("Failed to play audio:", error));
+  };
+
   // const wordList = InitialRandomWord();
   const navigate = useNavigate();
 
@@ -34,6 +45,9 @@ const Game = () => {
   },[])
 
   useEffect(() => {
+    // Play the song when the component mounts
+    playSong();
+
     socket.on("timesUp", () => {
       navigate('../finish')
     });
@@ -43,7 +57,12 @@ const Game = () => {
       alert("A player disconnected...")
     })
 
-  },[])
+    return () => {
+      // Stop the song when the component unmounts
+      audio.pause();
+    };
+
+  },[audio])
 
   return (
     <div className="AppGame">

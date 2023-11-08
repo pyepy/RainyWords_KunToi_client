@@ -96,8 +96,8 @@ export function EndScreen () {
       </div>
       <div className='endButtons'>
         <button className='button' onClick={goToHome}>Home</button>
-        {losers[0] != undefined ? <button className='button' onClick={restartGame}>Play Again</button> : null}
-        
+        {/* {losers[0] != undefined ? <button className='button' onClick={restartGame}>Play Again</button> : null} */}
+        <button className='button' onClick={restartGame}>Play Again</button>
       </div>
     
         {/* <NavItem tag={Link} to="/">Exit Game</NavItem>

@@ -74,19 +74,22 @@ a:hover {
 }
 
 .Title {
-  font-family: 'Autour One', sans-serif;
-  color: black;
+  font-family: 'Comic Sans MS', sans-serif;
+  /* color: #a65947; */
+  color: #FAE7C9;
   white-space: nowrap;
-  align-self: center;
+  align-self: flex-start;
   text-transform: uppercase;
-  margin: 7vh 0 -3vh 0;
+  /* margin: 7vh 0 -3vh 0; */
+  margin: 1rem 0 0 7rem;
 }
 
 
 .RainyWords {
-  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5));
+  /* filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.5)); */
   font-size: 10rem;
   font-weight: 900;
+  -webkit-text-stroke: 0.3rem #B0926A;
 }
 
 .options {
@@ -345,6 +348,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* color: #E1C78F; */
+}
+
+.notMyName {
+  opacity: 1.9;
 }
 
 

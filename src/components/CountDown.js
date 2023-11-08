@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
 import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../utils/userdata';
+import { userLogin, userDiff } from '../utils/userdata';
+import { convertTypeAcquisitionFromJson } from 'typescript';
 
 export function Countdown() {
   //Countdown
@@ -9,12 +10,15 @@ export function Countdown() {
   const [seeTwo, setSeeTwo] = useState(false);
   const [seeOne, setSeeOne] = useState(false);
   const [seeStart, setSeeStart] = useState(false);
+  const [mode,setMode] = useState(userDiff)
 
   function request_word() {
-    socket.emit("request_word",4);
+    socket.emit("request_word",mode);
   }
 
   useEffect(() => {
+
+    
     const timer3on = setTimeout(() => {
       setSeeThree(true);
       request_word();

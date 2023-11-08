@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { socket } from '../utils/socket'
 
+
+
 import { userName, updateName } from '../utils/userdata';
+
+import titlePic from '../images/title.png';
 
 export function AddUsername() {
   const [tempName,setTempName] = useState("");    //name written in input
@@ -40,7 +44,8 @@ export function AddUsername() {
     )
   } else if (name != "") {        //assigned name
     return(   //display
-      <ul className="options">
+      <ul className="options abovething">
+        <img className="RainyWords notOption " src={titlePic}/>
         <li className="notOption">Welcome, <span className='Username'>{name}</span></li>
       </ul>
     )

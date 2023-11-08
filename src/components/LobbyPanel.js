@@ -4,6 +4,7 @@ import playerIcon from '../images/playerIconPink.png';
 import playerIconMe from '../images/playerIconPurple.png';
 import playerIconHead from '../images/pinkKing.png';
 import playerIconMeHead from '../images/purpleKing.png';
+import chickenInEgg from '../images/chicken5.png';
 import { useNavigate } from 'react-router-dom';
 
 import { userLogin, userName} from '../utils/userdata.js' 
@@ -189,7 +190,7 @@ export function LobbyPanel() {
             </div>
             <div className='lobbyPlayers'>
                 {console.log(players)}
-                {players.map((player,index) => (
+                {/* {players.map((player,index) => (
                     <div key={index} className='lobbyPlayer'>
                         {player === userName ? 
                         <>
@@ -200,6 +201,21 @@ export function LobbyPanel() {
                         <>
                             {index === 0 ? <img className="playerIcon" src={playerIconHead}/> : <img className="playerIcon" src={playerIcon}/>}
                             <span key={index} >{player}&nbsp;</span>
+                        </>}
+                        
+                    </div>
+                ))} */}
+                {players.map((player,index) => (
+                    <div key={index} className='lobbyPlayer'>
+                        {player === userName ? 
+                        <>
+                            {index === 0 ? <img className="playerIcon" src={chickenInEgg}/> : <img className="playerIcon" src={chickenInEgg}/>}
+                            <span key={index} className='playerMe'>{player}&nbsp;</span>
+                        </>
+                        :
+                        <>
+                            {index === 0 ? <img className="playerIcon" src={chickenInEgg}/> : <img className="playerIcon" src={chickenInEgg}/>}
+                            <span className='notMyName' key={index} >{player}&nbsp;</span>
                         </>}
                         
                     </div>

@@ -6,7 +6,7 @@ function sketch(p) {
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  let words = []
+  let words = [{"word":"ngai","powerUp":"easy"}]
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -44,9 +44,9 @@ function sketch(p) {
   let currentBlindColour = 'white';
  
   //easy
-  let isEasy = false;
-  let easyStartTime = 0;
-  const easyDelayDuration = 5000;
+  //let isEasy = false;
+  //let easyStartTime = 0;
+  //const easyDelayDuration = 5000;
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -77,14 +77,16 @@ function sketch(p) {
     p.textFont( 'Autour One');
     
     socket.on("send_word", (data) => {
-      words.push({"word":data.word,"powerUp":data.powerUp});
-
-      //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
-      if (isWordGenDelayHalved || isEasy) {
-        // Insert the new word at index 1
-        // rain.pop();
+      if (data.powerUp === "p_none" || data.powerUp === "p_freeze" || data.powerUp === "p_slow" || data.powerUp === "p_nword" ) {
         words.splice(0, 0, {"word":data.word,"powerUp":data.powerUp});
+      } else {
+        words.push({"word":data.word,"powerUp":data.powerUp});
       }
+      //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
+      //if (isWordGenDelayHalved || isEasy) {
+        // Insert the new word at index 1
+    
+      //}
     });
 
     socket.on("blind_enemy", () => {
@@ -159,15 +161,14 @@ function sketch(p) {
       rain[i].display();
   
       if (typedWord === rain[i].word  && (rain[i].y < p.height - p.windowHeight / 4 + rain[i].letterSize)  && rain[i].word !== ".") {
-        if (rain[i].powerUp === "freeze") { 
+        if (rain[i].powerUp === "freeze" || rain[i].powerUp === "p_freeze") { 
           isRainFrozen = true; // Freeze the rain
           freezeStartTime = p.millis(); // Record the start time of freezing
-        } else if (rain[i].powerUp === "slow") { 
+        } else if (rain[i].powerUp === "slow" || rain[i].powerUp === "p_slow") { 
           isRainSpeedHalved = true;
           speedHalveStartTime = p.millis();
         } else if (rain[i].powerUp === "easy") { 
-          isEasy = true;
-          easyStartTime = p.millis();
+          //isEasy = true;
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
@@ -237,9 +238,9 @@ function sketch(p) {
       isWordGenDelayHalved = false;
     }
 
-    if (isEasy && p.millis() - easyStartTime >= easyDelayDuration) {
-      isEasy = false;
-    }
+    //if (isEasy && p.millis() - easyStartTime >= easyDelayDuration) {
+    //  isEasy = false;
+    //}
 
     if (isBlinded && p.millis() - blindStartTime < blindDuration) {
       currentBlindColour = p.color(25, 25, 25);
@@ -398,10 +399,10 @@ function sketch(p) {
     display() {
       p.noStroke();
       
-      if (this.powerUp === "freeze") { 
+      if (this.powerUp === "freeze" || this.powerUp === "p_freeze") { 
         //blue and emu
         this.colouring('#C1E7E8', eggPowerSelf, eggPowerSelfTyped);
-      } else if (this.powerUp === "slow") { 
+      } else if (this.powerUp === "slow" || this.powerUp === "p_slow") { 
         //yellow and emu
         this.colouring('#FFFFA8', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "flood_e") { 
@@ -413,7 +414,7 @@ function sketch(p) {
       } else if (this.powerUp === "blind") { 
         //purple and goose
         this.colouring('#D6C1E8', eggPowerEnemy, eggPowerEnemyTyped);
-      } else if (this.powerUp === "nword") {
+      } else if (this.powerUp === "nword" || this.powerUp === "p_nword") {
         this.colouring('#BF0000', eggMuslim, eggMuslimTyped);
       } else { 
         //chicken and white

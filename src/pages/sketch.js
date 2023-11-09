@@ -3,11 +3,11 @@ import { userDiff, userSpeed } from '../utils/userdata';
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
+  // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
-  , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  //let words = [{"word":"tabod","powerUp":"blind"}]
-  // let words = [];
+  // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
+  //let words = [{"word":"tabod","powerUp":"flood_e"}]
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -20,6 +20,8 @@ function sketch(p) {
   let eggPowerSelfTyped = p.loadImage('./images/Emu5.png');
   let eggPowerEnemy = p.loadImage('./images/Goose1.png');
   let eggPowerEnemyTyped = p.loadImage('./images/Goose5.png');
+  let eggMuslim = p.loadImage('./images/MuslimEgg.png');
+  let eggMuslimTyped = p.loadImage('./images/MuslimEggUwU.png');
 
   //freeze powerup
   let isRainFrozen = false; // Initialize a variable to control rain freezing
@@ -96,13 +98,13 @@ function sketch(p) {
       let i = 0;
       while(i<10) {
         if(i%3 == 0 ) {
-          socket.emit("req_word_fixed_len",3); //length 3
+          socket.emit("req_flood_enemy",{"len":3,"mode":mode}); //length 3 
           i++;
         } else if (i%3 == 2) {
-          socket.emit("req_word_fixed_len",2); //length 2
+          socket.emit("req_flood_enemy",{"len":2,"mode":mode}); //length 2
           i++;
         } else {
-          socket.emit("req_word_fixed_len",4); //length 4
+          socket.emit("req_flood_enemy",{"len":4,"mode":mode}); //length 4
           i++;
         }
       }
@@ -157,7 +159,7 @@ function sketch(p) {
       }
       rain[i].display();
   
-      if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
+      if (typedWord === rain[i].word  && (rain[i].y < p.height - p.windowHeight / 4 + rain[i].letterSize)  && rain[i].word !== ".") {
         if (rain[i].powerUp === "freeze") { 
           isRainFrozen = true; // Freeze the rain
           freezeStartTime = p.millis(); // Record the start time of freezing
@@ -167,9 +169,9 @@ function sketch(p) {
         } else if (rain[i].powerUp === "easy") { 
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
-              socket.emit("req_word_fixed_len",3); //length 3
+              socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
             } else {
-              socket.emit("req_word_fixed_len",2); //length 2
+              socket.emit("req_word_fixed_len",{"len":2,"mode":mode}); //length 2
             }
           }
         } 
@@ -179,13 +181,13 @@ function sketch(p) {
         //   let i = 0;
         //   while(i<10) {
         //     if(i%3 == 0 ) {
-        //       socket.emit("req_word_fixed_len",3); //length 3
+        //       socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
         //       i++;
         //     } else if (i%3 == 2) {
-        //       socket.emit("req_word_fixed_len",2); //length 2
+        //       socket.emit("req_word_fixed_len",{"len":2,"mode":mode}); //length 2
         //       i++;
         //     } else {
-        //       socket.emit("req_word_fixed_len",4); //length 4
+        //       socket.emit("req_word_fixed_len",{"len":4,"mode":mode}); //length 4
         //       i++;
         //     }
         //   }
@@ -217,10 +219,15 @@ function sketch(p) {
         rain.splice(i, 1); // Remove the word when it's typed
       } 
       
-      if (rain[i] && rain[i].y > p.height) { //- p.windowHeight / 4
-        rain.splice(i, 1); // Remove the word when it reaches the bottom
+      if ((rain[i] && rain[i].y > p.height - p.windowHeight / 4 + rain[i].letterSize) && rain[i].gone == false) { //- p.windowHeight / 4
+
+        setTimeout(function() {
+          rain.shift();
+        }, 5000);
+        // rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
         socket.emit("req_fail",{"word": rain[i].word,"len":rain[i].len,"powerUp":rain[i].powerUp})
+        rain[i].gone = true;
       }
     }
     // Check if it's time to unfreeze the rain
@@ -334,6 +341,7 @@ function sketch(p) {
       this.y = 0;
       this.initialTime = p.millis();
       this.powerUp = words[0].powerUp;
+      this.gone = false;
       
       console.log(words[0].word);
       if(words[0].word == undefined){
@@ -384,7 +392,9 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(typedEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        if (this.powerUp == 'nword'){
+          p.image(typedEgg, imageX - 10, this.y - this.letterSize*2, eggTyped.width, eggTyped.height);
+        } else p.image(typedEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
         
       } else if (this.y > p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
@@ -445,7 +455,7 @@ function sketch(p) {
         //purple and goose
         this.colouring('#D6C1E8', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "nword") {
-        this.colouring('#BF0000', eggPowerEnemy, eggPowerEnemyTyped);
+        this.colouring('#BF0000', eggMuslim, eggMuslimTyped);
       } else { 
         //chicken and white
         this.colouring('white', eggDefault, eggTyped);

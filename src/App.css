@@ -35,7 +35,7 @@
 }
 
 .AppGame {
-  background-image: url('./images/gameBg.png');
+  background-image: url('./images/gameBg3.0.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -758,10 +758,12 @@ input[type=range]:focus {
 }
 
 .keyboard {
-  margin-top: -115vh;
-  margin-right: 1rem;
+  margin-top: -114vh;
+  margin-right: 1vw;
   display: flex;
   justify-content: flex-end;
+  pointer-events: none;
+
 }
 
 .bigNumber {
@@ -813,8 +815,11 @@ input[type=range]:focus {
   background-position: -1vh 5vw;
   min-height: 70vh;
   padding: 1vh 1vw;
-  width: 19vw;
+  width: 17.5vw;
   border-radius: 3rem;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
 }
 
 .PlayerScoresTitle {
@@ -833,17 +838,23 @@ input[type=range]:focus {
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  margin: 3vh 3vh 0 0;
+  margin: 3vh 1vw 0 0;
   background-image: url('./images/fullBg.PNG');
   background-position: 88vh 5vw;
   padding: 1vh 1vw;
   border-radius: 3rem;
-  width: 18vw;
+  width: 17.5vw;
+
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  border: 1rem solid;
+  border-color: #E1C78F;
 }
 
 .legendEggContainer {
+
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 
 }
 
@@ -860,42 +871,51 @@ input[type=range]:focus {
 }
 
 .eggPic {
-  height: 3rem;
+  height: 3.5rem;
   margin: 1vh 2vw;
 }
 
+.egg {
+  width: 2.5rem;
+}
+
+.eggLabel {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
 .freeze {
-  background-color: blue;
+  background-color: #C1E7E8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .slow {
-  background-color: yellow;
+  background-color: #FFFFA8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .easyWord {
-  background-color: green;
+  background-color: #BEED5F;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .blind {
-  background-color: purple;
+  background-color: #D6C1E8;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .flood {
-  background-color: lightblue;
+  background-color: #1878CC;
   border-radius: 1.5rem;
   padding: 0.4rem
 }
 
 .nword {
-  background-color: red;
+  background-color: #BF0000;
   border-radius: 1.5rem;
   padding: 0.4rem
 }

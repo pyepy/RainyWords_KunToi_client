@@ -6,8 +6,8 @@ function sketch(p) {
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  //let words = [{"word":"tabod","powerUp":"blind"}]
-  let words = [];
+  let words = [{"word":"tabod","powerUp":"nword"}]
+  // let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -20,6 +20,8 @@ function sketch(p) {
   let eggPowerSelfTyped = p.loadImage('./images/Emu5.png');
   let eggPowerEnemy = p.loadImage('./images/Goose1.png');
   let eggPowerEnemyTyped = p.loadImage('./images/Goose5.png');
+  let eggMuslim = p.loadImage('./images/MuslimEgg.png');
+  let eggMuslimTyped = p.loadImage('./images/MuslimEggUwU.png');
 
   //freeze powerup
   let isRainFrozen = false; // Initialize a variable to control rain freezing
@@ -390,7 +392,9 @@ function sketch(p) {
 
         // Calculate the position for the image in the middle of the word
         let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(typedEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        if (this.powerUp == 'nword'){
+          p.image(typedEgg, imageX - 10, this.y - this.letterSize*2, eggTyped.width, eggTyped.height);
+        } else p.image(typedEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
         
       } else if (this.y > p.height - p.windowHeight / 4 + this.letterSize) {
         for (let i = 0; i < this.word.length; i++) {
@@ -451,7 +455,7 @@ function sketch(p) {
         //purple and goose
         this.colouring('#D6C1E8', eggPowerEnemy, eggPowerEnemyTyped);
       } else if (this.powerUp === "nword") {
-        this.colouring('#BF0000', eggPowerEnemy, eggPowerEnemyTyped);
+        this.colouring('#BF0000', eggMuslim, eggMuslimTyped);
       } else { 
         //chicken and white
         this.colouring('white', eggDefault, eggTyped);

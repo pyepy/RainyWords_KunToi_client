@@ -26,14 +26,17 @@ export function LobbyPanel() {
     };
 
     //-----------------------------------------------------------------setting------------------------------------------------------------  
-    const [wordDifficulty, setWordDifficulty] = useState(['Medium', 2]);
+    const [wordDifficulty, setWordDifficulty] = useState('Medium');
+    const [wordDifficultyValue, setWordDifficultyValue] = useState(2);
     const [speedValue, setSpeedValue] = useState(100);
     const [timeMin, setTimeMin] = useState('5');
     const [timeSecond, setTimeSecond] = useState('00');
+    const [myAss, setMyAss] = useState(1);
   
     const handleSpeedChange = (event) => {
         const value = event.target.value;
         setSpeedValue(value);
+        fuckoffbitch();
     }
   
     const handleTimeChange = (event) => {
@@ -42,10 +45,36 @@ export function LobbyPanel() {
         const seconds = (value % 60).toString().padStart(2, '0');
         setTimeMin(minutes);
         setTimeSecond(seconds);
+        fuckoffbitch()
     }
 
-    const chooseDifficulty = (level) => {
-        setWordDifficulty(level);
+    const chooseDifficultyEasy = () => {
+        setWordDifficulty('Easy');
+        setWordDifficultyValue(1);
+        setMyAss(0);
+        // setWordDifficulty(["Easy",1]);
+        // // setTimeout(function() {
+        // //     setWordDifficulty(["Easy",1]);
+        // // }, 1000);
+
+        // console.log(wordDifficulty);
+        fuckoffbitch();
+    }
+
+    const chooseDifficultyMedium = () => {
+        setWordDifficulty('Medium');
+        setWordDifficultyValue(2);
+        setMyAss(1)
+        //console.log(wordDifficulty);
+        fuckoffbitch() ;
+    }
+
+    const chooseDifficultyHard = () => {
+        setWordDifficulty('Hard');
+        setWordDifficultyValue(3);
+        setMyAss(2)
+        //console.log(wordDifficulty);
+        fuckoffbitch();
     }
 
     const resetSetting = () =>{
@@ -53,6 +82,7 @@ export function LobbyPanel() {
         setSpeedValue(100);
         setTimeMin('5');
         setTimeSecond('00');
+        fuckoffbitch()
     }
   
     //-----------------------------------------------------------------setting------------------------------------------------------------
@@ -78,9 +108,9 @@ export function LobbyPanel() {
                 setPlayerInLobby(data.myRoom.roomPlayerCount);
                 setPlayers(data.myRoom.players);
 
-                if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy",1]);
-                if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium",2]);
-                if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard",3]);
+                if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy"]);
+                if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium"]);
+                if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard"]);
                 setSpeedValue(data.myRoom.speedMultiplier*100);
 
                 const time = data.myRoom.timeInSec;
@@ -103,9 +133,9 @@ export function LobbyPanel() {
             setPlayerInLobby(data.myRoom.roomPlayerCount);
             setPlayers(data.myRoom.players);
 
-            if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy",1]);
-            if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium",2]);
-            if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard",3]);
+            if(data.myRoom.wordDifficulty == 1) setWordDifficulty(["Easy"]);
+            if(data.myRoom.wordDifficulty == 2) setWordDifficulty(["Medium"]);
+            if(data.myRoom.wordDifficulty == 3) setWordDifficulty(["Hard"]);
             setSpeedValue(data.myRoom.speedMultiplier*100);
             const time = data.myRoom.timeInSec;
             const minutes = Math.floor(time / 60);
@@ -159,6 +189,15 @@ export function LobbyPanel() {
         };
       },[audio])
 
+      const fuckoffbitch = () => {
+        let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
+        let speedMultiplier = speedValue/100;
+        let index = myAss;
+        let wordDifficultyLevel = setWordDifficultyValue;
+        console.log(wordDifficultyLevel);
+        socket.emit('update_setting',{wordDifficultyLevel, timeInSec, speedMultiplier , userName})
+      }
+
 
 
   
@@ -169,11 +208,11 @@ export function LobbyPanel() {
         <div className='lobbySetting'>
             <div className='settingTitle'>Setting</div>
             <div className='wordSetting'>
-                <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty[0]}</div>
+                <div className='wordSettingTitle'>Word Difficulty : {wordDifficulty}</div>
                 <div className='difficulties'>
-                    <div className='difficulty easy' onClick={() => chooseDifficulty(["Easy",1])}>Easy</div>
-                    <div className='difficulty medium' onClick={() => chooseDifficulty(["Medium",2])}>Medium</div>
-                    <div className='difficulty hard'onClick={() => chooseDifficulty(["Hard",3])}>Hard</div>
+                    <div className='difficulty easy' onClick={chooseDifficultyEasy}>Easy</div>
+                    <div className='difficulty medium' onClick={chooseDifficultyMedium}>Medium</div>
+                    <div className='difficulty hard'onClick={chooseDifficultyHard}>Hard</div>
                 </div>
             </div>
             <div className='speedSetting'>

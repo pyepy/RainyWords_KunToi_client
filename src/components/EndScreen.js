@@ -4,6 +4,7 @@ import { NavItem, NavLink } from "reactstrap";
 import { socket } from  "../utils/socket.js"
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../utils/userdata.js';
+import sound from '../images/songs/Final Fantasy XI - Level Up Sound (High Quality).mp3';
 
 export function EndScreen () {
 
@@ -12,6 +13,14 @@ export function EndScreen () {
   const [players, setPlayers] = useState([]);
   const [winner, setWinner] = useState([300,'Player1']);
   const [losers, setLosers] = useState([[150,'Player2'],[69,'Player3']]);
+  const [audio] = useState(new Audio(sound));
+
+  // Function to play the song
+  const playSong = () => {
+    audio.play().catch(error => console.error("Failed to play audio:", error));
+  };
+
+
 
   const seperateScore = function (l) {
     let n = [];
@@ -31,7 +40,16 @@ export function EndScreen () {
       socket.emit('addScore', {noChange});
     }
   })
+  useEffect(()=> {
+    playSong();
+    return () => {
+      // Stop the song when the component unmounts
+      audio.pause();
+    };
 
+  },[audio])
+    
+  
   useEffect(() => {
     socket.once("timesUp", () => {
       socket.emit('game_leaderboard');

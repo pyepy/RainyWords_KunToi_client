@@ -7,7 +7,7 @@ function sketch(p) {
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
   //let words = [{"word":"tabod","powerUp":"flood_e"}]
-  let words = [];
+  let words = [{"word":"shaa","powerUp":"slow"}];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -45,7 +45,9 @@ function sketch(p) {
   let currentBlindColour = 'white';
  
   //easy
-  let isEasy = false;
+  // let isEasy = false;
+  // let easyStartTime = 0;
+  // const easyDelayDuration = 5000;
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -79,7 +81,7 @@ function sketch(p) {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
-      if (isRainSpeedHalved || isWordGenDelayHalved || isEasy) {
+      if (isWordGenDelayHalved) { //|| isEasy
         // Insert the new word at index 1
         words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
       }
@@ -164,7 +166,7 @@ function sketch(p) {
           isRainSpeedHalved = true;
           speedHalveStartTime = p.millis();
         } else if (rain[i].powerUp === "easy") { 
-          isEasy = true;
+          // isEasy = true;
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
@@ -233,6 +235,10 @@ function sketch(p) {
     if (isWordGenDelayHalved && p.millis() - wordGenDelayHalveStartTime >= wordGenDelayHalveDuration) {
       isWordGenDelayHalved = false;
     }
+
+    // if (isEasy && p.millis() - easyStartTime >= easyDelayDuration) {
+    //   isEasy = false;
+    // }
 
     if (isBlinded && p.millis() - blindStartTime < blindDuration) {
       currentBlindColour = p.color(25, 25, 25);

@@ -157,7 +157,7 @@ function sketch(p) {
       }
       rain[i].display();
   
-      if (typedWord === rain[i].word  && rain[i].y < p.height - p.windowHeight / 4  && rain[i].word !== ".") {
+      if (typedWord === rain[i].word  && (rain[i].y < p.height - p.windowHeight / 4 + rain[i].letterSize)  && rain[i].word !== ".") {
         if (rain[i].powerUp === "freeze") { 
           isRainFrozen = true; // Freeze the rain
           freezeStartTime = p.millis(); // Record the start time of freezing

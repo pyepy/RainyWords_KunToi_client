@@ -804,7 +804,6 @@ input[type=range]:focus {
 }
 
 .PlayerScores {
-  pointer-events: none;
   font-size: 1.5rem;
   white-space: nowrap;
   margin: 3vh 0 0 1vw;
@@ -856,14 +855,12 @@ input[type=range]:focus {
   font-weight: 900;
   margin: 2vh 0 2vh 0;
   font-size: 2rem;
-  pointer-events: none;
 }
 
 .legendEgg {
   display: flex;
   flex-direction: row;
   align-items: center;
-  pointer-events: none;
 }
 
 .eggPic {

@@ -17,7 +17,7 @@ import { socket } from '../utils/socket';
 import { userLogin } from '../utils/userdata';
 
 // Import your music file
-import song from '../images/songs/OuiOuiNoMix.wav';
+import song from '../images/songs/OuiOui_Deux_Revisited.mp3';
 
 const Game = () => {
   // State to manage the audio element

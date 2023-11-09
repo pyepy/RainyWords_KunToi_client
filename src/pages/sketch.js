@@ -3,11 +3,11 @@ import { userDiff, userSpeed } from '../utils/userdata';
 
 function sketch(p) {
   let rain = [];
-  let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
+  // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
-  , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
+  // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
   //let words = [{"word":"tabod","powerUp":"blind"}]
-  // let words = [];
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -217,10 +217,15 @@ function sketch(p) {
         rain.splice(i, 1); // Remove the word when it's typed
       } 
       
-      if (rain[i] && rain[i].y > p.height) { //- p.windowHeight / 4
-        rain.splice(i, 1); // Remove the word when it reaches the bottom
+      if ((rain[i] && rain[i].y > p.height - p.windowHeight / 4 + rain[i].letterSize) && rain[i].gone == false) { //- p.windowHeight / 4
+
+        setTimeout(function() {
+          rain.shift();
+        }, 5000);
+        // rain.splice(i, 1); // Remove the word when it reaches the bottom
         request_word()
         socket.emit("req_fail",{"word": rain[i].word,"len":rain[i].len,"powerUp":rain[i].powerUp})
+        rain[i].gone = true;
       }
     }
     // Check if it's time to unfreeze the rain
@@ -334,6 +339,7 @@ function sketch(p) {
       this.y = 0;
       this.initialTime = p.millis();
       this.powerUp = words[0].powerUp;
+      this.gone = false;
       
       console.log(words[0].word);
       if(words[0].word == undefined){

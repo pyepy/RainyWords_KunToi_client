@@ -45,9 +45,9 @@ function sketch(p) {
   let currentBlindColour = 'white';
  
   //easy
-  // let isEasy = false;
-  // let easyStartTime = 0;
-  // const easyDelayDuration = 5000;
+  let isEasy = false;
+  let easyStartTime = 0;
+  const easyDelayDuration = 5000;
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -166,7 +166,8 @@ function sketch(p) {
           isRainSpeedHalved = true;
           speedHalveStartTime = p.millis();
         } else if (rain[i].powerUp === "easy") { 
-          // isEasy = true;
+          isEasy = true;
+          easyStartTime = p.millis()
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
@@ -236,9 +237,9 @@ function sketch(p) {
       isWordGenDelayHalved = false;
     }
 
-    // if (isEasy && p.millis() - easyStartTime >= easyDelayDuration) {
-    //   isEasy = false;
-    // }
+    if (isEasy && p.millis() - easyStartTime >= easyDelayDuration) {
+      isEasy = false;
+    }
 
     if (isBlinded && p.millis() - blindStartTime < blindDuration) {
       currentBlindColour = p.color(25, 25, 25);

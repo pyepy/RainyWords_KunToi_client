@@ -98,13 +98,13 @@ function sketch(p) {
       let i = 0;
       while(i<10) {
         if(i%3 == 0 ) {
-          socket.emit("req_word_fixed_len",3); //length 3
+          socket.emit("req_flood_enemy",{"len":3,"mode":mode}); //length 3 
           i++;
         } else if (i%3 == 2) {
-          socket.emit("req_word_fixed_len",2); //length 2
+          socket.emit("req_flood_enemy",{"len":2,"mode":mode}); //length 2
           i++;
         } else {
-          socket.emit("req_word_fixed_len",4); //length 4
+          socket.emit("req_flood_enemy",{"len":4,"mode":mode}); //length 4
           i++;
         }
       }
@@ -169,9 +169,9 @@ function sketch(p) {
         } else if (rain[i].powerUp === "easy") { 
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
-              socket.emit("req_word_fixed_len",3); //length 3
+              socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
             } else {
-              socket.emit("req_word_fixed_len",2); //length 2
+              socket.emit("req_word_fixed_len",{"len":2,"mode":mode}); //length 2
             }
           }
         } 
@@ -181,13 +181,13 @@ function sketch(p) {
         //   let i = 0;
         //   while(i<10) {
         //     if(i%3 == 0 ) {
-        //       socket.emit("req_word_fixed_len",3); //length 3
+        //       socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
         //       i++;
         //     } else if (i%3 == 2) {
-        //       socket.emit("req_word_fixed_len",2); //length 2
+        //       socket.emit("req_word_fixed_len",{"len":2,"mode":mode}); //length 2
         //       i++;
         //     } else {
-        //       socket.emit("req_word_fixed_len",4); //length 4
+        //       socket.emit("req_word_fixed_len",{"len":4,"mode":mode}); //length 4
         //       i++;
         //     }
         //   }

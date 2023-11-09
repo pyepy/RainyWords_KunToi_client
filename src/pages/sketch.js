@@ -6,7 +6,7 @@ function sketch(p) {
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  let words = [{"word":"ngai","powerUp":"easy"}]
+  let words = []
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -390,9 +390,16 @@ function sketch(p) {
           currentX += this.letterSize;
         }
 
-        // Calculate the position for the image in the middle of the word
-        let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
-        p.image(normalEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        if(normalEgg === eggMuslim) {
+          // Calculate the position for the image in the middle of the word
+          let imageX = this.x + (currentX - this.x - this.letterSize*1.5  ) / 2;
+          p.image(normalEgg, imageX, this.y - this.letterSize*2, eggTyped.width, eggTyped.height);
+        } else {
+          // Calculate the position for the image in the middle of the word
+          let imageX = this.x + (currentX - this.x - this.letterSize) / 2;
+          p.image(normalEgg, imageX, this.y - this.letterSize*1.5, eggTyped.width*2/3, eggTyped.height*2/3);
+        }
+        
       }
     }
   

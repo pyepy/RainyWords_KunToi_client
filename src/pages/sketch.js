@@ -84,13 +84,13 @@ function sketch(p) {
       }
     });
 
-    socket.on("blind_powerup_activated", () => {
+    socket.on("blind_enemy", () => {
       // Handle the "blind" effect for other players here
       isBlinded = true;
       blindStartTime = p.millis();
     });
 
-    socket.on("flood_enemy_activated", () => {
+    socket.on("flood_enemy", () => {
       isWordGenDelayHalved = true;
       wordGenDelayHalveStartTime = p.millis();
       let i = 0;
@@ -191,9 +191,9 @@ function sketch(p) {
         //   }
         // } 
         else if (rain[i].powerUp === "blind") {
-          socket.emit("activate_blind_powerup");
+          socket.emit("req_blind");
         } else if (rain[i].powerUp === "flood_e") {
-          socket.emit("activate_flood_enemy");
+          socket.emit("req_flood_enemy");
         } 
         
         

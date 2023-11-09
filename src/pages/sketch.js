@@ -6,8 +6,8 @@ function sketch(p) {
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  //let words = [{"word":"tabod","powerUp":"flood_e"}]
-  let words = [{"word":"shaa","powerUp":"slow"}];
+  let words = [{"word":"tabod","powerUp":"easy"}]
+  //let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;
@@ -81,7 +81,7 @@ function sketch(p) {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
-      if (isWordGenDelayHalved) { //|| isEasy
+      if (isWordGenDelayHalved || isEasy) {
         // Insert the new word at index 1
         words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
       }
@@ -99,15 +99,15 @@ function sketch(p) {
       let i = 0;
       while(i<10) {
         if(i%3 == 0 ) {
-          socket.emit("req_flood_enemy",{"len":3,"mode":mode}); //length 3 
+          socket.emit("req_flood_word",{"len":3,"mode":mode}); //length 3 
           i++;
         } else if (i%3 == 2) {
-          socket.emit("req_flood_enemy",{"len":2,"mode":mode}); //length 2
+          socket.emit("req_flood_word",{"len":2,"mode":mode}); //length 2
           i++;
         } else {
-          socket.emit("req_flood_enemy",{"len":4,"mode":mode}); //length 4
+          socket.emit("req_flood_word",{"len":4,"mode":mode}); //length 4
           i++;
-        }
+        } 
       }
     });
 
@@ -195,7 +195,7 @@ function sketch(p) {
         else if (rain[i].powerUp === "blind") {
           socket.emit("req_blind");
         } else if (rain[i].powerUp === "flood_e") {
-          socket.emit("req_flood_enemy");
+          socket.emit("req_flood_enemy")
         }  
         
         request_word()

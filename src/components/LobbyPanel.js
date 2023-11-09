@@ -27,7 +27,7 @@ export function LobbyPanel() {
 
     //-----------------------------------------------------------------setting------------------------------------------------------------  
     const [wordDifficulty, setWordDifficulty] = useState('Medium');
-    const [wordDifficultyValue, setWordDifficultyValue] = useState(2);
+    const [WordDifficultyValue, setWordDifficultyValue] = useState(2);
     const [speedValue, setSpeedValue] = useState(100);
     const [timeMin, setTimeMin] = useState('5');
     const [timeSecond, setTimeSecond] = useState('00');
@@ -37,6 +37,10 @@ export function LobbyPanel() {
         const value = event.target.value;
         setSpeedValue(value);
         fuckoffbitch();
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 5000);
     }
   
     const handleTimeChange = (event) => {
@@ -46,6 +50,10 @@ export function LobbyPanel() {
         setTimeMin(minutes);
         setTimeSecond(seconds);
         fuckoffbitch()
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 5000);
     }
 
     const chooseDifficultyEasy = () => {
@@ -53,9 +61,13 @@ export function LobbyPanel() {
         setWordDifficultyValue(1);
         setMyAss(0);
         // setWordDifficulty(["Easy",1]);
-        // // setTimeout(function() {
-        // //     setWordDifficulty(["Easy",1]);
-        // // }, 1000);
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 1000);
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 5000);
 
         // console.log(wordDifficulty);
         fuckoffbitch();
@@ -65,6 +77,13 @@ export function LobbyPanel() {
         setWordDifficulty('Medium');
         setWordDifficultyValue(2);
         setMyAss(1)
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 1000);
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 5000);
         //console.log(wordDifficulty);
         fuckoffbitch() ;
     }
@@ -73,6 +92,14 @@ export function LobbyPanel() {
         setWordDifficulty('Hard');
         setWordDifficultyValue(3);
         setMyAss(2)
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 1000);
+
+        setTimeout(function() {
+            fuckoffbitch();
+        }, 5000);
         //console.log(wordDifficulty);
         fuckoffbitch();
     }
@@ -118,6 +145,7 @@ export function LobbyPanel() {
                 const seconds = (time % 60).toString().padStart(2, '0');
                 setTimeMin(minutes);
                 setTimeSecond(seconds);
+                fuckoffbitch();
                 
             }
             
@@ -142,6 +170,7 @@ export function LobbyPanel() {
             const seconds = (time % 60).toString().padStart(2, '0');
             setTimeMin(minutes);
             setTimeSecond(seconds);
+            fuckoffbitch();
         })
     },[]);
 
@@ -149,11 +178,13 @@ export function LobbyPanel() {
         if(playerInLobby >= 1){
             let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
             let speedMultiplier = speedValue/100;
-            let wordDifficultyLevel =wordDifficulty[1];
+            let wordDifficultyLevel = WordDifficultyValue;
             console.log(wordDifficultyLevel);
-            console.log(timeInSec);
-            console.log(speedMultiplier);
-            socket.emit("request_start_game", {wordDifficultyLevel, timeInSec, speedMultiplier}); 
+            socket.emit('request_start_game',{wordDifficultyLevel, timeInSec, speedMultiplier , userName})
+            // console.log(wordDifficultyLevel);
+            // console.log(timeInSec);
+            // console.log(speedMultiplier);
+            // socket.emit("request_start_game", {wordDifficultyLevel, timeInSec, speedMultiplier}); 
         } else alert('waiting for other players');
       }
 
@@ -193,7 +224,7 @@ export function LobbyPanel() {
         let timeInSec = (parseInt(timeMin) * 60) + parseInt(timeSecond);
         let speedMultiplier = speedValue/100;
         let index = myAss;
-        let wordDifficultyLevel = setWordDifficultyValue;
+        let wordDifficultyLevel = WordDifficultyValue;
         console.log(wordDifficultyLevel);
         socket.emit('update_setting',{wordDifficultyLevel, timeInSec, speedMultiplier , userName})
       }

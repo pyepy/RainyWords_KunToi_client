@@ -82,7 +82,8 @@ function sketch(p) {
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
       if (isWordGenDelayHalved || isEasy) {
         // Insert the new word at index 1
-        words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
+        // rain.pop();
+        words.splice(0, 0, {"word":data.word,"powerUp":data.powerUp});
       }
     });
 
@@ -166,7 +167,7 @@ function sketch(p) {
           speedHalveStartTime = p.millis();
         } else if (rain[i].powerUp === "easy") { 
           isEasy = true;
-          easyStartTime = p.millis()
+          easyStartTime = p.millis();
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3

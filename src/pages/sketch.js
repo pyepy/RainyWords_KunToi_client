@@ -44,9 +44,8 @@ function sketch(p) {
   const blindDuration = 5000;
   let currentBlindColour = 'white';
  
-
-  //clear board
-  let isCleared = false;
+  //easy
+  let isEasy = false;
 
   //-------------------------------------------------------------------------------------------------------------
   let frameRate = 30; // Set your desired frame rate
@@ -80,7 +79,7 @@ function sketch(p) {
       words.push({"word":data.word,"powerUp":data.powerUp});
 
       //if ((p.keyIsDown(69) && p.keyIsDown(90)) || (p.keyIsDown(70) && p.keyIsDown(66))) { // if e+z or f+b are pressed
-      if (isRainSpeedHalved || isWordGenDelayHalved) {
+      if (isRainSpeedHalved || isWordGenDelayHalved || isEasy) {
         // Insert the new word at index 1
         words.splice(1, 0, {"word":data.word,"powerUp":data.powerUp});
       }
@@ -146,8 +145,6 @@ function sketch(p) {
         lastWordCreationTime = currentTime; // Update the last word creation time
       }
     }
-
-
   
     for (let i = rain.length - 1; i >= 0; i--) {
       if (!isRainFrozen) {
@@ -167,6 +164,7 @@ function sketch(p) {
           isRainSpeedHalved = true;
           speedHalveStartTime = p.millis();
         } else if (rain[i].powerUp === "easy") { 
+          isEasy = true;
           for(let i = 0; i < 5; i++) {
             if(i%3 == 0 || i%3 == 2) {
               socket.emit("req_word_fixed_len",{"len":3,"mode":mode}); //length 3
@@ -196,14 +194,7 @@ function sketch(p) {
           socket.emit("req_blind");
         } else if (rain[i].powerUp === "flood_e") {
           socket.emit("req_flood_enemy");
-        } 
-        
-        
-        //else if (typedWord === "clear") {
-        //   if (!isCleared) {
-        //       rain.splice(0,i);
-        //   }
-        // }      
+        }  
         
         request_word()
         console.log("---SUCCESS---");
@@ -269,46 +260,7 @@ function sketch(p) {
         
       //}
       // Remove the last character
-    } //else if (p.keyIsDown(82) && p.keyIsDown(70)) { // 82 is the key code for 'r' and 70 is the key code for 'f'
-    //   isRainFrozen = true; // Freeze the rain
-    //   freezeStartTime = p.millis(); // Record the start time of freezing
-    // } else if (p.keyIsDown(83) && p.keyIsDown(76)) { // 83 is the key code for 's' and 76 is the key code for 'l'
-    //   isRainSpeedHalved = true;
-    //   speedHalveStartTime = p.millis();
-    // } else if (p.keyIsDown(69) && p.keyIsDown(90)) { // 69 is the key code for 'e' and 90 is the key code for 'z'
-    //   for(let i = 0; i < 5; i++) {
-    //     if(i%3 == 0 || i%3 == 2) {
-    //       socket.emit("req_word_fixed_len",3); //length 3
-    //     } else {
-    //       socket.emit("req_word_fixed_len",2); //length 2
-    //     }
-    //   }
-    // } else if (p.keyIsDown(70) && p.keyIsDown(66)) { // 70 is the key code for 'f' and 66 is the key code for 'b'
-    //   isWordGenDelayHalved = true;
-    //   wordGenDelayHalveStartTime = p.millis();
-    //   let i = 0;
-    //   while(i<10) {
-    //     if(i%3 == 0 ) {
-    //       socket.emit("req_word_fixed_len",3); //length 3
-    //       i++;
-    //     } else if (i%3 == 2) {
-    //       socket.emit("req_word_fixed_len",2); //length 2
-    //       i++;
-    //     } else {
-    //       socket.emit("req_word_fixed_len",4); //length 4
-    //       i++;
-    //     }
-    //   }
-    // } else 
-    if (p.keyIsDown(67) && p.keyIsDown(66)) { // 67 is the key code for 'c' and 66 is the key code for 'b'
-      if (!isCleared) {
-        // Clear all words falling
-        rain = [];
-        for(let i = 0; i < 5; i++) {
-          request_word();
-        }
-      }
-    }
+    } 
   };
   
   p.keyReleased = function () {

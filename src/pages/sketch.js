@@ -6,8 +6,8 @@ function sketch(p) {
   // let words = [{"word":"yood","powerUp":"freeze"}, {"word":"shaa","powerUp":"slow"}, {"word":"ngai","powerUp":"easy"}
   // , {"word":"utok","powerUp":"flood"}
   // , {"word":"tabod","powerUp":"blind"}, {"word":"tuam","powerUp":"flood_e"},{"word":"ohno","powerUp":"nword"}];
-  let words = [{"word":"tabod","powerUp":"nword"}]
-  // let words = [];
+  //let words = [{"word":"tabod","powerUp":"flood_e"}]
+  let words = [];
   let bgcolor = p.color(100, 100, 100, 0);
   let fontSize = 36; // Define the font size as a public variable
   let defaultSong;

@@ -838,7 +838,7 @@ input[type=range]:focus {
   flex-direction: column;
   align-items: center;
   font-size: 1.5rem;
-  margin: 3vh 1vw 0 0;
+  margin: 3vh 1vw 35vh 0;
   background-image: url('./images/fullBg.PNG');
   background-position: 88vh 5vw;
   padding: 1vh 1vw;
@@ -873,6 +873,15 @@ input[type=range]:focus {
 .eggPic {
   height: 3.5rem;
   margin: 1vh 2vw;
+}
+
+.eggPicHaram {
+  height: 3.5rem;
+  margin: 1vh 1.75vw;
+}
+
+.eggHaram {
+  width: 3rem;
 }
 
 .egg {

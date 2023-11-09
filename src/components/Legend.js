@@ -33,7 +33,7 @@ export function Legend() {
                     <div className='flood eggLabel'>Flood</div>
                 </div>
                 <div className='legendEgg'>
-                    <img className="eggPic egg" src={badBadEgg}/>
+                    <img className="eggPicHaram eggHaram" src={badBadEgg}/>
                     <div className='nword eggLabel'>Danger Words</div>
                 </div>
                 {/* <div className='legendEgg'>

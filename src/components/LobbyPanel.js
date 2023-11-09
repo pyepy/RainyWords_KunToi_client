@@ -14,7 +14,7 @@ import gamelogo from '../images/logoReal2.png'
 import { userLogin, userName} from '../utils/userdata.js' 
 
 // Import your music file
-import song from '../images/songs/seaHeartSadger.mp3';
+import song from '../images/songs/EggLobbyMastered.wav';
 
 export function LobbyPanel() {
     // State to manage the audio element

@@ -4,7 +4,7 @@ import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import MasterOfPuppets from '../images/songs/OuiOuiNoMix.wav';
+import MasterOfPuppets from '../images/songs/EggMenuMastered.wav';
 
 export function Menu(props) {
   const Create_room = 'Create room';

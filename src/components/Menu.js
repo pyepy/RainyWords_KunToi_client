@@ -134,7 +134,7 @@ export function Menu(props) {
         </li>
 
         <li className="option" onClick={() => requestCreateRoom("Practice")}>Practice</li>
-        <li className="option" onClick={goToCredits}>Credits</li>
+        {/* <li className="option" onClick={goToCredits}>Credits</li> */}
           
       </ul>
 

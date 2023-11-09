@@ -93,7 +93,7 @@ export default function Keyboard() {
 				} 
 				if (keyText === 'caps lock') { 
 					firstSpanElement.parentElement.style.backgroundColor = 
-					(updatedCaps) ? 'blue' : '#445760'; 
+					(updatedCaps) ? '#E1C78F' : '#FAE7C9'; 
 				} 
 			} 
 		}); 
@@ -127,7 +127,7 @@ export default function Keyboard() {
               firstSpanElement.innerText = isShift ? keyText.toUpperCase() : keyText.toLowerCase();
             }
             if (keyText === 'shift') {
-              firstSpanElement.parentElement.style.backgroundColor = isShift ? 'blue' : '#445760';
+              firstSpanElement.parentElement.style.backgroundColor = isShift ? '#E1C78F' : '#FAE7C9';
             }
           }
         });

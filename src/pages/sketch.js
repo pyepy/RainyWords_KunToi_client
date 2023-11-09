@@ -327,7 +327,7 @@ function sketch(p) {
   p.keyTyped = function () {
     const currentTime = p.millis();
     if (currentTime - gameStartTime >= disableTypingDuration) {
-      if (p.key !== 'Enter' && p.key !== 'Backspace') {
+      if (p.key !== 'Enter' && p.key !== 'Backspace' && p.key !== ' ') {
         typedWord = typedWord + p.key;
       }
     }
